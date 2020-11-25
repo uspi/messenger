@@ -1,0 +1,133 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:WPFClient">
+    
+    <Style x:Key="Screen">
+        <Style.Setters>
+            <Setter Property="Border.Visibility" Value="Hidden" />
+            <Setter Property="Border.Background" Value="#151515" />
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="LoginPanel">
+        <Style.Setters>
+            <Setter Property="StackPanel.Orientation" Value="Vertical" />
+            <Setter Property="StackPanel.VerticalAlignment" Value="Center" />
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="TextBoxBase">
+        <Style.Setters>
+            <Setter Property="TextBox.Background" Value="#333" />
+            <Setter Property="TextBox.Foreground" Value="#f6f6f6" />
+            <Setter Property="TextBox.Margin" Value="5"/>
+            <Setter Property="TextBox.Padding" Value="15 10"/>
+            <Setter Property="TextBox.HorizontalAlignment" Value="Center" />
+            <Setter Property="TextBox.Width" Value="250" />
+        </Style.Setters>
+    </Style>
+    
+    
+     <!--атрибут BasedOn - наследует атрибуты-->
+    
+    
+    <Style x:Key="MessageBox" BasedOn="{StaticResource TextBoxBase}" >
+        <Style.Setters>
+            <Setter Property="TextBox.HorizontalAlignment" Value="Stretch" />
+            <Setter Property="TextBox.Width" Value="Auto" />
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="TextBlockBase">
+        <Style.Setters>
+            <Setter Property="TextBlock.Padding" Value="5"/>
+            <Setter Property="TextBlock.Margin" Value="5" />
+            <Setter Property="TextBlock.Foreground" Value="#f6f6f6" />
+            <Setter Property="TextBlock.FontSize" Value="14" />
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="HeaderBlock" BasedOn="{StaticResource TextBlockBase}">
+        <Style.Setters>
+            <Setter Property="TextBlock.HorizontalAlignment" Value="Center"/>
+            <Setter Property="TextBlock.FontWeight" Value="Bold" />
+            <Setter Property="TextBlock.FontSize" Value="18" />
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="WarningBlock" BasedOn="{StaticResource TextBlockBase}">
+        <Style.Setters>
+            <Setter Property="TextBlock.Foreground" Value="Red" />
+            <Setter Property="TextBlock.HorizontalAlignment" Value="Center"/>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="ButtonBase" >
+        <Style.Setters>
+            <Setter Property="Button.Background" Value="#333" />
+            <Setter Property="Button.Foreground" Value="#f6f6f6" />
+            <Setter Property="Button.Margin" Value="5"/>
+            <Setter Property="Button.Padding" Value="50 10"/>
+            <Setter Property="Button.HorizontalAlignment" Value="Center" />
+            <Setter Property="Button.FontSize" Value="14" />
+        </Style.Setters>
+        
+    </Style>
+
+    <Style x:Key="NavButton" BasedOn="{StaticResource ButtonBase}">
+        <Style.Setters>
+            <Setter Property="Button.Padding" Value="2"/>
+            <Setter Property="Button.HorizontalAlignment" Value="Stretch" />
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="ContactsList" BasedOn="{StaticResource TextBlockBase}">
+        <Style.Setters>
+            <Setter Property="ListBox.Background" Value="#151515"/>
+            <Setter Property="ListBox.BorderThickness" Value="0"/>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="ContactImage" BasedOn="{StaticResource TextBlockBase}">
+        <Style.Setters>
+
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="ContactName" BasedOn="{StaticResource TextBlockBase}">
+        <Style.Setters>
+            <Setter Property="TextBlock.HorizontalAlignment" Value="Left"/>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="HeaderBorder">
+        <Style.Setters>
+            <Setter Property="Border.Background" Value="#222" />
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="MessageBorder">
+        <Style.Setters>
+            <Setter Property="Border.Background" Value="#555" />
+            <Setter Property="Border.CornerRadius" Value="13" />
+            <Setter Property="Border.MinWidth" Value="100" />
+            <Setter Property="Border.MaxWidth" Value="300" />
+            <Setter Property="Border.Padding" Value="2" />
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="MessageText" BasedOn="{StaticResource TextBlockBase}">
+        <Style.Setters>
+            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+            <Setter Property="TextBlock.Margin" Value="0" />
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="MessageDate" BasedOn="{StaticResource TextBlockBase}">
+        <Style.Setters>
+            <Setter Property="TextBlock.HorizontalAlignment" Value="Right" />
+            <Setter Property="TextBlock.FontSize" Value="8" />
+            <Setter Property="TextBlock.Margin" Value="0" />
+        </Style.Setters>
+    </Style>
+</ResourceDictionary>
