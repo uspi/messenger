@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using System.Windows.Markup;
+using System.Threading.Tasks;
 
 namespace WPFClient
 {
@@ -23,7 +24,9 @@ namespace WPFClient
 
     public partial class MainWindow : Window
     {
+        //класс который представляет единицу приложения после ввода данных
         Messenger mess;
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -45,34 +48,38 @@ namespace WPFClient
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
             //создание мессенджера
-            mess = new Messenger(LoginBox.Text, PasswordBox.Password);
-
-            //подключение
-            try   
+            var task = Task.Run(() =>
             {
-                //если кнопка нажата впервые
-                if (mess.Network.Connection == null)
+                mess = new Messenger(LoginBox.Text, PasswordBox.Password);
+                //подключение            
+                try
                 {
-                    mess.Connect();
-                    mess.Auth();
+                    //если кнопка нажата впервые
+                    if (mess.Network.Connection == null)
+                    {
+                        mess.Connect();
+                        mess.Auth();
+                    }
+                    //если кнопка нажата повторно
+                    else
+                    {
+                        mess.Auth();
+                    }
                 }
-                //если кнопка нажата повторно
-                else
+
+                //открытие скрытой строки для отображения на экране ошибки
+                catch (Exception ex)
                 {
-                    mess.Auth();
-                }      
-            }
-
-            //открытие скрытой строки для отображения на экране ошибки
-            catch (Exception ex)
-            {  
-                DevLine.Visibility = Visibility;
-                DevLine.Text = ex.ToString();
-                return;
-            }
-
+                    DevLine.Visibility = Visibility.Visible;
+                    DevLine.Text = ex.ToString();
+                    return;
+                }
+            })
             //открыть экран контактов
-            ScreenOpen(ChatScreen);
+            .ContinueWith((openThisUserChatScreen) => ScreenOpen(ChatScreen));
+            
+            DevLine.Visibility = Visibility.Visible;
+            DevLine.Text = "Работа с вашими данными";
         }
 
         private void LoginBox_Initialized(object sender, EventArgs e)
