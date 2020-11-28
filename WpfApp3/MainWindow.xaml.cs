@@ -37,7 +37,7 @@ namespace WPFClient
 
         //Метод для открытия и скрытия экрана
         private void ScreenOpen(Border screen)
-        {
+        {       
             //делаем все экраны невидимыми    
             LoginScreen.Visibility = Visibility.Hidden;
             ChatScreen.Visibility = Visibility.Hidden;
@@ -50,37 +50,38 @@ namespace WPFClient
         //кнопка подтверждения ввода логина и пароля
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            //создание мессенджера
-            var task = Task.Run(() =>
+            try
             {
-                mess = new Messenger(LoginBox.Text, PasswordBox.Password);
-                //подключение            
-                try
+                Task.Run(() =>
                 {
                     //если кнопка нажата впервые
-                    if (mess.Network.Connection == null)
+                    if (mess == null)
                     {
+                        mess = new Messenger(LoginBox.Text, PasswordBox.Password);
                         mess.Connect();
                         mess.Auth();
                     }
+
                     //если кнопка нажата повторно
                     else
                     {
                         mess.Auth();
                     }
-                }
+                });
+            }
 
-                //открытие скрытой строки для отображения на экране ошибки
-                catch (Exception ex)
-                {
-                    DevLine.Visibility = Visibility.Visible;
-                    DevLine.Text = ex.ToString();
-                    return;
-                }
-            })
-            //открыть экран контактов
-            .ContinueWith((openThisUserChatScreen) => ScreenOpen(ChatScreen));
-            
+            //открытие скрытой строки для отображения на экране ошибки
+            catch (Exception ex)
+            {
+                DevLine.Visibility = Visibility.Visible;
+                DevLine.Text = ex.ToString();
+                return;
+            }
+            finally
+            {
+                ScreenOpen(ContactsScreen);
+            }
+
             DevLine.Visibility = Visibility.Visible;
             DevLine.Text = "Работа с вашими данными";
         }
