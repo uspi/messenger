@@ -14,6 +14,9 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Windows.Markup;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Threading;
+using System.Xml.Linq;
 
 namespace WPFClient
 {
@@ -28,7 +31,7 @@ namespace WPFClient
         Messenger mess;
         
         public MainWindow()
-        {
+        { 
             InitializeComponent();
         }
 

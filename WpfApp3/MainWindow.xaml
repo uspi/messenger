@@ -14,7 +14,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid>
+    <Grid x:Name="applicationGrid">
         
         <Border Name="LoginScreen" Style="{StaticResource Screen}" Visibility="Visible" Background="#007e8f">
             <Grid>
