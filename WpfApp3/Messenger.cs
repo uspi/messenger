@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using WPFClient.MessengerItems;
 
 namespace WPFClient
 {
-    class Messenger
+    class Messenger : INotifyPropertyChanged
     {
         //сеть между юзером и сервером
         private Network network;
@@ -16,12 +18,20 @@ namespace WPFClient
         //текущий пользователь
         User user;
 
+        public event PropertyChangedEventHandler PropertyChanged;  
+        public void OnPropertyChanged([CallerMemberName] string prop = "") =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+
         public Messenger(string _login, string _password)
         {
             user = new User(_login, _password);
             network = new Network();
         }
-        
+
+        //empty constructor for debug, should be removed
+        public Messenger()
+        {
+        }
 
         //подключится к серверу и создать интерфейс работы с ним
         public void Connect()
@@ -36,22 +46,10 @@ namespace WPFClient
 
         //аутентификация пользователя у сервера
         public bool Auth()
-        {
-            //отправка логина и получение подтверждения получения
+        { 
+            //отправка авторизационных данных
             network.ConnectionSend(user.login);
-            if (network.ConnectionReceive() != "receivedLogin")
-            {
-                return false;
-            }
-
-            //отправка пароля и получение подтверждения получения
-            network.ConnectionSend(user.password);
-            if (network.ConnectionReceive() != "receivedPassword")
-            {
-                return false;
-            }
-
-            //проверка ответа сервера
+            //ответ сервера
             if (network.ConnectionReceive() == "confirmedUser")
             { return true; }
 

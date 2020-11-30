@@ -24,87 +24,97 @@ namespace WPFClient
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     /// 
-
     public partial class MainWindow : Window
-    {
-        //класс который представляет единицу приложения после ввода данных
-        Messenger mess;
-        
+    {   
+        public object frameworkElementDataContext
+        {
+            get => (FrameworkElement)base.DataContext;
+            set => base.DataContext = value; 
+        }
+
         public MainWindow()
-        { 
+        {    
             InitializeComponent();
+            frameworkElementDataContext = new ViewModel(DataContext);
+            //DataContext = new VeiwModel();
         }
+        
 
-        //Метод для открытия и скрытия экрана
-        private void ScreenOpen(Border screen)
-        {       
-            //делаем все экраны невидимыми    
-            LoginScreen.Visibility = Visibility.Hidden;
-            ChatScreen.Visibility = Visibility.Hidden;
-            ContactsScreen.Visibility = Visibility.Hidden;
+        //everything below should be removed (needed for debug)
 
-            //делаем видимым необходиый экран
-            screen.Visibility = Visibility.Visible;
-        }
 
-        //кнопка подтверждения ввода логина и пароля
-        private void ConfirmButton_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                Task.Run(() =>
-                {
-                    //если кнопка нажата впервые
-                    if (mess == null)
-                    {
-                        mess = new Messenger(LoginBox.Text, PasswordBox.Password);
-                        mess.Connect();
-                        mess.Auth();
-                    }
 
-                    //если кнопка нажата повторно
-                    else
-                    {
-                        mess.Auth();
-                    }
-                });
-            }
 
-            //открытие скрытой строки для отображения на экране ошибки
-            catch (Exception ex)
-            {
-                DevLine.Visibility = Visibility.Visible;
-                DevLine.Text = ex.ToString();
-                return;
-            }
-            finally
-            {
-                ScreenOpen(ContactsScreen);
-            }
+        ////Метод для открытия и скрытия экрана
+        //private void ScreenOpen(Border screen)
+        //{       
+        //    //делаем все экраны невидимыми    
+        //    LoginScreen.Visibility = Visibility.Hidden;
+        //    ChatScreen.Visibility = Visibility.Hidden;
+        //    ContactsScreen.Visibility = Visibility.Hidden;
 
-            DevLine.Visibility = Visibility.Visible;
-            DevLine.Text = "Работа с вашими данными";
-        }
+        //    //делаем видимым необходиый экран
+        //    screen.Visibility = Visibility.Visible;
+        //}
 
-        private void LoginBox_Initialized(object sender, EventArgs e)
-        {
-            //length input login
-            LoginBox.MaxLength = 40;
-        }
+        ////кнопка подтверждения ввода логина и пароля
+        //private void ConfirmButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        Task.Run(() =>
+        //        {
+        //            //если кнопка нажата впервые
+        //            if (mess == null)
+        //            {
+        //                mess = new Messenger(LoginBox.Text, PasswordBox.Text);
+        //                mess.Connect();
+        //                mess.Auth();
+        //            }
 
-        private void PasswordBox_Initialized(object sender, EventArgs e)
-        {
-            //length input password
-            LoginBox.MaxLength = 40;
-        }
+        //            //если кнопка нажата повторно
+        //            else
+        //            {
+        //                mess.Auth();
+        //            }
+        //        });
+        //    }
 
-        private void SendButton_Click(object sender, RoutedEventArgs e)
-        {
+        //    //открытие скрытой строки для отображения на экране ошибки
+        //    catch (Exception ex)
+        //    {
+        //        DevLine.Visibility = Visibility.Visible;
+        //        DevLine.Text = ex.ToString();
+        //        return;
+        //    }
+        //    finally
+        //    {
+        //        ScreenOpen(ContactsScreen);
+        //    }
 
-        }
-        private void ContactsList_SelectionChanged(object sender, RoutedEventArgs e)
-        {
+        //    DevLine.Visibility = Visibility.Visible;
+        //    DevLine.Text = "Работа с вашими данными";
+        //}
 
-        }   
+        //private void LoginBox_Initialized(object sender, EventArgs e)
+        //{
+        //    //length input login
+        //    LoginBox.MaxLength = 40;
+        //}
+
+        //private void PasswordBox_Initialized(object sender, EventArgs e)
+        //{
+        //    //length input password
+        //    LoginBox.MaxLength = 40;
+        //}
+
+        //private void SendButton_Click(object sender, RoutedEventArgs e)
+        //{
+
+        //}
+        //private void ContactsList_SelectionChanged(object sender, RoutedEventArgs e)
+        //{
+
+        //}   
     }
 }

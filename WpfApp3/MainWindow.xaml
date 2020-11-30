@@ -11,8 +11,10 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ResMainWin.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         </ResourceDictionary>
     </Window.Resources>
+    
 
     <Grid x:Name="applicationGrid">
         
@@ -27,17 +29,18 @@
                 </Grid.RowDefinitions>
                 
                 <StackPanel Style="{StaticResource LoginPanel}" Height="210" Margin="0,140,0,15">
-                    <TextBlock x:Name="Login" Text="Login" Style="{StaticResource HeaderBlock}" />
-                    <TextBox Style="{StaticResource TextBoxBase}" Name="LoginBox" Initialized="LoginBox_Initialized" />
-                    <PasswordBox Style="{StaticResource TextBoxBase}" Name="PasswordBox" Initialized="PasswordBox_Initialized"/>
-                    <Button Content="Confirm" Style="{StaticResource ButtonBase}" Name="LoginButton" IsDefault="True" Click="ConfirmButton_Click"/>
+                    <TextBlock x:Name="Login" Text="{Binding Path=MainLabelText}" Style="{StaticResource HeaderBlock}" />
+                    <TextBox Text="{Binding Login}" Style="{StaticResource TextBoxBase}"  Name="LoginBox"/>
+                    <TextBox Text="{Binding Path=Password}" MaxLength="{Binding Path=PasswordMaxLength}" Style="{StaticResource TextBoxBase}"  Name="PasswordBox"/>
+                    <Button Command="{Binding UserAuthorization}" Content="Confirm" Style="{StaticResource ButtonBase}" Name="LoginButton" IsDefault="True"/>
                     <TextBlock Text="" Name="LoginMessageBlock" Style="{StaticResource WarningBlock}" Visibility="Hidden"/>
                 </StackPanel>
 
                 <Canvas Grid.Row="0"/>
 
                 <TextBox Grid.Row="1" x:Name="DevLine" 
-                         Text="Every thing ok!" Visibility="Hidden"/>
+                         Text="Every thing ok!" 
+                         Visibility="{Binding Path=DevLineVisibility, Converter={StaticResource BooleanToVisibilityConverter} }"/>
             </Grid>
         </Border>
 
@@ -95,7 +98,7 @@
 
                         <TextBox Name="MessageBox" Style="{StaticResource MessageBox}" Grid.Column="0"/>
 
-                        <Button Style="{StaticResource NavButton}" Grid.Column="1" Name="SendButton" Content="→" Click="SendButton_Click" />
+                        <Button Style="{StaticResource NavButton}" Grid.Column="1" Name="SendButton" Content="→"/>
                     </Grid>
                 </Border>
             </Grid>
@@ -115,7 +118,7 @@
 
                 <Border Grid.Row="1">
                     <ListBox ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" 
-								Style="{StaticResource ContactsList}" Name="ContactsList" SelectionChanged="ContactsList_SelectionChanged">
+								Style="{StaticResource ContactsList}" Name="ContactsList">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <ListBoxItem>
