@@ -17,8 +17,10 @@
     
 
     <Grid x:Name="applicationGrid">
-        
-        <Border Name="LoginScreen" Style="{StaticResource Screen}" Visibility="Visible" Background="#007e8f">
+
+        <Border Name="LoginScreen" Style="{StaticResource Screen}" 
+                Visibility="{Binding Path=LoginScreenVisibility, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                Background="#007e8f">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -40,7 +42,7 @@
 
                 <TextBox Grid.Row="1" x:Name="DevLine" 
                          Text="Every thing ok!" 
-                         Visibility="{Binding Path=DevLineVisibility, Converter={StaticResource BooleanToVisibilityConverter} }"/>
+                         Visibility="{Binding Path=DevLineVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"/>
             </Grid>
         </Border>
 
@@ -104,7 +106,7 @@
             </Grid>
         </Border>
 
-        
+
         <Border Name="ContactsScreen" Style="{StaticResource Screen}">
             <Grid>
                 <Grid.RowDefinitions>

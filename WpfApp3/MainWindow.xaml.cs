@@ -26,16 +26,16 @@ namespace WPFClient
     /// 
     public partial class MainWindow : Window
     {   
-        public object frameworkElementDataContext
-        {
-            get => (FrameworkElement)base.DataContext;
-            set => base.DataContext = value; 
-        }
+        //public object frameworkElementDataContext
+        //{
+        //    get => (FrameworkElement)base.DataContext;
+        //    set => base.DataContext = value; 
+        //}
 
         public MainWindow()
         {    
             InitializeComponent();
-            frameworkElementDataContext = new ViewModel(DataContext);
+            DataContext = new ViewModel(DataContext);
             //DataContext = new VeiwModel();
         }
         
