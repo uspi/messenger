@@ -3,7 +3,10 @@ using System.Runtime.CompilerServices;
 
 namespace WPFClient
 {
-    class Notifier : INotifyPropertyChanged
+    /// <summary>
+    /// Base class for view model for property change notification
+    /// </summary>
+    public class Notifier : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using WPFClient.MessengerItems;
 
 namespace WPFClient
@@ -48,7 +44,7 @@ namespace WPFClient
         public bool Auth()
         { 
             //отправка авторизационных данных
-            network.ConnectionSend(user.login);
+            network.ConnectionSend(user.Login);
             //ответ сервера
             if (network.ConnectionReceive() == "confirmedUser")
             { return true; }

@@ -17,6 +17,8 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Threading;
 using System.Xml.Linq;
+using System.Runtime.InteropServices;
+using System.Windows.Interop;
 
 namespace WPFClient
 {
@@ -35,8 +37,7 @@ namespace WPFClient
         public MainWindow()
         {    
             InitializeComponent();
-            DataContext = new ViewModel(DataContext);
-            //DataContext = new VeiwModel();
+            DataContext = new WindowViewModel(this);
         }
         
 

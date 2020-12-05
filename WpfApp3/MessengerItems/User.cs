@@ -1,37 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Net;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WPFClient.MessengerItems
 {
-    class User : INotifyPropertyChanged
+    class User
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        
-        public void OnPropertyChanged([CallerMemberName] string prop = "") => 
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-  
         public ObservableCollection<Message> messages;
         public ObservableCollection<Message> channels;
         public ObservableCollection<Contact> contacts;
 
-        //notifications about changes to the fields below are not implemented
-        public string login;
-        public string password;
-        public string name;
-        public string status;
-        public int id;
+        public string Login { get; set; }
+        public string Password { get; set; }
+        public string Name { get; set; }
+        public string Status { get; set; }
+        public int Id { get; set; }
 
-        public User(string _login, string _password)
+        public User(string login, string password)
         {
-            login = _login;
-            password = _password;
+            Login = login;
+            Password = password;
         }  
     }
 }

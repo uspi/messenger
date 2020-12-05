@@ -1,22 +1,89 @@
 ﻿<Window x:Class="WPFClient.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Turing v1.0" WindowStartupLocation="CenterScreen"
-        Icon="/Properties/wpfmessengerv2.ico" 
-        Height="550" Width="450" MaxHeight="850" MaxWidth="800" MinHeight="450" MinWidth="400" 
-        Background="#222" Foreground="#f6f6f6">
-    <!--import styles from file ResMainWin.xaml-->
+        xmlns:local="clr-namespace:WPFClient"
+        Title="turing, messenger from future"
+        Height="550" Width="450" MinHeight="450" MinWidth="400" 
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        x:Name="AppWindow">
     <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ResMainWin.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-        </ResourceDictionary>
-    </Window.Resources>
-    
+        <Style TargetType="{x:Type local:MainWindow}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Window}">
 
-    <Grid x:Name="applicationGrid">
+                        <!--outer border window with the dropshdow-->
+                        <Border Padding="{Binding OuterMarginSizeThickness, FallbackValue=10}">
+
+                            <!-- main window -->
+                            <Grid>
+
+                                <!--main window and dropshadow-->
+                                <Border CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}"
+                                        Background="{Binding ForegroundLightBrush, FallbackValue=White}">
+                                    <Border.Effect>
+                                        <DropShadowEffect ShadowDepth="0" Opacity="0.2"/>
+                                    </Border.Effect>
+                                </Border>
+
+                                <!--main window content-->
+                                <Grid>
+                                    <Grid.RowDefinitions>
+
+                                        <!--title bar-->
+                                        <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=16}"/>
+                                        <!--content-->
+                                        <RowDefinition Height="246*"/>
+                                        <RowDefinition Height="11*"/>
+
+                                    </Grid.RowDefinitions>
+
+                                    <!--titile bar-->
+                                    <Border Background="#ffffff">
+                                        <Border.CornerRadius>
+                                            <CornerRadius TopLeft="10" TopRight="10"/>
+                                        </Border.CornerRadius>
+
+                                        <Grid Grid.Column="0" Panel.ZIndex="1">
+                                            <Grid.ColumnDefinitions>
+
+                                                <!--icon-->
+                                                <ColumnDefinition Width="Auto"/>
+                                                <!--title-->
+                                                <ColumnDefinition Width="*"/>
+                                                <!--windows buttons-->
+                                                <ColumnDefinition Width="Auto"/>
+
+                                            </Grid.ColumnDefinitions>
+
+                                            <!--title-->
+                                            <Viewbox Grid.Column="1" Margin="0">
+                                                <TextBlock Padding="0 0 0 3" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title}"/>
+                                            </Viewbox>
+                                        </Grid>
+                                    </Border>
+
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Window.Resources>
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome ResizeBorderThickness="{Binding ResizeBorderThickness}"
+                      CaptionHeight="{Binding TitleHeight}"
+                      CornerRadius="3,3,3,3"
+                      GlassFrameThickness="0" />
+    </WindowChrome.WindowChrome>
+
+    <!--<Grid x:Name="applicationGrid">
 
         <Border Name="LoginScreen" Style="{StaticResource Screen}" 
                 Visibility="{Binding Path=LoginScreenVisibility, Converter={StaticResource BooleanToVisibilityConverter}}" 
@@ -31,9 +98,14 @@
                 </Grid.RowDefinitions>
                 
                 <StackPanel Style="{StaticResource LoginPanel}" Height="210" Margin="0,140,0,15">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Command="{Binding WindowMinimizeCommand}" Content="minimize"></Button>
+                        <Button Content="maximize"></Button>
+                        <Button Content="close"></Button>
+                    </StackPanel>
                     <TextBlock x:Name="Login" Text="{Binding Path=MainLabelText}" Style="{StaticResource HeaderBlock}" />
-                    <TextBox Text="{Binding Login}" Style="{StaticResource TextBoxBase}"  Name="LoginBox"/>
-                    <TextBox Text="{Binding Path=Password}" MaxLength="{Binding Path=PasswordMaxLength}" Style="{StaticResource TextBoxBase}"  Name="PasswordBox"/>
+                    <TextBox Text="{Binding Login}" MaxLength="{Binding LoginMaxLength}" Style="{StaticResource TextBoxBase}"  Name="LoginBox"/>
+                    <TextBox Text="{Binding Path=Password}" MaxLength="{Binding PasswordMaxLength}" Style="{StaticResource TextBoxBase}"  Name="PasswordBox"/>
                     <Button Command="{Binding UserAuthorization}" Content="Confirm" Style="{StaticResource ButtonBase}" Name="LoginButton" IsDefault="True"/>
                     <TextBlock Text="" Name="LoginMessageBlock" Style="{StaticResource WarningBlock}" Visibility="Hidden"/>
                 </StackPanel>
@@ -63,7 +135,9 @@
                             <ColumnDefinition Width="1*" />
                         </Grid.ColumnDefinitions>
 
-                        <!--<Button Style="{StaticResource NavButton}" Grid.Column="0" Name="BackButton" Content="←" Click="BackButton_Click"/>-->
+                        -->
+    <!--<Button Style="{StaticResource NavButton}" Grid.Column="0" Name="BackButton" Content="←" Click="BackButton_Click"/>-->
+    <!--
 
                         <TextBlock Style="{StaticResource HeaderBlock}" Text="" VerticalAlignment="Center" Name="ChatName" Grid.Column="1"/>
                     </Grid>
@@ -137,6 +211,6 @@
             </Grid>
 
         </Border>
-    </Grid>
+    </Grid>-->
 
 </Window>
