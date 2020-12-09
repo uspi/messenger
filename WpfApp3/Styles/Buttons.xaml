@@ -2,13 +2,13 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:WPFClient">
     
-    <!--references on base styles-->
+    <!-- references on base styles-->
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Colors.xaml"/>
         <!--and maybe todos merge fonts-->
     </ResourceDictionary.MergedDictionaries>
     
-    <!--button without hover effect-->
+    <!-- button without hover effect-->
     <Style TargetType="{x:Type Button}" x:Key="Hoverless">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
@@ -23,5 +23,41 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <!-- window control button-->
+    <Style TargetType="{x:Type Button}" x:Key="WindowControlButton">
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+        <Setter Property="Background" Value="{StaticResource HeaderMainColorBrush}"/>
+        <Setter Property="Foreground" Value="#95c6db"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{TemplateBinding Content}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#32998a"/>
+                <Setter Property="Foreground" Value="#ffffff"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="WindowControlButtonClose" BasedOn="{StaticResource WindowControlButton}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#e92539"/>
+                <Setter Property="Foreground" Value="#ffffff"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Path x:Key="MaximazeIcon" Data="M252 396.5625 L36 396.5625 L36 198.5625 L252 198.5625 L252 396.5625 ZM234 378.5625 L234 234.5625 L54 234.5625 L54 378.5625 L234 378.5625 Z"/>
 
 </ResourceDictionary>

@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:WPFClient">
+    <Style TargetType="{x:Type TextBlock}" x:Key="HeaderText">
+        <Setter Property="Foreground" Value="#ffffff"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="0 0 0 3"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+</ResourceDictionary>
