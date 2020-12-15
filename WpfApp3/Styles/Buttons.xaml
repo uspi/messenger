@@ -31,7 +31,6 @@
 
         <Setter Property="Content">
             <Setter.Value>
-            <!-- start displayed icon -->
                 <Path Data="M252 396.5625 L36 396.5625 L36 198.5625 L252 198.5625 L252 296.562 ZM210 378.5625 L210 240 L80 240 L80 360 L210 360 Z" 
                       Width="10"  Height="10" Fill="#95c6db" Stretch="Fill"/>
             </Setter.Value>
@@ -42,7 +41,6 @@
                 <Setter Property="Background" Value="#32998a"/>
                 <Setter Property="Content">
                     <Setter.Value>
-                    <!-- icon on hover, only color changes -->
                         <Path Data="M252 396.5625 L36 396.5625 L36 198.5625 L252 198.5625 L252 296.562 ZM210 378.5625 L210 240 L80 240 L80 360 L210 360 Z" 
                       Width="10"  Height="10" Fill="White" Stretch="Fill"/>
                     </Setter.Value>
@@ -58,7 +56,6 @@
 
         <Setter Property="Content">
             <Setter.Value>
-            <!-- start displayed icon -->
                 <Path Data="M216 396.5625 L72 396.5625 L72 360.5625 L216 360.5625 L216 270 Z" 
                       Width="10"  Height="10" Fill="#95c6db" Stretch="Fill"/>
             </Setter.Value>
@@ -69,7 +66,6 @@
                 <Setter Property="Background" Value="#32998a"/>
                 <Setter Property="Content">
                     <Setter.Value>
-                    <!-- icon on hover, only color changes -->
                         <Path Data="M216 396.5625 L72 396.5625 L72 360.5625 L216 360.5625 L216 270 Z" 
                       Width="10"  Height="10" Fill="White" Stretch="Fill"/>
                     </Setter.Value>
@@ -85,7 +81,6 @@
 
         <Setter Property="Content">
             <Setter.Value>
-            <!-- start displayed icon -->
                 <Path Data="M145.4062 327.9375 L128.3906 345.2344 L84.0938 300.9375 L39.7969 345.2344 L22.7812 328.2188 L67.0781 284.2031 L23.0625 239.9062 L40.0781 222.6094 L84.375 266.9062 L128.3906 222.8906 L145.125 239.9062 L101.3906 283.9219 L145.4062 327.9375 Z" 
                       Width="10"  Height="10" Fill="#95c6db" Stretch="Fill"/>
             </Setter.Value>
@@ -96,7 +91,6 @@
                 <Setter Property="Background" Value="#e92539"/>
                 <Setter Property="Content">
                     <Setter.Value>
-                    <!-- icon on hover, only color changes -->
                         <Path Data="M145.4062 327.9375 L128.3906 345.2344 L84.0938 300.9375 L39.7969 345.2344 L22.7812 328.2188 L67.0781 284.2031 L23.0625 239.9062 L40.0781 222.6094 L84.375 266.9062 L128.3906 222.8906 L145.125 239.9062 L101.3906 283.9219 L145.4062 327.9375 Z" 
                       Width="10"  Height="10" Fill="White" Stretch="Fill"/>
                     </Setter.Value>
