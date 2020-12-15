@@ -6,10 +6,12 @@
         Height="550" Width="450" MinHeight="450" MinWidth="400" 
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        AllowsTransparency="{Binding AllowsTransparency, FallbackValue=True}"
+        AllowsTransparency="True"
         x:Name="AppWindow">
     <Window.Resources>
+        
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
         <Style TargetType="{x:Type local:MainWindow}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -33,7 +35,7 @@
                                     <Grid.RowDefinitions>
 
                                         <!--title bar-->
-                                        <RowDefinition Height="{Binding TitleHeightGridLength}"/>
+                                        <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=16}"/>
                                         <!--content-->
                                         <RowDefinition Height="246*"/>
                                         <RowDefinition Height="11*"/>
@@ -41,7 +43,7 @@
                                     </Grid.RowDefinitions>
 
                                     <!--titile bar-->
-                                    <Border Style="{StaticResource HeaderMain}" Padding="{Binding WindowBodyTitlePadding}" >
+                                    <Border Style="{StaticResource HeaderMain}">
 
                                         <Grid Grid.Column="0" Panel.ZIndex="1">
                                             <Grid.ColumnDefinitions>
@@ -62,15 +64,21 @@
                                             
                                             <!--window buttons-->
                                             <StackPanel Grid.Column="2" Orientation="Horizontal" >
-                                                <Button Command="{Binding WindowMinimizeCommand}" Width="25" Padding="4 0 4 4" FontWeight="Bold" Style="{StaticResource WindowControlButton}" Content="🗕"/>
-                                                <Button Command="{Binding WindowMaximizeCommand}" Width="25" Padding="0 0 0 4" FontWeight="Bold" FontSize="13" Style="{StaticResource WindowControlButton}" Content="🗖"/>
-                                                <Button Command="{Binding WindowCloseCommand}" Width="25"  Padding="0 0 0 6" FontSize="21" Style="{StaticResource WindowControlButtonClose}" Content="×"/>
+
+                                                <!-- minimaze window button -->
+                                                <Button Command="{Binding WindowMinimizeCommand}" Width="25" Style="{StaticResource MinimazeWindowControlButton}"/>
+
+                                                <!-- maximaze window button -->
+                                                <Button Command="{Binding WindowMaximizeCommand}" Style="{StaticResource MaximazeWindowControlButton}" Width="25"/>
+
+                                                <Button Command="{Binding WindowCloseCommand}" Width="25" Style="{StaticResource CloseWindowControlButton}"/>
                                             </StackPanel>
                                         </Grid>
                                     </Border>
-                                    <Border Grid.Column="0" Grid.Row="1" Padding="{Binding WindowBodyContentPadding}">
-                                        <Grid >
+                                    <Border Grid.Column="0" Grid.Row="1">
+                                        <Grid>
                                             <TextBlock FontSize="30" Text="{Binding BodyTextBlock}" ></TextBlock>
+                                            
                                         </Grid>
                                     </Border>
                                 </Grid>
@@ -87,8 +95,7 @@
     <WindowChrome.WindowChrome>
         <WindowChrome ResizeBorderThickness="{Binding ResizeBorderThickness}"
                       CaptionHeight="{Binding TitleHeight}"
-                      GlassFrameThickness="{Binding GlassFrameThickness}"
-                      NonClientFrameEdges="None"
+                      GlassFrameThickness="0"
                       CornerRadius="0" />
     </WindowChrome.WindowChrome>
 
