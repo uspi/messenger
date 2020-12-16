@@ -28,7 +28,7 @@
     <Style TargetType="{x:Type Button}" x:Key="MaximazeWindowControlButton" BasedOn="{StaticResource HoverlessButton}">
         <Setter Property="Width" Value="25"/>
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
-        <Setter Property="Background" Value="{StaticResource HeaderMainColorBrush}"/>
+        <Setter Property="Background" Value="{StaticResource HeaderColorBrush}"/>
 
         <Setter Property="Content">
             <Setter.Value>
@@ -40,7 +40,7 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#32998a"/>
+                <Setter Property="Background" Value="{StaticResource HeaderLightColorBrush}"/>
                 <Setter Property="Content">
                     <Setter.Value>
                     <!-- icon on hover, only color changes -->
@@ -56,7 +56,7 @@
     <Style TargetType="{x:Type Button}" x:Key="MinimazeWindowControlButton" BasedOn="{StaticResource HoverlessButton}">
         <Setter Property="Width" Value="25"/>
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
-        <Setter Property="Background" Value="{StaticResource HeaderMainColorBrush}"/>
+        <Setter Property="Background" Value="{StaticResource HeaderColorBrush}"/>
 
         <Setter Property="Content">
             <Setter.Value>
@@ -68,7 +68,7 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#32998a"/>
+                <Setter Property="Background" Value="{StaticResource HeaderLightColorBrush}"/>
                 <Setter Property="Content">
                     <Setter.Value>
                     <!-- icon on hover, only color changes -->
@@ -84,7 +84,7 @@
     <Style TargetType="{x:Type Button}" x:Key="CloseWindowControlButton" BasedOn="{StaticResource HoverlessButton}">
         <Setter Property="Width" Value="25"/>
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
-        <Setter Property="Background" Value="{StaticResource HeaderMainColorBrush}"/>
+        <Setter Property="Background" Value="{StaticResource HeaderColorBrush}"/>
 
         <Setter Property="Content">
             <Setter.Value>
