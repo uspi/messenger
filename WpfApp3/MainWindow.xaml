@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:WPFClient"
         Title=""
-        Height="550" Width="450" MinHeight="450" MinWidth="400" 
+        Height="550" Width="450" MinHeight="{Binding WindowMinimumHeight}" MinWidth="{Binding WindowMinimumWidth}"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
@@ -26,7 +26,7 @@
                                 <!--main window and dropshadow-->
                                 <Border Style="{StaticResource BodyMain}">
                                     <Border.Effect>
-                                        <DropShadowEffect ShadowDepth="0" Opacity="0.2"/>
+                                        <DropShadowEffect ShadowDepth="0" Opacity="0.3" BlurRadius="15"/>
                                     </Border.Effect>
                                 </Border>
 
@@ -37,8 +37,7 @@
                                         <!--title bar-->
                                         <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=16}"/>
                                         <!--content-->
-                                        <RowDefinition Height="246*"/>
-                                        <RowDefinition Height="11*"/>
+                                        <RowDefinition Height="*"/>
 
                                     </Grid.RowDefinitions>
 
@@ -61,25 +60,28 @@
                                             <Viewbox Grid.Column="1" Margin="0">
                                                 <TextBlock Style="{StaticResource HeaderText}" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title}"/>
                                             </Viewbox>
-                                            
+
                                             <!--window buttons-->
                                             <StackPanel Grid.Column="2" Orientation="Horizontal" >
 
                                                 <!-- minimaze window button -->
-                                                <Button Command="{Binding WindowMinimizeCommand}" Width="25" Style="{StaticResource MinimazeWindowControlButton}"/>
+                                                <Button Command="{Binding WindowMinimizeCommand}" Style="{StaticResource MinimazeWindowControlButton}"/>
 
                                                 <!-- maximaze window button -->
-                                                <Button Command="{Binding WindowMaximizeCommand}" Style="{StaticResource MaximazeWindowControlButton}" Width="25"/>
+                                                <Button Command="{Binding WindowMaximizeCommand}" Style="{StaticResource MaximazeWindowControlButton}"/>
 
-                                                <Button Command="{Binding WindowCloseCommand}" Width="25" Style="{StaticResource CloseWindowControlButton}"/>
+                                                <!-- close window button -->
+                                                <Button Command="{Binding WindowCloseCommand}" Style="{StaticResource CloseWindowControlButton}"/>
+                                                
                                             </StackPanel>
                                         </Grid>
                                     </Border>
-                                    <Border Grid.Column="0" Grid.Row="1">
-                                        <Grid>
-                                            <TextBlock FontSize="30" Text="{Binding BodyTextBlock}" ></TextBlock>
-                                            
-                                        </Grid>
+
+                                    <!-- CONTENT-->
+
+                                    <!--Padding="{Binding InnerContentPadding}"-->
+                                    <Border Grid.Row="1">
+                                        <ContentPresenter Content="{TemplateBinding Content}" />
                                     </Border>
                                 </Grid>
                             </Grid>
@@ -89,7 +91,6 @@
             </Setter>
         </Style>
 
-        
     </Window.Resources>
 
     <WindowChrome.WindowChrome>
@@ -98,6 +99,10 @@
                       GlassFrameThickness="0"
                       CornerRadius="0" />
     </WindowChrome.WindowChrome>
+
+    <Grid Background="White">
+        <Frame x:Name="MainFrame" Content="{Binding CurrentPage, Converter={local:PageValueConverter}}"/>
+    </Grid>
 
     <!--<Grid x:Name="applicationGrid">
 
