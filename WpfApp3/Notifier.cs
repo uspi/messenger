@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using PropertyChanged;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace WPFClient
@@ -6,6 +7,7 @@ namespace WPFClient
     /// <summary>
     /// Base class for view model for property change notification 
     /// </summary>
+    [AddINotifyPropertyChangedInterface]
     public class Notifier : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
