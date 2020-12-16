@@ -17,14 +17,28 @@
     <Color x:Key="ForegroundLight">#000000</Color>
     <SolidColorBrush x:Key="ForegroundLightBrush" Color="{StaticResource ForegroundLight}"/>
 
+    <!-- Standart -->
+    <SolidColorBrush x:Key="HeaderColorBrush" Color="#007161"/>
+    <SolidColorBrush x:Key="HeaderLightColorBrush" Color="#32998a"/>
+    <SolidColorBrush x:Key="BodyColorBrush" Color="#00473d"/>
 
-    <Color x:Key="HeaderMainColor">#005448</Color>
-    <SolidColorBrush x:Key="HeaderMainColorBrush" Color="#007161"/>
+    <!-- Monochrome -->
+    <SolidColorBrush x:Key="HeaderColorBrushMonochrome" Color="#e4e4e4"/>
+    <SolidColorBrush x:Key="HeaderLightColorBrushMonochrome" Color="#868686"/>
+    <SolidColorBrush x:Key="BodyColorBrushMonochrome" Color="#a2a2a2"/>
+    <!--https://colorscheme.ru/#27x1Tw0w0w0w0-->
+    
+    <!-- Blue -->
+    <SolidColorBrush x:Key="HeaderColorBrushBlue" Color="#3ba3d0"/>
+    <SolidColorBrush x:Key="HeaderLightColorBrushBlue" Color="#63afd0"/>
+    <SolidColorBrush x:Key="BodyColorBrushBlue" Color="#0772a1"/>
+    <!--https://colorscheme.ru/#3r11Tw0w0w0w0-->
+
     <Style TargetType="{x:Type Border}" x:Key="HeaderMain">
-        <Setter Property="Background" Value="{StaticResource HeaderMainColorBrush}"/>
+        <Setter Property="Background" Value="{StaticResource HeaderColorBrush}"/>
     </Style>
 
     <Style TargetType="{x:Type Border}" x:Key="BodyMain">
-        <Setter Property="Background" Value="#00473d"/>
+        <Setter Property="Background" Value="{StaticResource BodyColorBrush}"/>
     </Style>
 </ResourceDictionary>
