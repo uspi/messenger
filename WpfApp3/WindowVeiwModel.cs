@@ -1,17 +1,37 @@
-﻿
-using System;
-using System.Windows.Forms;
-using System.Runtime.InteropServices;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Security;
-using System.Windows.Shapes;
 using System.Diagnostics;
 
 namespace WPFClient
 {
+
     public class WindowViewModel : Notifier
     {
+        #region Theme Preferences
+        public ApplicationTheme CurrentApplicationTheme { get; set; } = ApplicationTheme.Green;
+
+        public IApplicationThemeProperties CurrentThemeProperties
+        {
+            get
+            {
+                switch (CurrentApplicationTheme)
+                {
+                    case ApplicationTheme.Green:
+                        return new GreenTheme();
+                    case ApplicationTheme.Monochrome:
+                        return null;
+                    case ApplicationTheme.Blue:
+                        return null;
+
+                    default:
+                        return null;
+                }
+            }
+        }
+        #endregion
+
+        //public SolidColorBrush HeadSolidColorBrush { get; set; } = new SolidColorBrush(Color.FromRgb(0, 113, 97)); 
+
         internal CurrentOS _CurrentOS { get; } = new CurrentOS();
 
         // Window this view model controls
@@ -24,13 +44,14 @@ namespace WPFClient
         private int mWindowRadius = 0;
 
         private int resizeBorder = 6;
+
         private int titleHeight = 22;
 
         private WindowDockPosition mDockPosition { get; set; } = WindowDockPosition.Undocked;
 
         #region Public Properties
-
         public double WindowMinimumWidth { get; set; } = 400;
+
         public double WindowMinimumHeight { get; set; } = 450;
 
         // The margin around the window to allow for a drop shadow
@@ -107,7 +128,6 @@ namespace WPFClient
                 return _CurrentOS.ToString();
             }
         }
-
         #endregion
 
         public WindowViewModel(Window window)
@@ -123,18 +143,6 @@ namespace WPFClient
                 // Fire off events for all properties that are affected by a resize
                 WindowResized();
             };
-
-            // View model event, listen out for the window resizing
-            //mWindow.StateChanged += (sender, e) =>
-            //{
-            //    OnPropertyChanged(nameof(Borderless));
-            //    OnPropertyChanged(nameof(ResizeBorderThickness));
-            //    OnPropertyChanged(nameof(OuterMarginSize));
-            //    OnPropertyChanged(nameof(OuterMarginSizeThickness));
-            //    OnPropertyChanged(nameof(WindowRadius));
-            //    OnPropertyChanged(nameof(WindowCornerRadius));
-            //    OnPropertyChanged(nameof(TitleHeightGridLength));
-            //};
 
             // command initialization
             WindowMinimizeCommand = new RelayCommand(() => mWindow.WindowState = WindowState.Minimized);
