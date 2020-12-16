@@ -26,6 +26,7 @@
 
     <!-- window MAXIMAZE control button-->
     <Style TargetType="{x:Type Button}" x:Key="MaximazeWindowControlButton" BasedOn="{StaticResource HoverlessButton}">
+        <Setter Property="Width" Value="25"/>
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
         <Setter Property="Background" Value="{StaticResource HeaderMainColorBrush}"/>
 
@@ -53,6 +54,7 @@
 
     <!-- window MINIMAZE control button-->
     <Style TargetType="{x:Type Button}" x:Key="MinimazeWindowControlButton" BasedOn="{StaticResource HoverlessButton}">
+        <Setter Property="Width" Value="25"/>
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
         <Setter Property="Background" Value="{StaticResource HeaderMainColorBrush}"/>
 
@@ -80,6 +82,7 @@
 
     <!-- window CLOSE control button-->
     <Style TargetType="{x:Type Button}" x:Key="CloseWindowControlButton" BasedOn="{StaticResource HoverlessButton}">
+        <Setter Property="Width" Value="25"/>
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
         <Setter Property="Background" Value="{StaticResource HeaderMainColorBrush}"/>
 
