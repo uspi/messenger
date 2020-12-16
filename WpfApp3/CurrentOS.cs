@@ -62,7 +62,8 @@ namespace WPFClient
             if (RtlGetVersionRequestStatus == 0)
             {
                 return string.Format("{0} {1}.{2}.{3} {4}",
-                    "Microsoft Windows", OSInfo.dwMajorVersion, OSInfo.dwMinorVersion, OSInfo.dwBuildNumber, OSInfo.szCSDVersion);
+                    "Microsoft Windows", OSInfo.dwMajorVersion, OSInfo.dwMinorVersion, 
+                    OSInfo.dwBuildNumber, OSInfo.szCSDVersion);
             }
             else
                 return "Microsoft Windows";      
