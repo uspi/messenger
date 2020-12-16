@@ -36,8 +36,8 @@ namespace WPFClient
 
         public MainWindow()
         {
-            DataContext = new WindowViewModel(this);
             InitializeComponent();
+            this.DataContext = new WindowViewModel(this);
         }
         
 
