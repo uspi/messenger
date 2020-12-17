@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WPFClient
+﻿namespace WPFClient
 {
     /// <summary>
     /// List of visual theme names available in the app
@@ -12,7 +6,7 @@ namespace WPFClient
     public enum ApplicationTheme
     {
         Green = 0,
-        Monochrome,
-        Blue
+        Blue = 1,
+        Monochrome = 2
     }
 }
