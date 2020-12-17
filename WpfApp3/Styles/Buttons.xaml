@@ -24,11 +24,39 @@
         </Setter>
     </Style>
 
+    <!-- change theme control button-->
+    <Style TargetType="{x:Type Button}" x:Key="ChangeThemeButton" BasedOn="{StaticResource HoverlessButton}">
+        <Setter Property="Width" Value="25"/>
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+        <Setter Property="Background" Value="{Binding MaximazeButton}"/>
+
+        <Setter Property="Content">
+            <Setter.Value>
+                <!-- start displayed icon -->
+                <Path Data="M144 406.6875 Q105.75 406.6875 73.4062 388.4062 Q41.0625 370.125 22.7812 337.7812 Q4.5 305.4375 4.5 267.1875 Q4.5 228.9375 22.7812 196.5938 Q41.0625 164.25 73.4062 145.9688 Q105.75 127.6875 144 127.6875 Q182.25 127.6875 214.5938 145.9688 Q246.9375 164.25 265.2188 196.5938 Q283.5 228.9375 283.5 267.1875 Q283.5 305.4375 265.2188 337.7812 Q246.9375 370.125 214.5938 388.4062 Q182.25 406.6875 144 406.6875 Z" 
+                      Width="10"  Height="10" Fill="#95c6db" Stretch="Fill"/>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{Binding MaximazeButton_Active}"/>
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <!-- icon on hover, only color changes -->
+                        <Path Data="M144 406.6875 Q105.75 406.6875 73.4062 388.4062 Q41.0625 370.125 22.7812 337.7812 Q4.5 305.4375 4.5 267.1875 Q4.5 228.9375 22.7812 196.5938 Q41.0625 164.25 73.4062 145.9688 Q105.75 127.6875 144 127.6875 Q182.25 127.6875 214.5938 145.9688 Q246.9375 164.25 265.2188 196.5938 Q283.5 228.9375 283.5 267.1875 Q283.5 305.4375 265.2188 337.7812 Q246.9375 370.125 214.5938 388.4062 Q182.25 406.6875 144 406.6875 Z" 
+                      Width="10"  Height="10" Fill="White" Stretch="Fill"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <!-- window MAXIMAZE control button-->
     <Style TargetType="{x:Type Button}" x:Key="MaximazeWindowControlButton" BasedOn="{StaticResource HoverlessButton}">
         <Setter Property="Width" Value="25"/>
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
-        <Setter Property="Background" Value="{StaticResource HeaderColorBrush}"/>
+        <Setter Property="Background" Value="{Binding MaximazeButton}"/>
 
         <Setter Property="Content">
             <Setter.Value>
@@ -40,7 +68,7 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource HeaderLightColorBrush}"/>
+                <Setter Property="Background" Value="{Binding MaximazeButton_Active}"/>
                 <Setter Property="Content">
                     <Setter.Value>
                     <!-- icon on hover, only color changes -->
@@ -56,7 +84,7 @@
     <Style TargetType="{x:Type Button}" x:Key="MinimazeWindowControlButton" BasedOn="{StaticResource HoverlessButton}">
         <Setter Property="Width" Value="25"/>
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
-        <Setter Property="Background" Value="{StaticResource HeaderColorBrush}"/>
+        <Setter Property="Background" Value="{Binding MinimizeButton}"/>
 
         <Setter Property="Content">
             <Setter.Value>
@@ -68,7 +96,7 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource HeaderLightColorBrush}"/>
+                <Setter Property="Background" Value="{Binding MinimizeButton_Active}"/>
                 <Setter Property="Content">
                     <Setter.Value>
                     <!-- icon on hover, only color changes -->
@@ -84,11 +112,11 @@
     <Style TargetType="{x:Type Button}" x:Key="CloseWindowControlButton" BasedOn="{StaticResource HoverlessButton}">
         <Setter Property="Width" Value="25"/>
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
-        <Setter Property="Background" Value="{StaticResource HeaderColorBrush}"/>
+        <Setter Property="Background" Value="{Binding CloseButton}"/>
 
         <Setter Property="Content">
             <Setter.Value>
-            <!-- start displayed icon -->
+                <!-- start displayed icon -->
                 <Path Data="M145.4062 327.9375 L128.3906 345.2344 L84.0938 300.9375 L39.7969 345.2344 L22.7812 328.2188 L67.0781 284.2031 L23.0625 239.9062 L40.0781 222.6094 L84.375 266.9062 L128.3906 222.8906 L145.125 239.9062 L101.3906 283.9219 L145.4062 327.9375 Z" 
                       Width="10"  Height="10" Fill="#95c6db" Stretch="Fill"/>
             </Setter.Value>
@@ -96,10 +124,10 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#e92539"/>
+                <Setter Property="Background" Value="{Binding CloseButton_Active}"/>
                 <Setter Property="Content">
                     <Setter.Value>
-                    <!-- icon on hover, only color changes -->
+                        <!-- icon on hover, only color changes -->
                         <Path Data="M145.4062 327.9375 L128.3906 345.2344 L84.0938 300.9375 L39.7969 345.2344 L22.7812 328.2188 L67.0781 284.2031 L23.0625 239.9062 L40.0781 222.6094 L84.375 266.9062 L128.3906 222.8906 L145.125 239.9062 L101.3906 283.9219 L145.4062 327.9375 Z" 
                       Width="10"  Height="10" Fill="White" Stretch="Fill"/>
                     </Setter.Value>
@@ -107,5 +135,5 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-
+    
 </ResourceDictionary>
