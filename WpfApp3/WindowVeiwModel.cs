@@ -1,37 +1,13 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using System.Diagnostics;
+using System.Windows.Media;
 
 namespace WPFClient
 {
 
-    public class WindowViewModel : Notifier
-    {
-        #region Theme Preferences
-        public ApplicationTheme CurrentApplicationTheme { get; set; } = ApplicationTheme.Green;
-
-        public IApplicationThemeProperties CurrentThemeProperties
-        {
-            get
-            {
-                switch (CurrentApplicationTheme)
-                {
-                    case ApplicationTheme.Green:
-                        return new GreenTheme();
-                    case ApplicationTheme.Monochrome:
-                        return null;
-                    case ApplicationTheme.Blue:
-                        return null;
-
-                    default:
-                        return null;
-                }
-            }
-        }
-        #endregion
-
-        //public SolidColorBrush HeadSolidColorBrush { get; set; } = new SolidColorBrush(Color.FromRgb(0, 113, 97)); 
-
+    public class WindowViewModel : Notifier, IApplicationThemeProperties
+    { 
         internal CurrentOS _CurrentOS { get; } = new CurrentOS();
 
         // Window this view model controls
@@ -50,6 +26,46 @@ namespace WPFClient
         private WindowDockPosition mDockPosition { get; set; } = WindowDockPosition.Undocked;
 
         #region Public Properties
+
+            #region Theme Preferences
+            public ApplicationTheme CurrentApplicationTheme { get; set; } = ApplicationTheme.Green;
+
+            public IApplicationThemeProperties CurrentThemeProperties
+            {
+                get
+                {
+                    switch (CurrentApplicationTheme)
+                    {
+                        case ApplicationTheme.Green:
+                            return new GreenTheme();
+                        case ApplicationTheme.Blue:
+                            return new BlueTheme();
+                        case ApplicationTheme.Monochrome:
+                            return new MonochromeTheme();
+
+                        default:
+                            return null;
+                    }
+                }
+            }
+
+            public SolidColorBrush HeadLine => CurrentThemeProperties.HeadLine;
+
+            public SolidColorBrush MinimizeButton => CurrentThemeProperties.MinimizeButton;
+
+            public SolidColorBrush MaximazeButton => CurrentThemeProperties.MaximazeButton;
+
+            public SolidColorBrush CloseButton => CurrentThemeProperties.CloseButton;
+
+            public SolidColorBrush MinimizeButton_Active => CurrentThemeProperties.MinimizeButton_Active;
+
+            public SolidColorBrush MaximazeButton_Active => CurrentThemeProperties.MaximazeButton_Active;
+
+            public SolidColorBrush CloseButton_Active => CurrentThemeProperties.CloseButton_Active;
+
+            public SolidColorBrush ContentBody => CurrentThemeProperties.ContentBody;
+            #endregion
+
         public double WindowMinimumWidth { get; set; } = 400;
 
         public double WindowMinimumHeight { get; set; } = 450;
@@ -118,6 +134,7 @@ namespace WPFClient
         public ICommand WindowMinimizeCommand { get; set; }
         public ICommand WindowMaximizeCommand { get; set; }
         public ICommand WindowCloseCommand { get; set; }
+        public ICommand NextTheme { get; set; }
 
         //public ICommand ShowWindowMenuCommand { get; set; }
 
@@ -132,8 +149,8 @@ namespace WPFClient
 
         public WindowViewModel(Window window)
         {
-
             Debug.WriteLine(_CurrentOS.ToString());
+
             // this.window
             mWindow = window;
 
@@ -148,6 +165,20 @@ namespace WPFClient
             WindowMinimizeCommand = new RelayCommand(() => mWindow.WindowState = WindowState.Minimized);
             WindowMaximizeCommand = new RelayCommand(() => mWindow.WindowState ^= WindowState.Maximized);
             WindowCloseCommand = new RelayCommand(() => mWindow.Close());
+            NextTheme = new RelayCommand(() => {
+
+                //current visual theme number in ApplicationTheme enum
+                int number = CurrentApplicationTheme.GetHashCode();
+
+                //quantity of visual themes in ApplicationTheme enum
+                int quantity = System.Enum.GetNames(typeof(ApplicationTheme)).Length;
+
+                if (number == --quantity)
+                {
+                    CurrentApplicationTheme = 0;
+                }
+                else CurrentApplicationTheme++;
+            });
 
             //ShowWindowMenuCommand = new RelayCommand(() => SystemCommands.ShowSystemMenu(mWindow, GetMousePosition()));
 
