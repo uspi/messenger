@@ -1,44 +1,29 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:WPFClient">
-    
-    <Color x:Key="BackgroundLight">#efefef</Color>
-    <SolidColorBrush x:Key="BackgroundLightBrush" Color="{StaticResource BackgroundLight}"/>
-
-    <Color x:Key="BackgroundVeryLight">#fafafa</Color>
-    <SolidColorBrush x:Key="BackgroundVeryLishtBrush" Color="{StaticResource BackgroundVeryLight}"/>
-
-    <Color x:Key="ForegroundMain">#686868</Color>
-    <SolidColorBrush x:Key="ForegroundMainBrush" Color="{StaticResource ForegroundMain}"/>
-
-    <Color x:Key="ForegroundVeryDark">#000000</Color>
-    <SolidColorBrush x:Key="ForegroundVeryDarkBrush" Color="{StaticResource ForegroundVeryDark}"/>
-
-    <Color x:Key="ForegroundLight">#000000</Color>
-    <SolidColorBrush x:Key="ForegroundLightBrush" Color="{StaticResource ForegroundLight}"/>
 
     <!-- Standart -->
-    <SolidColorBrush x:Key="HeaderColorBrush" Color="#007161"/>
+    <!--<SolidColorBrush x:Key="HeaderColorBrush" Color="#007161"/>
     <SolidColorBrush x:Key="HeaderLightColorBrush" Color="#32998a"/>
-    <SolidColorBrush x:Key="BodyColorBrush" Color="#00473d"/>
+    <SolidColorBrush x:Key="BodyColorBrush" Color="#00473d"/>-->
 
     <!-- Monochrome -->
-    <SolidColorBrush x:Key="HeaderColorBrushMonochrome" Color="#e4e4e4"/>
+    <!--<SolidColorBrush x:Key="HeaderColorBrushMonochrome" Color="#e4e4e4"/>
     <SolidColorBrush x:Key="HeaderLightColorBrushMonochrome" Color="#868686"/>
-    <SolidColorBrush x:Key="BodyColorBrushMonochrome" Color="#a2a2a2"/>
+    <SolidColorBrush x:Key="BodyColorBrushMonochrome" Color="#a2a2a2"/>-->
     <!--https://colorscheme.ru/#27x1Tw0w0w0w0-->
     
     <!-- Blue -->
-    <SolidColorBrush x:Key="HeaderColorBrushBlue" Color="#3ba3d0"/>
+    <!--<SolidColorBrush x:Key="HeaderColorBrushBlue" Color="#3ba3d0"/>
     <SolidColorBrush x:Key="HeaderLightColorBrushBlue" Color="#63afd0"/>
-    <SolidColorBrush x:Key="BodyColorBrushBlue" Color="#0772a1"/>
+    <SolidColorBrush x:Key="BodyColorBrushBlue" Color="#0772a1"/>-->
     <!--https://colorscheme.ru/#3r11Tw0w0w0w0-->
 
-    <Style TargetType="{x:Type Border}" x:Key="HeaderMain">
-        <Setter Property="Background" Value="{StaticResource HeaderColorBrush}"/>
+    <Style TargetType="{x:Type Border}" x:Key="HeaderLine">
+        <Setter Property="Background" Value="{Binding HeadLine}"/>
     </Style>
 
-    <Style TargetType="{x:Type Border}" x:Key="BodyMain">
-        <Setter Property="Background" Value="{StaticResource BodyColorBrush}"/>
+    <Style TargetType="{x:Type Border}" x:Key="ContentBody">
+        <Setter Property="Background" Value="{Binding ContentBody}"/>
     </Style>
 </ResourceDictionary>
