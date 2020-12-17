@@ -8,7 +8,21 @@
       d:DesignHeight="450" d:DesignWidth="300"
       Title="LoginPage">
 
-    <Grid Background="{StaticResource BodyColorBrush}">
-        <TextBlock FontSize="30" Text="Login Page"></TextBlock>
-    </Grid>
+    <Border>
+        <Grid>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <StackPanel
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    TextBlock.TextAlignment="Center">
+                    <Border 
+                        Background="White"
+                        Padding="10"
+                        Width="200">
+                        <TextBlock FontSize="30" Text="Login Page"></TextBlock>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Border>
 </Page>
