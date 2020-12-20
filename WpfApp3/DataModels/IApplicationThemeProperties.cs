@@ -8,19 +8,19 @@ namespace WPFClient
     /// </summary>
     public interface IApplicationThemeProperties
     {
-        SolidColorBrush HeadLine { get; }
-        SolidColorBrush ContentBody { get; }
+        Color HeadLine { get; }
+        Color ContentBody { get; }
 
         #region HeadLine Buttons
         // state non-active
-        SolidColorBrush MinimizeButton { get; }
-        SolidColorBrush MaximazeButton { get; }
-        SolidColorBrush CloseButton { get; }
+        Color MinimizeButton { get; }
+        Color MaximazeButton { get; }
+        Color CloseButton { get; }
 
         // state active
-        SolidColorBrush MinimizeButton_Active { get; }
-        SolidColorBrush MaximazeButton_Active { get; }
-        SolidColorBrush CloseButton_Active { get; }
+        Color MinimizeButton_Active { get; }
+        Color MaximazeButton_Active { get; }
+        Color CloseButton_Active { get; }
         #endregion   
     }
 }
