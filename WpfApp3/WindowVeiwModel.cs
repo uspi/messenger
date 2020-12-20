@@ -49,21 +49,21 @@ namespace WPFClient
                 }
             }
 
-            public SolidColorBrush HeadLine => CurrentThemeProperties.HeadLine;
+            public Color HeadLine => CurrentThemeProperties.HeadLine;
 
-            public SolidColorBrush MinimizeButton => CurrentThemeProperties.MinimizeButton;
+            public Color MinimizeButton => CurrentThemeProperties.MinimizeButton;
 
-            public SolidColorBrush MaximazeButton => CurrentThemeProperties.MaximazeButton;
+            public Color MaximazeButton => CurrentThemeProperties.MaximazeButton;
 
-            public SolidColorBrush CloseButton => CurrentThemeProperties.CloseButton;
+            public Color CloseButton => CurrentThemeProperties.CloseButton;
 
-            public SolidColorBrush MinimizeButton_Active => CurrentThemeProperties.MinimizeButton_Active;
+            public Color MinimizeButton_Active => CurrentThemeProperties.MinimizeButton_Active;
 
-            public SolidColorBrush MaximazeButton_Active => CurrentThemeProperties.MaximazeButton_Active;
+            public Color MaximazeButton_Active => CurrentThemeProperties.MaximazeButton_Active;
 
-            public SolidColorBrush CloseButton_Active => CurrentThemeProperties.CloseButton_Active;
+            public Color CloseButton_Active => CurrentThemeProperties.CloseButton_Active;
 
-            public SolidColorBrush ContentBody => CurrentThemeProperties.ContentBody;
+            public Color ContentBody => CurrentThemeProperties.ContentBody;
             #endregion
 
         public double WindowMinimumWidth { get; set; } = 400;
