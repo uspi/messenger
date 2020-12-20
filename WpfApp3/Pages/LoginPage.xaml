@@ -5,22 +5,46 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WPFClient"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="300"
+      d:DesignHeight="450" d:DesignWidth="700"
       Title="LoginPage">
-
+    
     <Border>
         <Grid>
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                <StackPanel
+                <StackPanel 
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    TextBlock.TextAlignment="Center">
-                    <Border 
+                        HorizontalAlignment="Center"
+                        TextBlock.TextAlignment="Center">
+
+                    <!-- login box -->
+                    <Border  
                         Background="White"
-                        Padding="10"
-                        Width="200">
-                        <TextBlock FontSize="30" Text="Login Page"></TextBlock>
+                        Padding="10 30 10 20"
+                        Width="500"
+                        Margin="50 50 50 0"
+                        CornerRadius="5">
+                        <StackPanel>
+
+                            <!-- sign in header -->
+                            <TextBlock Margin="10" FontSize="30" Text="sign up"></TextBlock>
+
+                            <!-- login -->
+                            <TextBox Margin="80 5"/>
+
+                            <!-- password -->
+                            <TextBox Margin="80 5"/>
+
+                            <Button 
+                                Margin="0 5"
+                                Content="authorize"
+                                HorizontalAlignment="Center"/>
+                        </StackPanel>
                     </Border>
+
+                    <Button 
+                        Content="i already have an account"
+                        HorizontalAlignment="Center"/>
+
                 </StackPanel>
             </ScrollViewer>
         </Grid>
