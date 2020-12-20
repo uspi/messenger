@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:WPFClient"
         Title=""
-        Height="550" Width="450" 
+        Height="900" Width="700" 
         MinHeight="{Binding WindowMinimumHeight}" 
         MinWidth="{Binding WindowMinimumWidth}"
         WindowStyle="None"
@@ -26,7 +26,7 @@
                             <Grid>
 
                                 <!--main window and dropshadow-->
-                                <Border Style="{StaticResource ContentBody}">
+                                <Border Style="{StaticResource ContentBodyStyle}">
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="0" Opacity="0.3" BlurRadius="15"/>
                                     </Border.Effect>
@@ -44,7 +44,7 @@
                                     </Grid.RowDefinitions>
 
                                     <!--titile bar-->
-                                    <Border Style="{StaticResource HeaderLine}">
+                                    <Border Style="{StaticResource HeaderLineStyle}">
 
                                         <Grid Grid.Column="0" Panel.ZIndex="1">
                                             <Grid.ColumnDefinitions>
