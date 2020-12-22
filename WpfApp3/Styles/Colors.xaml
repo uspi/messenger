@@ -18,12 +18,22 @@
     <SolidColorBrush x:Key="HeaderLightColorBrushBlue" Color="#63afd0"/>
     <SolidColorBrush x:Key="BodyColorBrushBlue" Color="#0772a1"/>-->
     <!--https://colorscheme.ru/#3r11Tw0w0w0w0-->
+    
+    <SolidColorBrush x:Key="HeadLineSolidColorBrush" Color="{Binding HeadLine}"/>
+    <SolidColorBrush x:Key="ContentBodySolidColorBrush" Color="{Binding ContentBody}"/>
 
-    <Style TargetType="{x:Type Border}" x:Key="HeaderLine">
-        <Setter Property="Background" Value="{Binding HeadLine}"/>
+    <SolidColorBrush x:Key="MinimizeButtonSolidColorBrush" Color="{Binding MinimizeButton}"/>
+    <SolidColorBrush x:Key="MaximazeButtonSolidColorBrush" Color="{Binding MaximazeButton}"/>
+    <SolidColorBrush x:Key="CloseButtonSolidColorBrush" Color="{Binding CloseButton}"/>
+    <SolidColorBrush x:Key="MinimizeButton_ActiveSolidColorBrush" Color="{Binding MinimizeButton_Active}"/>
+    <SolidColorBrush x:Key="MaximazeButton_ActiveSolidColorBrush" Color="{Binding MaximazeButton_Active}"/>
+    <SolidColorBrush x:Key="CloseButton_ActiveSolidColorBrush" Color="{Binding CloseButton_Active}"/>
+
+    <Style TargetType="{x:Type Border}" x:Key="HeaderLineStyle">
+        <Setter Property="Background" Value="{StaticResource HeadLineSolidColorBrush}"/>
     </Style>
 
-    <Style TargetType="{x:Type Border}" x:Key="ContentBody">
-        <Setter Property="Background" Value="{Binding ContentBody}"/>
+    <Style TargetType="{x:Type Border}" x:Key="ContentBodyStyle">
+        <Setter Property="Background" Value="{StaticResource ContentBodySolidColorBrush}"/>
     </Style>
 </ResourceDictionary>
