@@ -5,8 +5,7 @@ using System.Windows.Media;
 
 namespace WPFClient
 {
-
-    public class WindowViewModel : Notifier, IApplicationThemeProperties
+    public class WindowViewModel : Notifier
     { 
         internal CurrentOS _CurrentOS { get; } = new CurrentOS();
 
@@ -26,45 +25,6 @@ namespace WPFClient
         private WindowDockPosition mDockPosition { get; set; } = WindowDockPosition.Undocked;
 
         #region Public Properties
-
-            #region Theme Preferences
-            public ApplicationTheme CurrentApplicationTheme { get; set; } = ApplicationTheme.Green;
-
-            public IApplicationThemeProperties CurrentThemeProperties
-            {
-                get
-                {
-                    switch (CurrentApplicationTheme)
-                    {
-                        case ApplicationTheme.Green:
-                            return new GreenTheme();
-                        case ApplicationTheme.Blue:
-                            return new BlueTheme();
-                        case ApplicationTheme.Monochrome:
-                            return new MonochromeTheme();
-
-                        default:
-                            return null;
-                    }
-                }
-            }
-
-            public Color HeadLine => CurrentThemeProperties.HeadLine;
-
-            public Color MinimizeButton => CurrentThemeProperties.MinimizeButton;
-
-            public Color MaximazeButton => CurrentThemeProperties.MaximazeButton;
-
-            public Color CloseButton => CurrentThemeProperties.CloseButton;
-
-            public Color MinimizeButton_Active => CurrentThemeProperties.MinimizeButton_Active;
-
-            public Color MaximazeButton_Active => CurrentThemeProperties.MaximazeButton_Active;
-
-            public Color CloseButton_Active => CurrentThemeProperties.CloseButton_Active;
-
-            public Color ContentBody => CurrentThemeProperties.ContentBody;
-            #endregion
 
         public double WindowMinimumWidth { get; set; } = 400;
 
@@ -134,22 +94,12 @@ namespace WPFClient
         public ICommand WindowMinimizeCommand { get; set; }
         public ICommand WindowMaximizeCommand { get; set; }
         public ICommand WindowCloseCommand { get; set; }
-        public ICommand NextTheme { get; set; }
-
         //public ICommand ShowWindowMenuCommand { get; set; }
-
-        public string BodyTextBlock
-        {
-            get
-            {
-                return _CurrentOS.ToString();
-            }
-        }
         #endregion
 
         public WindowViewModel(Window window)
         {
-            Debug.WriteLine(_CurrentOS.ToString());
+            Debug.WriteLine("Current OS version: " + _CurrentOS.ToString());
 
             // this.window
             mWindow = window;
@@ -165,21 +115,6 @@ namespace WPFClient
             WindowMinimizeCommand = new RelayCommand(() => mWindow.WindowState = WindowState.Minimized);
             WindowMaximizeCommand = new RelayCommand(() => mWindow.WindowState ^= WindowState.Maximized);
             WindowCloseCommand = new RelayCommand(() => mWindow.Close());
-            NextTheme = new RelayCommand(() => {
-
-                //current visual theme number in ApplicationTheme enum
-                int number = CurrentApplicationTheme.GetHashCode();
-
-                //quantity of visual themes in ApplicationTheme enum
-                int quantity = System.Enum.GetNames(typeof(ApplicationTheme)).Length;
-
-                if (number == --quantity)
-                {
-                    CurrentApplicationTheme = 0;
-                }
-                else CurrentApplicationTheme++;
-            });
-
             //ShowWindowMenuCommand = new RelayCommand(() => SystemCommands.ShowSystemMenu(mWindow, GetMousePosition()));
 
             var windowResizer = new WindowResizer(mWindow);
