@@ -26,7 +26,7 @@
                             <Grid>
 
                                 <!--main window and dropshadow-->
-                                <Border Style="{StaticResource ContentBodyStyle}">
+                                <Border Background="{StaticResource ContentBody}">
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="0" Opacity="0.3" BlurRadius="15"/>
                                     </Border.Effect>
@@ -37,14 +37,14 @@
                                     <Grid.RowDefinitions>
 
                                         <!--title bar-->
-                                        <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=16}"/>
+                                        <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=22}"/>
                                         <!--content-->
                                         <RowDefinition Height="*"/>
 
                                     </Grid.RowDefinitions>
 
                                     <!--titile bar-->
-                                    <Border Style="{StaticResource HeaderLineStyle}">
+                                    <Border Background="{StaticResource HeadLine}">
 
                                         <Grid Grid.Column="0" Panel.ZIndex="1">
                                             <Grid.ColumnDefinitions>
@@ -68,7 +68,8 @@
                                             <StackPanel Grid.Column="2" Orientation="Horizontal" >
                                                 
                                                 <!-- change theme button -->
-                                                <Button Command="{Binding NextTheme}"
+                                                <Button Visibility="Hidden"
+                                                        Command=""
                                                         Style="{StaticResource ChangeThemeButton}" />
                                                 
                                                 <!-- minimaze window button -->
