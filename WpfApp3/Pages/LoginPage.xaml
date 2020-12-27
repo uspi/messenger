@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="700"
       Title="LoginPage">
-    
+
     <Border>
         <Grid>
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
@@ -18,7 +18,9 @@
 
                     <!-- login box -->
                     <Border  
-                        Background="White"
+                        BorderThickness="1.5"
+                        BorderBrush="{StaticResource BorderSeparator}"
+                        Background="{StaticResource HeadLine}"
                         Padding="10 30 10 20"
                         Width="500"
                         Margin="50 50 50 0"
@@ -26,25 +28,35 @@
                         <StackPanel>
 
                             <!-- sign in header -->
-                            <TextBlock Margin="10" FontSize="30" Text="sign up"></TextBlock>
+                            <TextBlock 
+                                Foreground="{StaticResource BorderSeparator}"
+                                Margin="20" 
+                                FontSize="30" 
+                                FontFamily="{StaticResource IBMPlexSans}"
+                                FontStyle="Normal"
+                                FontWeight="Bold"
+                                Text="SIGN UP"/>
 
                             <!-- login -->
-                            <TextBox Margin="80 5"/>
+                            <TextBox Style="{StaticResource LoginTextBlock}" 
+                                     Tag="login"/>
 
                             <!-- password -->
-                            <TextBox Margin="80 5"/>
+                            <PasswordBox Style="{StaticResource PasswordBox}"  
+                                     Tag="password"/>
 
-                            <Button 
-                                Margin="0 5"
-                                Content="authorize"
-                                HorizontalAlignment="Center"/>
+                            <!-- submmit -->
+                            <Button Style="{StaticResource SubmmitButton}"
+                                    Content="CONTINUE"/>
+                            
                         </StackPanel>
                     </Border>
 
-                    <Button 
+                    <Button
+                        Style="{StaticResource TextButton}"
+                        FontFamily="{StaticResource IBMPlexSans}"
                         Content="i already have an account"
                         HorizontalAlignment="Center"/>
-
                 </StackPanel>
             </ScrollViewer>
         </Grid>
