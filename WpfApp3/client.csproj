@@ -93,6 +93,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AttachedProperties\AttachedProperty.cs" />
+    <Compile Include="AttachedProperties\PasswordBoxAttachedProperties.cs" />
     <Compile Include="CurrentOS.cs" />
     <Compile Include="DataModels\ApplicationPage.cs" />
     <Compile Include="Messenger.cs" />
@@ -114,6 +116,7 @@
     <Compile Include="NetworkItems\IConnection.cs" />
     <Compile Include="MessengerItems\User.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />
     <Compile Include="ValueConverters\PageValueConverter.cs" />
     <Compile Include="ValueConverters\ValueConverter.cs" />
     <Compile Include="WindowVeiwModel.cs" />
@@ -172,6 +175,15 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Styles\Fonts\IBMPlexSans\IBMPlexSans-Bold.ttf" />
+    <Resource Include="Styles\Fonts\IBMPlexSans\IBMPlexSans-ExtraLight.ttf" />
+    <Resource Include="Styles\Fonts\IBMPlexSans\IBMPlexSans-Light.ttf" />
+    <Resource Include="Styles\Fonts\IBMPlexSans\IBMPlexSans-Medium.ttf" />
+    <Resource Include="Styles\Fonts\IBMPlexSans\IBMPlexSans-Regular.ttf" />
+    <Resource Include="Styles\Fonts\IBMPlexSans\IBMPlexSans-SemiBold.ttf" />
+    <Resource Include="Styles\Fonts\IBMPlexSans\IBMPlexSans-Thin.ttf" />
+    <Resource Include="Styles\Fonts\NotoSans\NotoSans-Bold.ttf" />
+    <Resource Include="Styles\Fonts\NotoSans\NotoSans-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Properties\wpfmessengerv2.ico" />
@@ -201,6 +213,8 @@
     <Content Include="Images\maximize%28U+1F5D6%29.svg" />
     <Content Include="Images\minimize%28U+1F5D5%29.svg" />
     <Content Include="Images\multiplication_sign%28U+00D7%29.svg" />
+    <Resource Include="Styles\Fonts\IBMPlexSans\OFL.txt" />
+    <Resource Include="Styles\Fonts\NotoSans\LICENSE.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.3.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.3.0\build\Fody.targets')" />
