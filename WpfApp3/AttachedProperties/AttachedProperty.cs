@@ -9,7 +9,7 @@ namespace WPFClient
     /// <typeparam name="Parent">parent class to be attached property</typeparam>
     /// <typeparam name="Property">type of this attached property</typeparam>
     public abstract class AttachedProperty<Parent, Property> 
-        where Parent : AttachedProperty<Parent, Property>, new()
+        where Parent : new()
     {
         #region Public Events
         /// <summary>
