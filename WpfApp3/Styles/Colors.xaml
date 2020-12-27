@@ -1,18 +1,34 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:WPFClient">
-    
-    <!-- base window colors -->
-    <SolidColorBrush x:Key="HeadLine" Color="#007161"/>
-    <SolidColorBrush x:Key="ContentBody" Color="#00473d"/>
 
-    <SolidColorBrush x:Key="MinimizeButton" Color="#007161"/>
-    <SolidColorBrush x:Key="MaximazeButton" Color="#007161"/>
-    <SolidColorBrush x:Key="CloseButton" Color="#007161"/>
+    <!-- base window colors -->
+    <SolidColorBrush x:Key="HeadLine" Color="#1A1A1B"/>
+    <SolidColorBrush x:Key="ContentBody" Color="#030303"/>
+
+    <!-- window cotrols -->
+    <SolidColorBrush x:Key="MinimizeButton" Color="#1A1A1B"/>
+    <SolidColorBrush x:Key="MaximazeButton" Color="#1A1A1B"/>
+    <SolidColorBrush x:Key="CloseButton" Color="#1A1A1B"/>
     
+    <SolidColorBrush x:Key="MinimizeButtonSymbol" Color="#576673"/>
+    <SolidColorBrush x:Key="MaximazeButtonSymbol" Color="#576673"/>
+    <SolidColorBrush x:Key="CloseButtonSymbol" Color="#576673"/>
+
     <!-- state HOVER -->
-    <SolidColorBrush x:Key="MinimizeButton_Hover" Color="#32998a"/>
-    <SolidColorBrush x:Key="MaximazeButton_Hover" Color="#32998a"/>
+    <SolidColorBrush x:Key="MinimizeButton_Hover" Color="#2a2a2b"/>
+    <SolidColorBrush x:Key="MaximazeButton_Hover" Color="#2a2a2b"/>
     <SolidColorBrush x:Key="CloseButton_Hover" Color="#e92539"/>
+    <SolidColorBrush x:Key="MinimizeButtonSymbol_Hover" Color="#d7dadc"/>
+    <SolidColorBrush x:Key="MaximazeButtonSymbol_Hover" Color="#d7dadc"/>
+    <SolidColorBrush x:Key="CloseButtonSymbol_Hover" Color="#d7dadc"/>
+
+    <SolidColorBrush x:Key="BorderSeparator" Color="#343536"/>
+    <SolidColorBrush x:Key="BorderSeparator_Hover" Color="White"/>
+
+    <SolidColorBrush x:Key="TextBlockBackground" Color="#272729"/>
+    <SolidColorBrush x:Key="TextBlockBackground_Hover" Color="{StaticResource HeadLine}"/>
+
+    <SolidColorBrush x:Key="Hint" Color="#757575"/>
     
 </ResourceDictionary>
