@@ -51,34 +51,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-
-    <!-- window MAXIMAZE control button-->
-    <Style TargetType="{x:Type Button}" x:Key="MaximazeWindowControlButton" BasedOn="{StaticResource HoverlessButton}">
-        <Setter Property="Width" Value="25"/>
-        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
-        <Setter Property="Background" Value="{StaticResource MaximazeButton}"/>
-
-        <Setter Property="Content">
-            <Setter.Value>
-            <!-- start displayed icon -->
-                <Path Data="M252 396.5625 L36 396.5625 L36 198.5625 L252 198.5625 L252 296.562 ZM210 378.5625 L210 240 L80 240 L80 360 L210 360 Z" 
-                      Width="10"  Height="10" Fill="#95c6db" Stretch="Fill"/>
-            </Setter.Value>
-        </Setter>
-
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource MaximazeButton_Hover}"/>
-                <Setter Property="Content">
-                    <Setter.Value>
-                    <!-- icon on hover, only color changes -->
-                        <Path Data="M252 396.5625 L36 396.5625 L36 198.5625 L252 198.5625 L252 296.562 ZM210 378.5625 L210 240 L80 240 L80 360 L210 360 Z" 
-                      Width="10"  Height="10" Fill="White" Stretch="Fill"/>
-                    </Setter.Value>
-                </Setter>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
+    
 
     <!-- window MINIMAZE control button-->
     <Style TargetType="{x:Type Button}" x:Key="MinimazeWindowControlButton" BasedOn="{StaticResource HoverlessButton}">
@@ -90,7 +63,7 @@
             <Setter.Value>
             <!-- start displayed icon -->
                 <Path Data="M216 396.5625 L72 396.5625 L72 360.5625 L216 360.5625 L216 270 Z" 
-                      Width="10"  Height="10" Fill="#95c6db" Stretch="Fill"/>
+                      Width="10"  Height="10" Fill="{StaticResource CloseButtonSymbol}" Stretch="Fill"/>
             </Setter.Value>
         </Setter>
 
@@ -101,7 +74,35 @@
                     <Setter.Value>
                     <!-- icon on hover, only color changes -->
                         <Path Data="M216 396.5625 L72 396.5625 L72 360.5625 L216 360.5625 L216 270 Z" 
-                      Width="10"  Height="10" Fill="White" Stretch="Fill"/>
+                      Width="10"  Height="10" Fill="{StaticResource MinimizeButtonSymbol_Hover}" Stretch="Fill"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- window MAXIMAZE control button-->
+    <Style TargetType="{x:Type Button}" x:Key="MaximazeWindowControlButton" BasedOn="{StaticResource HoverlessButton}">
+        <Setter Property="Width" Value="25"/>
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+        <Setter Property="Background" Value="{StaticResource MaximazeButton}"/>
+
+        <Setter Property="Content">
+            <Setter.Value>
+                <!-- start displayed icon -->
+                <Path Data="M252 396.5625 L36 396.5625 L36 198.5625 L252 198.5625 L252 296.562 ZM210 378.5625 L210 240 L80 240 L80 360 L210 360 Z" 
+                      Width="10"  Height="10" Fill="{StaticResource MaximazeButtonSymbol}" Stretch="Fill"/>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource MaximazeButton_Hover}"/>
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <!-- icon on hover, only color changes -->
+                        <Path Data="M252 396.5625 L36 396.5625 L36 198.5625 L252 198.5625 L252 296.562 ZM210 378.5625 L210 240 L80 240 L80 360 L210 360 Z" 
+                      Width="10"  Height="10" Fill="{StaticResource MaximazeButtonSymbol_Hover}" Stretch="Fill"/>
                     </Setter.Value>
                 </Setter>
             </Trigger>
@@ -118,7 +119,7 @@
             <Setter.Value>
                 <!-- start displayed icon -->
                 <Path Data="M145.4062 327.9375 L128.3906 345.2344 L84.0938 300.9375 L39.7969 345.2344 L22.7812 328.2188 L67.0781 284.2031 L23.0625 239.9062 L40.0781 222.6094 L84.375 266.9062 L128.3906 222.8906 L145.125 239.9062 L101.3906 283.9219 L145.4062 327.9375 Z" 
-                      Width="10"  Height="10" Fill="#95c6db" Stretch="Fill"/>
+                      Width="10"  Height="10" Fill="{StaticResource CloseButtonSymbol}" Stretch="Fill"/>
             </Setter.Value>
         </Setter>
 
@@ -129,13 +130,15 @@
                     <Setter.Value>
                         <!-- icon on hover, only color changes -->
                         <Path Data="M145.4062 327.9375 L128.3906 345.2344 L84.0938 300.9375 L39.7969 345.2344 L22.7812 328.2188 L67.0781 284.2031 L23.0625 239.9062 L40.0781 222.6094 L84.375 266.9062 L128.3906 222.8906 L145.125 239.9062 L101.3906 283.9219 L145.4062 327.9375 Z" 
-                      Width="10"  Height="10" Fill="White" Stretch="Fill"/>
+                      Width="10"  Height="10" Fill="{StaticResource CloseButtonSymbol_Hover}" Stretch="Fill"/>
                     </Setter.Value>
                 </Setter>
             </Trigger>
         </Style.Triggers>
     </Style>
 
+    
+    <!-- regular button -->
     <Style TargetType="{x:Type Button}">
         
         <Style.Resources>
@@ -145,55 +148,184 @@
             <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
             
             <!-- mouse over -->
-            <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+            <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#f2f8fc"/>
             <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
             
             <!-- pressed -->
-            <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+            <SolidColorBrush x:Key="Button.Pressed.Background" Color="#f2f8fc"/>
             <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
             
             <!-- disabled-->
-            <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+            <SolidColorBrush x:Key="Button.Disabled.Background" Color="#818384"/>
             <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
   
         </Style.Resources>
 
-        <Setter Property="Background" Value="#055371"/>
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="#D7DADC"/>
+        <Setter Property="Foreground" Value="#1A1A1B"/>
         <Setter Property="BorderThickness" Value="0"/>
+        
+        <!-- font settings -->
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontFamily" Value="{StaticResource IBMPlexSans}"/>
+        <Setter Property="Padding" Value="0 5"/>
+
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" 
+                            CornerRadius="5"
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            Background="{TemplateBinding Background}" 
+                            SnapsToDevicePixels="true">
+                        <TextBlock Text="{TemplateBinding Content}"
+                                   FontFamily="{TemplateBinding FontFamily}"
+                                   FontSize="{TemplateBinding FontSize}"
+                                   Focusable="False" 
+                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                   Margin="{TemplateBinding Padding}"
+                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- submmit button -->
+    <Style x:Key="SubmmitButton" TargetType="{x:Type Button}">
+
+        <Style.Resources>
+
+            <!-- static -->
+            <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+            <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+
+            <!-- mouse over -->
+            <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#0088ed"/>
+            <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+
+            <!-- pressed -->
+            <SolidColorBrush x:Key="Button.Pressed.Background" Color="#005696"/>
+            <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+
+            <!-- disabled-->
+            <SolidColorBrush x:Key="Button.Disabled.Background" Color="#818384"/>
+            <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+
+        </Style.Resources>
+
+        <Setter Property="Background" Value="#0079D3"/>
+        <Setter Property="Foreground" Value="white"/>
+        <Setter Property="BorderThickness" Value="0"/>
+
+        <!-- font settings -->
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontFamily" Value="{StaticResource IBMPlexSans}"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        
+        <Setter Property="Padding" Value="20 7 20 6"/>
+        <Setter Property="Margin" Value="0 10"/>
+        <Setter Property="Width" Value="300"/>
         
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="border" 
-                            CornerRadius="3"
+                            CornerRadius="5"
                             BorderBrush="{TemplateBinding BorderBrush}" 
                             BorderThickness="{TemplateBinding BorderThickness}" 
                             Background="{TemplateBinding Background}" 
                             SnapsToDevicePixels="true">
-                        <ContentPresenter x:Name="contentPresenter" 
-                                          Focusable="False" 
-                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                          Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" 
-                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        <TextBlock Text="{TemplateBinding Content}"
+                                   FontFamily="{TemplateBinding FontFamily}"
+                                   FontSize="{TemplateBinding FontSize}"
+                                   Focusable="False" 
+                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                   Margin="{TemplateBinding Padding}"
+                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsDefaulted" Value="true">
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                        </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Text button -->
+    <Style x:Key="TextButton" TargetType="{x:Type Button}">
+
+        <Style.Resources>
+
+            <!-- static -->
+            <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+            <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+
+            <!-- mouse over -->
+            <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#f2f8fc"/>
+            <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+
+            <!-- pressed -->
+            <SolidColorBrush x:Key="Button.Pressed.Background" Color="#f2f8fc"/>
+            <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+
+            <!-- disabled-->
+            <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+            <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+
+        </Style.Resources>
+
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource Button.Static.Background}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+
+        <!-- font settings -->
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontFamily" Value="{StaticResource IBMPlexSans}"/>
+        <Setter Property="Padding" Value="0 5"/>
+
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" 
+                            CornerRadius="5"
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            Background="{TemplateBinding Background}" 
+                            SnapsToDevicePixels="true">
+                        <TextBlock Text="{TemplateBinding Content}"
+                                   FontFamily="{TemplateBinding FontFamily}"
+                                   FontSize="{TemplateBinding FontSize}"
+                                   Focusable="False" 
+                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                   Margin="{TemplateBinding Padding}"
+                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{StaticResource Button.Disabled.Background}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
