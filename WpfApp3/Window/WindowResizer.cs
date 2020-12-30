@@ -36,7 +36,7 @@ namespace WPFClient
         /// <summary>
         /// The window to handle the resizing for
         /// </summary>
-        private Window mWindow;
+        private Window _window;
 
         /// <summary>
         /// The last calculated available screen size
@@ -97,16 +97,16 @@ namespace WPFClient
         /// <param name="adjustSize">The callback for the host to adjust the maximum available size if needed</param>
         public WindowResizer(Window window)
         {
-            mWindow = window;
+            _window = window;
 
             // Create transform visual (for converting WPF size to pixel size)
             GetTransform();
 
             // Listen out for source initialized to setup
-            mWindow.SourceInitialized += Window_SourceInitialized;
+            _window.SourceInitialized += Window_SourceInitialized;
 
             // Monitor for edge docking
-            mWindow.SizeChanged += Window_SizeChanged;
+            _window.SizeChanged += Window_SizeChanged;
         }
 
         #endregion
@@ -119,7 +119,7 @@ namespace WPFClient
         private void GetTransform()
         {
             // Get the visual source
-            var source = PresentationSource.FromVisual(mWindow);
+            var source = PresentationSource.FromVisual(_window);
 
             // Reset the transform to default
             mTransformToDevice = default(Matrix);
@@ -140,7 +140,7 @@ namespace WPFClient
         private void Window_SourceInitialized(object sender, System.EventArgs e)
         {
             // Get the handle of this window
-            var handle = (new WindowInteropHelper(mWindow)).Handle;
+            var handle = (new WindowInteropHelper(_window)).Handle;
             var handleSource = HwndSource.FromHwnd(handle);
 
             // If not found, end
@@ -170,10 +170,10 @@ namespace WPFClient
             var size = e.NewSize;
 
             // Get window rectangle
-            var top = mWindow.Top;
-            var left = mWindow.Left;
+            var top = _window.Top;
+            var left = _window.Left;
             var bottom = top + size.Height;
-            var right = left + mWindow.Width;
+            var right = left + _window.Width;
 
             // Get window position/size in device pixels
             var windowTopLeft = mTransformToDevice.Transform(new Point(left, top));
@@ -286,7 +286,7 @@ namespace WPFClient
             }
 
             // Set min size
-            var minSize = mTransformToDevice.Transform(new Point(mWindow.MinWidth, mWindow.MinHeight));
+            var minSize = mTransformToDevice.Transform(new Point(_window.MinWidth, _window.MinHeight));
 
             lMmi.ptMinTrackSize.X = (int)minSize.X;
             lMmi.ptMinTrackSize.Y = (int)minSize.Y;
