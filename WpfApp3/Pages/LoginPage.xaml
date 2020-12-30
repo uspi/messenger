@@ -1,4 +1,4 @@
-﻿<Page x:Class="WPFClient.LoginPage"
+﻿<local:BasePage x:TypeArguments="local:LoginViewModel" x:Class="WPFClient.LoginPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -43,10 +43,13 @@
 
                             <!-- password -->
                             <PasswordBox Style="{StaticResource PasswordBox}"  
-                                     Tag="password"/>
+                                         x:Name="PasswordText"
+                                         Tag="password"/>
 
                             <!-- submmit -->
                             <Button Style="{StaticResource SubmmitButton}"
+                                    Command="{Binding UserAuthorizationCommand}"
+                                    CommandParameter="{Binding SecurePassword, ElementName=PasswordText}"
                                     Content="CONTINUE"/>
                             
                         </StackPanel>
@@ -61,4 +64,4 @@
             </ScrollViewer>
         </Grid>
     </Border>
-</Page>
+</local:BasePage>
