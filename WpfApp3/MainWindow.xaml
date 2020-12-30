@@ -89,7 +89,9 @@
                                     </Border>
 
                                     <!-- CONTENT-->
-                                    <Border Grid.Row="1" Padding="{Binding InnerContentPadding}">
+                                    <Border Grid.Row="1" Padding="{Binding InnerContentPadding}"
+                                            BorderThickness="0.1 0 0.1 0.1"
+                                            BorderBrush="#ebebeb">
                                         <!--<Border.Background>
                                             
                                         </Border.Background>-->
