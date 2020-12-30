@@ -30,5 +30,5 @@
     <SolidColorBrush x:Key="TextBlockBackground_Hover" Color="{StaticResource HeadLine}"/>
 
     <SolidColorBrush x:Key="Hint" Color="#757575"/>
-    
+
 </ResourceDictionary>
