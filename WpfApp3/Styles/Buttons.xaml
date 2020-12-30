@@ -208,24 +208,22 @@
         <Style.Resources>
 
             <!-- static -->
-            <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
-            <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+            <Color x:Key="Button.Static.Backgorund.Color">#0079D3</Color>
+            <SolidColorBrush x:Key="Button.Static.Background" Color="{StaticResource Button.Static.Backgorund.Color}"/>
 
             <!-- mouse over -->
-            <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#0088ed"/>
-            <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+            <Color x:Key="Button.MouseOver.Backgorund.Color">#0088ed</Color>
+            <SolidColorBrush x:Key="Button.MouseOver.Background" Color="{StaticResource Button.MouseOver.Backgorund.Color}"/>
 
             <!-- pressed -->
             <SolidColorBrush x:Key="Button.Pressed.Background" Color="#005696"/>
-            <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
 
             <!-- disabled-->
             <SolidColorBrush x:Key="Button.Disabled.Background" Color="#818384"/>
-            <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
 
         </Style.Resources>
 
-        <Setter Property="Background" Value="#0079D3"/>
+        <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
         <Setter Property="Foreground" Value="white"/>
         <Setter Property="BorderThickness" Value="0"/>
 
@@ -257,9 +255,27 @@
                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
-                        </Trigger>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="{StaticResource Button.MouseOver.Backgorund.Color}" 
+                                                    Duration="0:0:0.3"
+                                                    Storyboard.TargetName="border"
+                                                    Storyboard.TargetProperty="Background.Color"/>
+                                    
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="{StaticResource Button.Static.Backgorund.Color}" 
+                                                    Duration="0:0:0.3"
+                                                    Storyboard.TargetName="border"
+                                                    Storyboard.TargetProperty="Background.Color"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
                         </Trigger>
