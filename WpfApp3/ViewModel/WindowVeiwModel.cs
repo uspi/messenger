@@ -2,27 +2,28 @@
 using System.Windows.Input;
 using System.Diagnostics;
 using System.Windows.Media;
+using System.Web.UI;
 
 namespace WPFClient
 {
-    public class WindowViewModel : Notifier
-    { 
-        internal CurrentOS _CurrentOS { get; } = new CurrentOS();
-
+    public class WindowViewModel : BaseViewModel
+    {
+        #region Private Members
         // Window this view model controls
-        private Window mWindow;
+        private Window window;
 
         // the margin around the window to allow for a drop shadow
         private int mOuterMarginSize = 0;//10
 
         // Corner radius of the window
-        private int mWindowRadius = 0;
+        private int windowRadius = 0;
 
         private int resizeBorder = 6;
 
         private int titleHeight = 22;
 
         private WindowDockPosition mDockPosition { get; set; } = WindowDockPosition.Undocked;
+        #endregion
 
         #region Public Properties
 
@@ -46,8 +47,8 @@ namespace WPFClient
         public int WindowRadius
         {
             get =>
-                (mWindow.WindowState == WindowState.Maximized) ?
-                0 : mWindowRadius;
+                (window.WindowState == WindowState.Maximized) ?
+                0 : windowRadius;
             set => mOuterMarginSize = value;
         }
 
@@ -56,7 +57,7 @@ namespace WPFClient
         { 
             get
             {
-                return (mWindow.WindowState == WindowState.Maximized 
+                return (window.WindowState == WindowState.Maximized 
                     || mDockPosition != WindowDockPosition.Undocked);
             }
         }
@@ -74,7 +75,7 @@ namespace WPFClient
         {
             get
             {
-                return (mWindow.WindowState == WindowState.Maximized) ?
+                return (window.WindowState == WindowState.Maximized) ?
                     new Thickness(0) : new Thickness(ResizeBorder + OuterMarginSize);
             }
 
@@ -87,8 +88,9 @@ namespace WPFClient
         public CornerRadius WindowCornerRadius { get => new CornerRadius(WindowRadius); }
 
         public GridLength TitleHeightGridLength { get => new GridLength(TitleHeight + ResizeBorder); }
+        #endregion
 
-        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.Login;
+        #region Commands
 
         // actions for system window control buttons
         public ICommand WindowMinimizeCommand { get; set; }
@@ -97,27 +99,28 @@ namespace WPFClient
         //public ICommand ShowWindowMenuCommand { get; set; }
         #endregion
 
-        public WindowViewModel(Window window)
+        #region Constructor
+        public WindowViewModel(Window _window)
         {
             Debug.WriteLine("Current OS version: " + _CurrentOS.ToString());
 
             // this.window
-            mWindow = window;
+            this.window = _window;
 
             // Listen out for the window resizing
-            mWindow.StateChanged += (sender, e) =>
+            window.StateChanged += (sender, e) =>
             {
                 // Fire off events for all properties that are affected by a resize
                 WindowResized();
             };
 
             // command initialization
-            WindowMinimizeCommand = new RelayCommand(() => mWindow.WindowState = WindowState.Minimized);
-            WindowMaximizeCommand = new RelayCommand(() => mWindow.WindowState ^= WindowState.Maximized);
-            WindowCloseCommand = new RelayCommand(() => mWindow.Close());
-            //ShowWindowMenuCommand = new RelayCommand(() => SystemCommands.ShowSystemMenu(mWindow, GetMousePosition()));
+            WindowMinimizeCommand = new RelayCommand(() => window.WindowState = WindowState.Minimized);
+            WindowMaximizeCommand = new RelayCommand(() => window.WindowState ^= WindowState.Maximized);
+            WindowCloseCommand = new RelayCommand(() => window.Close());
+            //ShowWindowMenuCommand = new RelayCommand(() => SystemCommands.ShowSystemMenu(window, GetMousePosition()));
 
-            var windowResizer = new WindowResizer(mWindow);
+            var windowResizer = new WindowResizer(this.window);
 
             // Listen out for dock changes
             windowResizer.WindowDockChanged += (dock) =>
@@ -129,55 +132,18 @@ namespace WPFClient
                 WindowResized();
             };
         }
+        #endregion 
 
-        #region LoginScreen
-        private Messenger messenger;
+        #region Private Helpers
 
-        public string MainLabelText { get; set; } = "Login";
-
-        // default values for login fields
-        public string Login { get; set; } = "";
-        public string Password { get; set; } = "";
-
-        // length of login fields
-        public int LoginMaxLength { get; set; } = 32;
-        public int PasswordMaxLength { get; set; } = 32;
-
-        public bool DevLineVisibility { get; set; } = false;
-
-        // view visibility for this viewmodel
-        public bool LoginScreenVisibility { get; set; } = false;
-
-        public ICommand UserAuthorizationCommand { get; set; }
-
-        //this line should be in the constructor, if not will be issue
-        //UserAuthorizationCommand = new RelayCommand(UserAuthorization);
-
-        private void UserAuthorization()
-        {
-            if (messenger != null)
-            {
-                messenger.Auth();
-            }
-            else
-            {
-                messenger = new Messenger(Login, Password);
-                messenger.Connect();
-                messenger.Auth();
-            }
-        }
-        #endregion
-
-        #region Private Classes Helpers
-        
         // gets the current mouse position on the screen
         private Point GetMousePosition()
         {
             // postition of the mouse relative to the window
-            var position = Mouse.GetPosition(mWindow);
+            var position = Mouse.GetPosition(window);
 
             // add the window position so its a "ToScreen"
-            return new Point(position.X + mWindow.Left, position.Y + mWindow.Top);
+            return new Point(position.X + window.Left, position.Y + window.Top);
         }
 
         // If the window resizes to a special position (docked or maximized)
