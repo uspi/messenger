@@ -97,14 +97,21 @@
     <Compile Include="Animation\PageAnimations.cs" />
     <Compile Include="Animation\StoryboardHelpers.cs" />
     <Compile Include="AttachedProperties\AttachedProperty.cs" />
+    <Compile Include="AttachedProperties\ButtonAttachedProperty.cs" />
     <Compile Include="AttachedProperties\PasswordBoxAttachedProperties.cs" />
     <Compile Include="CurrentOS.cs" />
     <Compile Include="DataModels\ApplicationPage.cs" />
+    <Compile Include="Expressions\ExpressionsHelpers.cs" />
     <Compile Include="Messenger.cs" />
     <Compile Include="MessengerItems\Channel.cs" />
     <Compile Include="MessengerItems\Contact.cs" />
     <Compile Include="MessengerItems\Message.cs" />
+    <Compile Include="Pages\ChatPage.xaml.cs">
+      <DependentUpon>ChatPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Security\SecureStringHelpers.cs" />
     <Compile Include="ViewModel\Base\BaseViewModel.cs" />
+    <Compile Include="ViewModel\Base\IHavePassword.cs" />
     <Compile Include="ViewModel\Base\Notifier.cs" />
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\LoginPage.xaml.cs">
@@ -140,11 +147,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\ChatPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Buttons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Fonts\FontsDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -182,6 +197,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Styles\Fonts\FontAwesome\fa-brands-400.ttf" />
+    <Resource Include="Styles\Fonts\FontAwesome\fa-regular-400.ttf" />
+    <Resource Include="Styles\Fonts\FontAwesome\fa-solid-900.ttf" />
     <Resource Include="Styles\Fonts\IBMPlexSans\IBMPlexSans-Bold.ttf" />
     <Resource Include="Styles\Fonts\IBMPlexSans\IBMPlexSans-ExtraLight.ttf" />
     <Resource Include="Styles\Fonts\IBMPlexSans\IBMPlexSans-Light.ttf" />
