@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:WPFClient"
         Title=""
-        Height="900" Width="700" 
+        Height="900" Width="900" 
         MinHeight="{Binding WindowMinimumHeight}" 
         MinWidth="{Binding WindowMinimumWidth}"
         WindowStyle="None"
@@ -44,7 +44,7 @@
                                     </Grid.RowDefinitions>
 
                                     <!--titile bar-->
-                                    <Border Background="{StaticResource HeadLine}">
+                                    <Border Background="{StaticResource HeadLine_Light}">
 
                                         <Grid Grid.Column="0" Panel.ZIndex="1">
                                             <Grid.ColumnDefinitions>
@@ -114,9 +114,67 @@
                       CornerRadius="0" />
     </WindowChrome.WindowChrome>
 
-    <Grid>
-        <Frame x:Name="MainFrame" Content="{Binding CurrentPage, Converter={local:PageValueConverter}}"/>
-    </Grid>
+    <Border Background="Transparent">
+        
+        <!-- chat page -->
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="330" MinWidth="450" MaxWidth="1000"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Frame Grid.Column="1" x:Name="MainFrame" Content="{Binding CurrentPage, Converter={local:PageValueConverter}}"/>
+
+            <GridSplitter Grid.Column="1" 
+                          HorizontalAlignment="Left" 
+                          BorderBrush="Transparent" 
+                          ShowsPreview="False" 
+                          BorderThickness="5"
+                            VerticalAlignment="Stretch"/>
+            <Border Background="{StaticResource HeadLine}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <!-- side panel -->
+                    <Grid Grid.Column="0" Background="{StaticResource ContentBody}">
+                        <Grid.RowDefinitions>
+                            
+                            <!-- stack panel and buttons -->
+                            <RowDefinition Height="Auto"/>
+
+                            <!-- empty space between top and bottom buttons -->
+                            <RowDefinition Height="*"/>
+                            
+                            <!-- for bottom buttons -->
+                            <RowDefinition Height="Auto"/>
+                            
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Orientation="Vertical">
+                            <Button Style="{StaticResource IconButton}" Content="&#xf086;" Tag="All Chats"/>
+                            <Button Style="{StaticResource IconButton}" Content="&#xf007;" Tag="Contacts"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Orientation="Vertical">
+                            <Button Style="{StaticResource IconButton}" Content="&#xf013;" Tag="Settings"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- list chats -->
+                    <StackPanel Grid.Column="1" Grid.ColumnSpan="2">
+                        <TextBlock Text="я своему малому кроссовки дарить не буду, пускай сначала коньки сходит" Foreground="{StaticResource MinimizeButtonSymbol_Hover}"/>
+                    </StackPanel>
+
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+    
 
     <!--<Grid x:Name="applicationGrid">
 
