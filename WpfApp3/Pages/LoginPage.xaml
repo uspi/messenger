@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WPFClient"
       mc:Ignorable="d" 
+      x:Name="Page"
       d:DesignHeight="450" d:DesignWidth="700"
       Title="LoginPage">
 
@@ -39,7 +40,8 @@
 
                             <!-- login -->
                             <TextBox Style="{StaticResource LoginTextBlock}" 
-                                     Tag="login"/>
+                                     Tag="login"
+                                     Text="{Binding Login}"/>
 
                             <!-- password -->
                             <PasswordBox Style="{StaticResource PasswordBox}"  
@@ -47,9 +49,10 @@
                                          Tag="password"/>
 
                             <!-- submmit -->
-                            <Button Style="{StaticResource SubmmitButton}"
+                            <Button Style="{StaticResource RegularButton}"
+                                    local:IsBusyProperty.Value="{Binding AuthorizationIsRunning}"
                                     Command="{Binding UserAuthorizationCommand}"
-                                    CommandParameter="{Binding SecurePassword, ElementName=PasswordText}"
+                                    CommandParameter="{Binding ElementName=Page}"
                                     Content="CONTINUE"/>
                             
                         </StackPanel>
@@ -57,7 +60,6 @@
 
                     <Button
                         Style="{StaticResource TextButton}"
-                        FontFamily="{StaticResource IBMPlexSans}"
                         Content="i already have an account"
                         HorizontalAlignment="Center"/>
                 </StackPanel>
