@@ -4,9 +4,7 @@ using System.Windows.Controls;
 
 namespace WPFClient
 {
-    /// <summary>
-    /// MonitorPassword attached property for a <see cref="PasswordBox"/>
-    /// </summary>
+    // monitor password box changes
     public class MonitorPasswordProperty : AttachedProperty<MonitorPasswordProperty, bool> 
     {
         public override void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
@@ -34,11 +32,7 @@ namespace WPFClient
             }
         }
 
-        /// <summary>
-        /// Fired when the password box password value changes
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        // Fired when the password box password value changes
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         { 
             // set the attached HasText value 
@@ -46,15 +40,10 @@ namespace WPFClient
         }
     }
 
-    /// <summary>
-    /// HasText attached property for a <see cref="PasswordBox"/>
-    /// </summary>
+    // checks password box for a value
     public class HasTextProperty : AttachedProperty<HasTextProperty, bool> 
     {
-        /// <summary>
-        /// Sets the HasText property based on if the caller <see cref="PasswordBox"/> has any text
-        /// </summary>
-        /// <param name="sender"></param>
+        // Sets the HasText property based on if the caller PasswordBox has any text
         public static void SetValue(DependencyObject sender)
         {
             SetValue(sender, ((PasswordBox)sender).SecurePassword.Length > 0);
