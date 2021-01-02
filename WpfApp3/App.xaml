@@ -9,10 +9,9 @@
                 <ResourceDictionary Source="Styles/Colors.xaml"/>
                 <ResourceDictionary Source="Styles/Buttons.xaml"/>
                 <ResourceDictionary Source="Styles/Texts.xaml"/>
+                <ResourceDictionary Source="Styles/Fonts/FontsDictionary.xaml"/>
                 <!--<ResourceDictionary Source="Styles/ResMainWin.xaml"/>-->
             </ResourceDictionary.MergedDictionaries>
-            <FontFamily x:Key="IBMPlexSans">pack://application:,,,/Styles/Fonts/IBMPlexSans/#IBM Plex Sans</FontFamily>
-            <FontFamily x:Key="NotoSans">pack://application:,,,/Styles/Fonts/NotoSans/#Noto Sans</FontFamily>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
