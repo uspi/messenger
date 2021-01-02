@@ -24,6 +24,7 @@ namespace WPFClient
         #endregion
 
         #region Attached Property Definitions
+
         /// <summary>
         /// The attached property for this class
         /// </summary>
@@ -32,15 +33,14 @@ namespace WPFClient
                 "Value",
                 typeof(Property),
                 typeof(AttachedProperty<Parent, Property>),
-                new PropertyMetadata(
-                    new PropertyChangedCallback(OnValuePropertyChanged)
-                    ));
+                new PropertyMetadata(new PropertyChangedCallback(OnValuePropertyChanged)));
         /// <summary>
         /// Callback event when the <see cref="ValueProperty"/> is changed
         /// </summary>
         /// <param name="d">UI element that had its property changed</param>
         /// <param name="e">Argument for the event</param>
-        private static void OnValuePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnValuePropertyChanged(
+            DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             // call the parent function
             Instance.OnValueChanged(d, e);
@@ -53,14 +53,17 @@ namespace WPFClient
         /// Gets the attached property
         /// </summary>
         ///<param name="d">element to get the property from</param>
-        public static Property GetValue(DependencyObject d) => (Property)d.GetValue(ValueProperty);
+        public static Property GetValue(DependencyObject d) => 
+            (Property)d.GetValue(ValueProperty);
 
         /// <summary>
         /// Sets the attached property
         /// </summary>
         /// <param name="d">element to get the property from</param>
         /// <param name="value">value to set the property to</param>
-        public static void SetValue(DependencyObject d, Property value) => d.SetValue(ValueProperty, value);
+        public static void SetValue(DependencyObject d, Property value) => 
+            d.SetValue(ValueProperty, value);
+
         #endregion
 
         #region Event Methods
