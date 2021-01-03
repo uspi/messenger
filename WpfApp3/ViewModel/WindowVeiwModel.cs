@@ -1,8 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using System.Diagnostics;
-using System.Windows.Media;
-using System.Web.UI;
 
 namespace WPFClient
 {
@@ -27,7 +25,7 @@ namespace WPFClient
 
         #region Public Properties
 
-        public double WindowMinimumWidth { get; set; } = 400;
+        public double WindowMinimumWidth { get; set; } = 450;
 
         public double WindowMinimumHeight { get; set; } = 450;
 
@@ -104,7 +102,6 @@ namespace WPFClient
         {
             Debug.WriteLine("Current OS version: " + _CurrentOS.ToString());
 
-            // this.window
             this.window = _window;
 
             // Listen out for the window resizing
@@ -120,6 +117,7 @@ namespace WPFClient
             WindowCloseCommand = new RelayCommand(() => window.Close());
             //ShowWindowMenuCommand = new RelayCommand(() => SystemCommands.ShowSystemMenu(window, GetMousePosition()));
 
+            // now the taskbar does not overlap the program window =>
             var windowResizer = new WindowResizer(this.window);
 
             // Listen out for dock changes
