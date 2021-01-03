@@ -3,27 +3,53 @@
                     xmlns:local="clr-namespace:WPFClient">
 
     <!-- base window colors -->
-    <SolidColorBrush x:Key="HeadLine" Color="#1A1A1B"/>
-    <SolidColorBrush x:Key="ContentBody" Color="#030303"/>
-
-    <!-- window cotrols -->
-    <SolidColorBrush x:Key="MinimizeButton" Color="#1A1A1B"/>
-    <SolidColorBrush x:Key="MaximazeButton" Color="#1A1A1B"/>
-    <SolidColorBrush x:Key="CloseButton" Color="#1A1A1B"/>
+    <Color x:Key="HeadLine_Light.Color">#272729</Color>
+    <SolidColorBrush x:Key="HeadLine_Light" Color="{StaticResource HeadLine_Light.Color}"/>
     
-    <SolidColorBrush x:Key="MinimizeButtonSymbol" Color="#576673"/>
-    <SolidColorBrush x:Key="MaximazeButtonSymbol" Color="#576673"/>
-    <SolidColorBrush x:Key="CloseButtonSymbol" Color="#576673"/>
+    <SolidColorBrush x:Key="HeadLine" Color="#1A1A1B"/>
 
-    <!-- state HOVER -->
-    <SolidColorBrush x:Key="MinimizeButton_Hover" Color="#2a2a2b"/>
-    <SolidColorBrush x:Key="MaximazeButton_Hover" Color="#2a2a2b"/>
+    <Color x:Key="ContentBody.Color">#030303</Color>
+    <SolidColorBrush x:Key="ContentBody" Color="{StaticResource ContentBody.Color}"/>
+
+    
+    <!-- #region Window Control Buttons -->
+    <!-- Buttons -->
+    <SolidColorBrush x:Key="MinimizeButton" Color="{StaticResource HeadLine_Light.Color}"/>
+    
+    <SolidColorBrush x:Key="MaximazeButton" Color="{StaticResource HeadLine_Light.Color}"/>
+    
+    <SolidColorBrush x:Key="CloseButton" Color="{StaticResource HeadLine_Light.Color}"/>
+
+    <SolidColorBrush x:Key="MinimizeButton_Hover" Color="#3a3a3b"/>
+
+    <SolidColorBrush x:Key="MaximazeButton_Hover" Color="#3a3a3b"/>
+
     <SolidColorBrush x:Key="CloseButton_Hover" Color="#e92539"/>
-    <SolidColorBrush x:Key="MinimizeButtonSymbol_Hover" Color="#d7dadc"/>
-    <SolidColorBrush x:Key="MaximazeButtonSymbol_Hover" Color="#d7dadc"/>
-    <SolidColorBrush x:Key="CloseButtonSymbol_Hover" Color="#d7dadc"/>
+
+    <!-- Button Symbols-->
+    <Color x:Key="WindowControlsSymbol.Color">#576673</Color>
+    <SolidColorBrush x:Key="MinimizeButtonSymbol" Color="{StaticResource WindowControlsSymbol.Color}"/>
+    <SolidColorBrush x:Key="MaximazeButtonSymbol" Color="{StaticResource WindowControlsSymbol.Color}"/>
+    <SolidColorBrush x:Key="CloseButtonSymbol" Color="{StaticResource WindowControlsSymbol.Color}"/>
+
+    <Color x:Key="WindowControlsSymbol_Hover.Color">#d7dadc</Color>
+    <SolidColorBrush x:Key="MinimizeButtonSymbol_Hover" Color="{StaticResource WindowControlsSymbol_Hover.Color}"/>
+    <SolidColorBrush x:Key="MaximazeButtonSymbol_Hover" Color="{StaticResource WindowControlsSymbol_Hover.Color}"/>
+    <SolidColorBrush x:Key="CloseButtonSymbol_Hover" Color="{StaticResource WindowControlsSymbol_Hover.Color}"/>
+    <!-- #endregion -->
+
+    
+    <!-- #region Icon Button-->
+    <SolidColorBrush x:Key="IconButton_Hover" Color="#121212"/>
+    
+    <!-- Symbols -->
+    <SolidColorBrush x:Key="IconButtonSymbol" Color="#818384"/>
+
+    <SolidColorBrush x:Key="IconButtonSymbol_Hover" Color="{StaticResource WindowControlsSymbol_Hover.Color}"/>
+    <!-- #endregion -->
 
     <SolidColorBrush x:Key="BorderSeparator" Color="#343536"/>
+    
     <SolidColorBrush x:Key="BorderSeparator_Hover" Color="White"/>
 
     <SolidColorBrush x:Key="TextBlockBackground" Color="#272729"/>
