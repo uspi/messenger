@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="WPFClient.Menu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFClient"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="450">
+    <UserControl.Template>
+        <ControlTemplate TargetType="UserControl">
+            <!-- menu -->
+            <Border Background="{StaticResource HeadLine}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- side panel -->
+                    <Grid Grid.Column="0" Background="{StaticResource ContentBody}">
+                        <Grid.RowDefinitions>
+
+                            <!-- stack panel and buttons -->
+                            <RowDefinition Height="Auto"/>
+
+                            <!-- empty space between top and bottom buttons -->
+                            <RowDefinition Height="*"/>
+
+                            <!-- for bottom buttons -->
+                            <RowDefinition Height="Auto"/>
+
+                        </Grid.RowDefinitions>
+
+                        <!-- #region Side Panel Buttons-->
+                        <StackPanel Grid.Row="0" Orientation="Vertical">
+
+                            <!-- chats button -->
+                            <Button Style="{StaticResource IconButton}" Content="&#xf086;" Tag="All Chats"/>
+
+                            <!-- contacts button -->
+                            <Button Style="{StaticResource IconButton}" Content="&#xf007;" Tag="Contacts"/>
+
+                            <!-- images button-->
+                            <Button Style="{StaticResource IconButton}" Content="&#xf302;" Tag="Images"/>
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Orientation="Vertical">
+
+                            <!-- settings button -->
+                            <Button Style="{StaticResource IconButton}" Content="&#xf013;" Tag="Settings"/>
+
+                        </StackPanel>
+                        <!-- #endregion -->
+
+                    </Grid>
+
+                    <!-- list chats -->
+                    <ContentPresenter Grid.Column="1" Grid.ColumnSpan="2"/>
+
+                </Grid>
+            </Border>
+        </ControlTemplate>
+    </UserControl.Template>
+</UserControl>

@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="WPFClient.ChatListItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFClient"
+             mc:Ignorable="d" 
+             d:DesignHeight="60" d:DesignWidth="380">
+    <Grid Background="{StaticResource HeadLine}">
+        
+        <Grid.ColumnDefinitions>
+            
+            <!-- indicator -->
+            <ColumnDefinition Width="auto"/>
+            
+            <!-- profile picture -->
+            <ColumnDefinition Width="auto"/>
+            
+            <!-- content message-->
+            <ColumnDefinition Width="*"/>
+                       
+        </Grid.ColumnDefinitions>
+
+        
+        <!-- indicator -->
+        <Border Grid.Column="0" Background="#e34c00" Width="4"/>
+        
+        <!-- picture -->
+        <Border Grid.Column="1" Padding="8">
+            <Border Background="#009be3"
+                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                    CornerRadius="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
+                <TextBlock Text="SG"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Foreground="{StaticResource MinimizeButtonSymbol_Hover}"
+                           FontSize="20"
+                           FontFamily="{StaticResource IBMPlexSans}"/>
+            </Border>
+        </Border>
+        
+        <!-- content message -->
+
+        <StackPanel Grid.Column="2" VerticalAlignment="Center">
+            <TextBlock Text="Saul Goodman"
+                       FontSize="15"
+                       Foreground="{StaticResource MinimizeButtonSymbol_Hover}"
+                       FontFamily="{StaticResource IBMPlexSans}"
+                       FontWeight="Bold"
+                       Padding="0 0 10 0"
+                       TextTrimming="CharacterEllipsis"
+                       Margin="0 2"/>
+
+            <TextBlock Text="Can you do something for me? The best teachers are those who show you where to look, but don't tell you what to see"
+                       FontSize="15"
+                       Margin="0 2"
+                       Padding="0 0 10 0"
+                       TextTrimming="CharacterEllipsis"
+                       Foreground="{StaticResource IconButtonSymbol}"
+                       FontFamily="{StaticResource IBMPlexSans}"
+                      />
+        </StackPanel>
+        
+    </Grid>
+</UserControl>
