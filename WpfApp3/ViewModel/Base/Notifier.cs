@@ -5,7 +5,8 @@ using System.Runtime.CompilerServices;
 namespace WPFClient
 {
     /// <summary>
-    /// Base class for view model for property change notification 
+    /// Base class for view model for property change notification. 
+    /// Needed Fody.NuGet package for attribute work
     /// </summary>
     [AddINotifyPropertyChangedInterface]
     public class Notifier : INotifyPropertyChanged
