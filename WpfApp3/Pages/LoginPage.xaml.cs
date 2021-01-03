@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,8 +19,11 @@ namespace WPFClient
     /// <summary>
     /// Interaction logic for LoginPage.xaml
     /// </summary>
-    public partial class LoginPage : BasePage<LoginViewModel>
+    public partial class LoginPage : BasePage<LoginViewModel>, IHavePassword
     {
+        // password of this page (LoginPage.xaml)
+        public SecureString SecurePassword { get => PasswordText.SecurePassword; }
+
         public LoginPage()
         {
             InitializeComponent();
