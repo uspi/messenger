@@ -114,13 +114,12 @@
                       CornerRadius="0" />
     </WindowChrome.WindowChrome>
 
+    <!-- chat page -->
     <Border Background="Transparent">
-        
-        <!-- chat page -->
         <Grid>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="330" MinWidth="450" MaxWidth="1000"/>
+                <ColumnDefinition Width="450" MinWidth="450" MaxWidth="1000"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             
@@ -132,178 +131,14 @@
                           ShowsPreview="False" 
                           BorderThickness="5"
                             VerticalAlignment="Stretch"/>
-            <Border Background="{StaticResource HeadLine}">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="70"/>
-                        <ColumnDefinition Width="180"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    
-                    <!-- side panel -->
-                    <Grid Grid.Column="0" Background="{StaticResource ContentBody}">
-                        <Grid.RowDefinitions>
-                            
-                            <!-- stack panel and buttons -->
-                            <RowDefinition Height="Auto"/>
 
-                            <!-- empty space between top and bottom buttons -->
-                            <RowDefinition Height="*"/>
-                            
-                            <!-- for bottom buttons -->
-                            <RowDefinition Height="Auto"/>
-                            
-                        </Grid.RowDefinitions>
-
-                        <StackPanel Grid.Row="0" Orientation="Vertical">
-                            <Button Style="{StaticResource IconButton}" Content="&#xf086;" Tag="All Chats"/>
-                            <Button Style="{StaticResource IconButton}" Content="&#xf007;" Tag="Contacts"/>
-                        </StackPanel>
-
-                        <StackPanel Grid.Row="2" Orientation="Vertical">
-                            <Button Style="{StaticResource IconButton}" Content="&#xf013;" Tag="Settings"/>
-                        </StackPanel>
-                    </Grid>
-
-                    <!-- list chats -->
-                    <StackPanel Grid.Column="1" Grid.ColumnSpan="2">
-                        <TextBlock Text="я своему малому кроссовки дарить не буду, пускай сначала коньки сходит" Foreground="{StaticResource MinimizeButtonSymbol_Hover}"/>
-                    </StackPanel>
-
-                </Grid>
-            </Border>
+            <local:Menu>
+                <local:ChatListItemControl Height="60" VerticalAlignment="Top"/>
+            </local:Menu>
         </Grid>
     </Border>
     
 
-    <!--<Grid x:Name="applicationGrid">
-
-        <Border Name="LoginScreen" Style="{StaticResource Screen}" 
-                Visibility="{Binding Path=LoginScreenVisibility, Converter={StaticResource BooleanToVisibilityConverter}}" 
-                Background="#007e8f">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="365*"/>
-                    <RowDefinition Height="154*"/>
-                </Grid.RowDefinitions>
-                
-                <StackPanel Style="{StaticResource LoginPanel}" Height="210" Margin="0,140,0,15">
-                    <StackPanel Orientation="Horizontal">
-                        <Button Command="{Binding WindowMinimizeCommand}" Content="minimize"></Button>
-                        <Button Content="maximize"></Button>
-                        <Button Content="close"></Button>
-                    </StackPanel>
-                    <TextBlock x:Name="Login" Text="{Binding Path=MainLabelText}" Style="{StaticResource HeaderBlock}" />
-                    <TextBox Text="{Binding Login}" MaxLength="{Binding LoginMaxLength}" Style="{StaticResource TextBoxBase}"  Name="LoginBox"/>
-                    <TextBox Text="{Binding Path=Password}" MaxLength="{Binding PasswordMaxLength}" Style="{StaticResource TextBoxBase}"  Name="PasswordBox"/>
-                    <Button Command="{Binding UserAuthorization}" Content="Confirm" Style="{StaticResource ButtonBase}" Name="LoginButton" IsDefault="True"/>
-                    <TextBlock Text="" Name="LoginMessageBlock" Style="{StaticResource WarningBlock}" Visibility="Hidden"/>
-                </StackPanel>
-
-                <Canvas Grid.Row="0"/>
-
-                <TextBox Grid.Row="1" x:Name="DevLine" 
-                         Text="Every thing ok!" 
-                         Visibility="{Binding Path=DevLineVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-            </Grid>
-        </Border>
-
-        <Border Name="ChatScreen" Style="{StaticResource Screen}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
-                    <RowDefinition />
-                    <RowDefinition Height="50"/>
-                </Grid.RowDefinitions>
-
-                <Border Grid.Row="0" Style="{StaticResource HeaderBorder}">
-                    <Grid>
-
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="6*" />
-                            <ColumnDefinition Width="1*" />
-                        </Grid.ColumnDefinitions>
-
-                        -->
-    <!--<Button Style="{StaticResource NavButton}" Grid.Column="0" Name="BackButton" Content="←" Click="BackButton_Click"/>-->
-    <!--
-
-                        <TextBlock Style="{StaticResource HeaderBlock}" Text="" VerticalAlignment="Center" Name="ChatName" Grid.Column="1"/>
-                    </Grid>
-
-                </Border>
-
-                <Border Grid.Row="1">
-                    <ListBox Name="MessagesList" ScrollViewer.VerticalScrollBarVisibility="Auto" 
-                             ScrollViewer.CanContentScroll="True" 
-							 Style="{StaticResource ContactsList}" Focusable="False"
-							 HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <ListBoxItem>
-                                    <Border Style="{StaticResource MessageBorder}" HorizontalAlignment="{Binding Alignment}">
-                                        <StackPanel Orientation="Vertical">
-                                            <TextBlock Text="{Binding Text}" Style="{StaticResource MessageText}"/>
-                                            <TextBlock Text="{Binding Date}" Style="{StaticResource MessageDate}"/>
-                                        </StackPanel>
-                                    </Border>
-                                </ListBoxItem>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </Border>
-
-                <Border Grid.Row="2" Style="{StaticResource HeaderBorder}">
-                    <Grid>
-
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="6*" />
-                            <ColumnDefinition Width="1*" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBox Name="MessageBox" Style="{StaticResource MessageBox}" Grid.Column="0"/>
-
-                        <Button Style="{StaticResource NavButton}" Grid.Column="1" Name="SendButton" Content="→"/>
-                    </Grid>
-                </Border>
-            </Grid>
-        </Border>
-
-
-        <Border Name="ContactsScreen" Style="{StaticResource Screen}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-
-                <Border Grid.Row="0" Style="{StaticResource HeaderBorder}">
-                    <TextBlock Style="{StaticResource HeaderBlock}" Text="Contacts" VerticalAlignment="Center"/>
-                </Border>
-
-                <Border Grid.Row="1">
-                    <ListBox ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" 
-								Style="{StaticResource ContactsList}" Name="ContactsList">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <ListBoxItem>
-                                    <DockPanel LastChildFill="True">
-                                        <Image Style="{StaticResource ContactImage}" DockPanel.Dock="Left"></Image>
-                                        <TextBlock Text="{Binding Name}" Style="{StaticResource ContactName}" DockPanel.Dock="Right"/>
-                                    </DockPanel>
-                                </ListBoxItem>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </Border>
-
-            </Grid>
-
-        </Border>
-    </Grid>-->
+   
 
 </Window>
