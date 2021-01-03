@@ -1,22 +1,20 @@
-﻿using System.Windows;
-using System.Windows.Input;
-using System.Diagnostics;
-using System.Security;
+﻿using System.Windows.Input;
 using System.Threading.Tasks;
-using System;
 
 namespace WPFClient
 {
     /// <summary>
-    /// View Model for Login screen
+    /// Interactive logic of Login screen
     /// </summary>
     public class LoginViewModel : BaseViewModel
     {
-
         #region Public Properties
 
         // user login
         public string Login { get; set; }
+
+        // indicating if the user authorization command is running
+        public bool AuthorizationIsRunning { get; set; }
 
         #endregion
 
@@ -40,8 +38,17 @@ namespace WPFClient
         // attempts to log the user in, parameter - secure string(user password)
         public async Task UserAuthorization(object parameter)
         {
-            await Task.Delay(500);
+            await RunCommand(() => this.AuthorizationIsRunning, async () =>
+            {
+                await Task.Delay(5000);
+
+                string login = this.Login;
+                // NOT STORE UNSECURE PASSWORD IN VARIABLE, it's for test
+                string password = (parameter as IHavePassword).SecurePassword.Unsecure();
+            });  
         }
+
+        
 
         #region LoginScreen
         //private Messenger messenger;
