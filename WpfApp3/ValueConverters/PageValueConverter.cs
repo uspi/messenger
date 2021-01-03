@@ -17,7 +17,12 @@ namespace WPFClient
             {
                 case ApplicationPage.Login:
                     return new LoginPage();
+
+                case ApplicationPage.Chat:
+                    return new ChatPage();
+
                 default:
+                    Debug.WriteLine("Existing page in page value converter");
                     Debugger.Break();
                     return null;
             }
