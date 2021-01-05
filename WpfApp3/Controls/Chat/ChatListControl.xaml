@@ -6,9 +6,9 @@
              xmlns:local="clr-namespace:WPFClient"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="380">
-    <Grid Background="{StaticResource HeadLine}">
+    <Grid DataContext="{x:Static local:ChatListDesignModel.Instance}" Background="{StaticResource HeadLine}">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <ItemsControl>
+            <ItemsControl ItemsSource="{Binding Items}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <local:ChatListItemControl/>
