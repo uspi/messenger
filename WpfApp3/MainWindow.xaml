@@ -133,7 +133,7 @@
                             VerticalAlignment="Stretch"/>
 
             <local:Menu>
-                <local:ChatListItemControl Height="60" VerticalAlignment="Top"/>
+                <local:ChatListControl/>
             </local:Menu>
         </Grid>
     </Border>
