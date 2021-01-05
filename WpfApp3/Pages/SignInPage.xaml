@@ -1,4 +1,4 @@
-﻿<local:BasePage x:TypeArguments="local:LoginViewModel" x:Class="WPFClient.LoginPage"
+﻿<local:BasePage x:TypeArguments="local:LoginViewModel" x:Class="WPFClient.SignInPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -36,7 +36,7 @@
                                 FontFamily="{StaticResource IBMPlexSans}"
                                 FontStyle="Normal"
                                 FontWeight="Bold"
-                                Text="SIGN UP"/>
+                                Text="SIGN IN"/>
 
                             <!-- login -->
                             <TextBox Style="{StaticResource LoginTextBlock}" 
@@ -51,7 +51,7 @@
                             <!-- submmit -->
                             <Button Style="{StaticResource RegularButton}"
                                     local:IsBusyProperty.Value="{Binding AuthorizationIsRunning}"
-                                    Command="{Binding UserAuthorizationCommand}"
+                                    Command="{Binding SignInCommand}"
                                     CommandParameter="{Binding ElementName=Page}"
                                     Content="CONTINUE"/>
                             
@@ -60,7 +60,8 @@
 
                     <Button
                         Style="{StaticResource TextButton}"
-                        Content="i already have an account"
+                        Command="{Binding SignUpCommand}"
+                        Content="Or, create a free account..."
                         HorizontalAlignment="Center"/>
                 </StackPanel>
             </ScrollViewer>

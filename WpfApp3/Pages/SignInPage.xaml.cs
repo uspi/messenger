@@ -19,12 +19,12 @@ namespace WPFClient
     /// <summary>
     /// Interaction logic for LoginPage.xaml
     /// </summary>
-    public partial class LoginPage : BasePage<LoginViewModel>, IHavePassword
+    public partial class SignInPage : BasePage<LoginViewModel>, IHavePassword
     {
         // password of this page (LoginPage.xaml)
         public SecureString SecurePassword { get => PasswordText.SecurePassword; }
 
-        public LoginPage()
+        public SignInPage()
         {
             InitializeComponent();
         }
