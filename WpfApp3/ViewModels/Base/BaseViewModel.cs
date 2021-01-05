@@ -13,10 +13,10 @@ namespace WPFClient
     public class BaseViewModel : Notifier
     {
         // version of the windows operating system
-        internal CurrentOS _CurrentOS { get; } = new CurrentOS();
+        internal WindowsVersion CurrentWindowsVersion { get; } = new WindowsVersion();
 
         // start page for the application
-        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.Chat;
+        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.Login;
        
         /// <summary>
         /// Runs a command if the <paramref name="updatingFlag"/> is not set.

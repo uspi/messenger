@@ -98,9 +98,11 @@ namespace WPFClient
         #endregion
 
         #region Constructor
+        // passing in parameter Syste.Windows.Window, you break MVVM
+        // but here it is justified because we completely redo the window
         public WindowViewModel(Window _window)
         {
-            Debug.WriteLine("Current OS version: " + _CurrentOS.ToString());
+            Debug.WriteLine("Current OS version: " + CurrentWindowsVersion.ToString());
 
             this.window = _window;
 

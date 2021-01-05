@@ -11,19 +11,19 @@ namespace WPFClient
     /// Operating systems before and after Windows 10 supported. 
     /// Information is extracted directly from PEB(Process Environment Block) without switching to kernel mode.
     /// </summary>
-    class CurrentOS
+    class WindowsVersion
     {
-        internal RTL_OSVERSIONINFOEX OSInfo { get; }
+        internal RTL_OSVERSIONINFOEX WindowsVersionInfo { get; }
         
         private int RtlGetVersionRequestStatus { get; set; }
 
-        public int MajorVersion { get => (int)OSInfo.dwMajorVersion; }
-        public int MinorVersion { get => (int)OSInfo.dwMinorVersion; }
+        public int MajorVersion { get => (int)WindowsVersionInfo.dwMajorVersion; }
+        public int MinorVersion { get => (int)WindowsVersionInfo.dwMinorVersion; }
         public float Version { get => MajorVersion + MinorVersion/10; }
 
-        public CurrentOS()
+        public WindowsVersion()
         {
-            OSInfo = RtlGetVersion();
+            WindowsVersionInfo = RtlGetVersion();
         }
 
         // members according to OSVERSIONINFOEXA structure (winnt.h)
@@ -62,11 +62,11 @@ namespace WPFClient
             if (RtlGetVersionRequestStatus == 0)
             {
                 return string.Format("{0} {1}.{2}.{3} {4}",
-                    "Microsoft Windows", OSInfo.dwMajorVersion, OSInfo.dwMinorVersion, 
-                    OSInfo.dwBuildNumber, OSInfo.szCSDVersion);
+                    "Microsoft Windows", 
+                    WindowsVersionInfo.dwMajorVersion, WindowsVersionInfo.dwMinorVersion, 
+                    WindowsVersionInfo.dwBuildNumber, WindowsVersionInfo.szCSDVersion);
             }
-            else
-                return "Microsoft Windows";      
+            else return "Microsoft Windows";      
         }
     }
 }
