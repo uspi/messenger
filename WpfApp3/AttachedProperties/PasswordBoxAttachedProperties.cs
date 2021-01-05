@@ -10,7 +10,7 @@ namespace WPFClient
         public override void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             // get the caller
-            var passwordBox = sender as PasswordBox;
+            PasswordBox passwordBox = sender as PasswordBox;
 
             // make sure it is a password box
             if (passwordBox == null)
