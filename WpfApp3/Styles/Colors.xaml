@@ -5,8 +5,9 @@
     <!-- base window colors -->
     <Color x:Key="HeadLine_Light.Color">#272729</Color>
     <SolidColorBrush x:Key="HeadLine_Light" Color="{StaticResource HeadLine_Light.Color}"/>
-    
-    <SolidColorBrush x:Key="HeadLine" Color="#1A1A1B"/>
+
+    <Color x:Key="HeadLine.Color">#1A1A1B</Color>
+    <SolidColorBrush x:Key="HeadLine" Color="{StaticResource HeadLine.Color}"/>
 
     <Color x:Key="ContentBody.Color">#030303</Color>
     <SolidColorBrush x:Key="ContentBody" Color="{StaticResource ContentBody.Color}"/>
@@ -33,6 +34,8 @@
     <SolidColorBrush x:Key="CloseButtonSymbol" Color="{StaticResource WindowControlsSymbol.Color}"/>
 
     <Color x:Key="WindowControlsSymbol_Hover.Color">#d7dadc</Color>
+    <SolidColorBrush x:Key="WindowControlsSymbol_Hover" Color="{StaticResource WindowControlsSymbol_Hover.Color}"/>
+    
     <SolidColorBrush x:Key="MinimizeButtonSymbol_Hover" Color="{StaticResource WindowControlsSymbol_Hover.Color}"/>
     <SolidColorBrush x:Key="MaximazeButtonSymbol_Hover" Color="{StaticResource WindowControlsSymbol_Hover.Color}"/>
     <SolidColorBrush x:Key="CloseButtonSymbol_Hover" Color="{StaticResource WindowControlsSymbol_Hover.Color}"/>
@@ -40,7 +43,8 @@
 
     
     <!-- #region Icon Button-->
-    <SolidColorBrush x:Key="IconButton_Hover" Color="#121212"/>
+    <Color x:Key="IconButton_Hover.Color">#121212</Color>
+    <SolidColorBrush x:Key="IconButton_Hover" Color="{StaticResource IconButton_Hover.Color}"/>
     
     <!-- Symbols -->
     <SolidColorBrush x:Key="IconButtonSymbol" Color="#818384"/>
@@ -48,7 +52,9 @@
     <SolidColorBrush x:Key="IconButtonSymbol_Hover" Color="{StaticResource WindowControlsSymbol_Hover.Color}"/>
     <!-- #endregion -->
 
-    <SolidColorBrush x:Key="BorderSeparator" Color="#343536"/>
+    <Color x:Key="Selected.Color">#343536</Color>
+    <SolidColorBrush x:Key="Selected" Color="{StaticResource Selected.Color}"/>
+    <SolidColorBrush x:Key="BorderSeparator" Color="{StaticResource Selected.Color}"/>
     
     <SolidColorBrush x:Key="BorderSeparator_Hover" Color="White"/>
 
