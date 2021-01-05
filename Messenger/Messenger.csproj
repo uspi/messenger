@@ -254,7 +254,7 @@
     <Resource Include="Images\logo-512px.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Client.Core\Messenger.Core.csproj">
+    <ProjectReference Include="..\Messenger.Core\Messenger.Core.csproj">
       <Project>{1bc17684-a53f-4ce3-b225-d1d22ee4ad3f}</Project>
       <Name>Messenger.Core</Name>
     </ProjectReference>

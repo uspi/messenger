@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30128.74
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messenger", "Client\Messenger.csproj", "{0ED28007-2036-4202-94F7-9AD6A55A00B6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messenger", "Messenger\Messenger.csproj", "{0ED28007-2036-4202-94F7-9AD6A55A00B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messenger.Core", "Client.Core\Messenger.Core.csproj", "{1BC17684-A53F-4CE3-B225-D1D22EE4AD3F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messenger.Core", "Messenger.Core\Messenger.Core.csproj", "{1BC17684-A53F-4CE3-B225-D1D22EE4AD3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
