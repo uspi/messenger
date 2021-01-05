@@ -1,0 +1,69 @@
+﻿<local:BasePage x:TypeArguments="local:LoginViewModel" x:Class="WPFClient.SignUpPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WPFClient"
+      mc:Ignorable="d" 
+      x:Name="Page"
+      d:DesignHeight="450" d:DesignWidth="700"
+      Title="LoginPage">
+
+    <Border>
+        <Grid>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <StackPanel 
+                    VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        TextBlock.TextAlignment="Center">
+
+                    <!-- login box -->
+                    <Border  
+                        BorderThickness="1.5"
+                        BorderBrush="{StaticResource BorderSeparator}"
+                        Background="{StaticResource HeadLine}"
+                        Padding="10 30 10 20"
+                        Width="500"
+                        Margin="50 50 50 0"
+                        CornerRadius="5">
+                        <StackPanel>
+
+                            <!-- sign in header -->
+                            <TextBlock 
+                                Foreground="{StaticResource BorderSeparator}"
+                                Margin="20" 
+                                FontSize="30" 
+                                FontFamily="{StaticResource IBMPlexSans}"
+                                FontStyle="Normal"
+                                FontWeight="Bold"
+                                Text="SIGN UP"/>
+
+                            <!-- login -->
+                            <TextBox Style="{StaticResource LoginTextBlock}" 
+                                     Tag="login"
+                                     Text="{Binding Login}"/>
+
+                            <!-- password -->
+                            <PasswordBox Style="{StaticResource PasswordBox}"  
+                                         x:Name="PasswordText"
+                                         Tag="password"/>
+
+                            <!-- submmit -->
+                            <Button Style="{StaticResource RegularButton}"
+                                    local:IsBusyProperty.Value="{Binding AuthorizationIsRunning}"
+                                    Command="{Binding UserAuthorizationCommand}"
+                                    CommandParameter="{Binding ElementName=Page}"
+                                    Content="CONTINUE"/>
+                            
+                        </StackPanel>
+                    </Border>
+
+                    <Button
+                        Style="{StaticResource TextButton}"
+                        Content="i already have an account"
+                        HorizontalAlignment="Center"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</local:BasePage>
