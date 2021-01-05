@@ -16,7 +16,7 @@ namespace WPFClient
         internal WindowsVersion CurrentWindowsVersion { get; } = new WindowsVersion();
 
         // start page for the application
-        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.Login;
+        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.SignIn;
        
         /// <summary>
         /// Runs a command if the <paramref name="updatingFlag"/> is not set.
