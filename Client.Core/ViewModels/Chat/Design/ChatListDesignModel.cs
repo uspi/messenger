@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WPFClient
+namespace Messenger.Core
 {
     // it's for test and debug
     public class ChatListDesignModel : ChatListViewModel

@@ -1,8 +1,9 @@
 ﻿using System.Windows.Controls;
 using System.Windows;
 using System.Threading.Tasks;
+using Messenger.Core;
 
-namespace WPFClient
+namespace Messenger
 {
     /// <summary>
     /// A base page for all pages to gain base functionality
@@ -63,13 +64,13 @@ namespace WPFClient
 
         #region Animations
         // Once the page is Loaded, perform any required animation
-        private async void BasePage_Loaded(object sender, RoutedEventArgs e)
+        private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
-            await AnimateIn();
+            Task.Run(async () => await AnimateInAsync());
         }
 
         // animates the page in
-        public async Task AnimateIn()
+        public async Task AnimateInAsync()
         {
             // make sure we have something to do
             if (this.PageLoadAnimation == PageAnimation.None)
@@ -88,7 +89,7 @@ namespace WPFClient
         }
 
         // animates the page out
-        public async Task AnimateOut()
+        public async Task AnimateOutAsync()
         {
             // make sure we have something to do
             if (this.PageUnloadAnimation == PageAnimation.None)

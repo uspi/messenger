@@ -1,13 +1,12 @@
-﻿
-using System.Security;
+﻿using System.Security;
+using Messenger.Core;
 
-
-namespace WPFClient
+namespace Messenger
 {
     /// <summary>
     /// Interaction logic for LoginPage.xaml
     /// </summary>
-    public partial class SignUpPage : BasePage<LoginViewModel>, IHavePassword
+    public partial class SignUpPage : BasePage<SignInViewModel>, IHavePassword
     {
         // password of this page (LoginPage.xaml)
         public SecureString SecurePassword { get => PasswordText.SecurePassword; }

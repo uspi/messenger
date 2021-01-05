@@ -5,15 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace WPFClient
+namespace Messenger.Core
 {
-    class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
-        private Action mAction;
+        private Action _action;
 
         public event EventHandler CanExecuteChanged = (sender, e) => { };
 
-        public RelayCommand(Action action) => mAction = action;
+        public RelayCommand(Action action) => _action = action;
 
         // A relay command can always execute
         public bool CanExecute(object parameter)
@@ -21,7 +21,7 @@ namespace WPFClient
             return true;
         }
 
-        public void Execute(object parameter) => mAction();
+        public void Execute(object parameter) => _action();
     }
 }
 

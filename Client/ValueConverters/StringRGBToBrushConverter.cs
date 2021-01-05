@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Media;
 
-namespace WPFClient
+namespace Messenger
 {
     /// <summary>
     /// A converter that takes in an RGB string like f03f0f and converts it to a wpf <see cref="SolidColorBrush"/>

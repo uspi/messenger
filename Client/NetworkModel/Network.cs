@@ -4,9 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using WPFClient.NetworkItems;
 
-namespace WPFClient
+namespace Messenger
 {  
     /// <summary>
     /// Интерфейс работы с сервером

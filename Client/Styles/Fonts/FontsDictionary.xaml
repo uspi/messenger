@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:WPFClient">
+                    xmlns:local="clr-namespace:Messenger">
     
     <FontFamily x:Key="IBMPlexSans">pack://application:,,,/Styles/Fonts/IBMPlexSans/#IBM Plex Sans</FontFamily>
     <FontFamily x:Key="NotoSans">pack://application:,,,/Styles/Fonts/NotoSans/#Noto Sans</FontFamily>

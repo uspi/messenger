@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace WPFClient
+namespace Messenger.Core
 {
     /// <summary>
     /// Base class for view model for property change notification. 

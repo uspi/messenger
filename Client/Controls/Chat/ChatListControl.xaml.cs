@@ -1,6 +1,7 @@
 ﻿using System.Windows.Controls;
+using Messenger.Core;
 
-namespace WPFClient
+namespace Messenger
 {
     /// <summary>
     /// Interaction logic for ChatListControl.xaml

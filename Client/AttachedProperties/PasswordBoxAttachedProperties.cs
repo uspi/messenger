@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace WPFClient
+namespace Messenger
 {
     // monitor password box changes
     public class MonitorPasswordProperty : AttachedProperty<MonitorPasswordProperty, bool> 

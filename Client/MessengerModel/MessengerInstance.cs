@@ -1,11 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using WPFClient.MessengerItems;
 
-namespace WPFClient
+namespace Messenger
 {
-    class Messenger : INotifyPropertyChanged
+    class MessengerInstance : INotifyPropertyChanged
     {
         //сеть между юзером и сервером
         private Network network;
@@ -18,14 +17,14 @@ namespace WPFClient
         public void OnPropertyChanged([CallerMemberName] string prop = "") =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
 
-        public Messenger(string _login, string _password)
+        public MessengerInstance(string _login, string _password)
         {
             user = new User(_login, _password);
             network = new Network();
         }
 
         //empty constructor for debug, should be removed
-        public Messenger()
+        public MessengerInstance()
         {
         }
 

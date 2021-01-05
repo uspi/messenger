@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Media.Animation;
 
-namespace WPFClient
+namespace Messenger
 {
     /// <summary>
     /// Animation helpers for <see cref="Storyboard"/>

@@ -1,4 +1,4 @@
-﻿namespace WPFClient
+﻿namespace Messenger
 {
     /// <summary>
     /// Styles of page animations for appearing/disappearing

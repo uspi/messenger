@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace WPFClient
+namespace Messenger
 {
     //the basis for the following code was taken from here
     //https://github.com/dotnet/corefx/tree/a75d30306975040b0e22390d04a3b3de094d1817/src/Common/src/Interop/Windows/NtDll

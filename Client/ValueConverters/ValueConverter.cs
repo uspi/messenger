@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Markup;
 
-namespace WPFClient
+namespace Messenger
 {
     /// <summary>
     /// Allows you to add converter code directly to the code without 

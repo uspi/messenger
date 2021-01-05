@@ -1,4 +1,4 @@
-﻿namespace WPFClient
+﻿namespace Messenger.Core
 {
     /// <summary>
     /// A unit of the chat list, may contain, for example, 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WPFClient
+namespace Messenger.Core
 {
     /// <summary>
     /// The logic for the chat list. The unit of 

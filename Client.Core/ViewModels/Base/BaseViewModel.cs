@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace WPFClient
+namespace Messenger.Core
 {
     /// <summary>
     /// Base View Model for all in the application. Inherits class <see cref="Notifier"/> 
@@ -12,9 +12,6 @@ namespace WPFClient
     /// </summary>
     public class BaseViewModel : Notifier
     {
-        // version of the windows operating system
-        internal WindowsVersion CurrentWindowsVersion { get; } = new WindowsVersion();
-
         // start page for the application
         public ApplicationPage CurrentPage { get; set; } = ApplicationPage.SignIn;
        

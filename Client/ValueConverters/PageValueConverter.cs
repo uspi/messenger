@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Messenger.Core;
+using System;
 using System.Diagnostics;
 using System.Globalization;
 
-namespace WPFClient
+namespace Messenger
 {
     /// <summary>
     /// Converts the <see cref="ApplicationPage"/> to an actual ViewPage

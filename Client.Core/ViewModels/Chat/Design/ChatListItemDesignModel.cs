@@ -1,5 +1,5 @@
 ﻿
-namespace WPFClient
+namespace Messenger.Core
 {
     // it's for test and debug
     public class ChatListItemDesignModel : ChatListItemViewModel

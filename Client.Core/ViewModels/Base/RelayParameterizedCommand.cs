@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace WPFClient
+namespace Messenger.Core
 {
-    class RelayParameterizedCommand : ICommand
+    public class RelayParameterizedCommand : ICommand
     {
         //private Action<object> _execute;
         //private Func<object, bool> _canExecute;

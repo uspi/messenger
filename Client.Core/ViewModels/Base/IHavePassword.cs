@@ -1,13 +1,12 @@
 ﻿using System.Security;
-using System.Windows.Controls;
 
-namespace WPFClient
+namespace Messenger.Core
 {
     /// <summary>
     /// Creates an interface for the ViewModel.cs to access 
-    /// the View.xaml <see cref="PasswordBox"/> field value
+    /// the View.xaml "PasswordBox" field value
     /// </summary>
-    interface IHavePassword
+    public interface IHavePassword
     {
         // content the password box
         SecureString SecurePassword { get; }

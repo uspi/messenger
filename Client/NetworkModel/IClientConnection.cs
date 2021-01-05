@@ -1,5 +1,5 @@
 ﻿
-namespace WPFClient.NetworkItems
+namespace Messenger
 {
     interface IClientConnection : IConnection
     {

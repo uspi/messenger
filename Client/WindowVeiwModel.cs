@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using System.Diagnostics;
+using Messenger.Core;
 
-namespace WPFClient
+namespace Messenger
 {
     public class WindowViewModel : BaseViewModel
     {
@@ -102,8 +102,6 @@ namespace WPFClient
         // but here it is justified because we completely redo the window
         public WindowViewModel(Window _window)
         {
-            Debug.WriteLine("Current OS version: " + CurrentWindowsVersion.ToString());
-
             this.window = _window;
 
             // Listen out for the window resizing

@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace WPFClient
+namespace Messenger.Core
 {
     /// <summary>
     /// Additional user functions for <see cref="Expression"/>

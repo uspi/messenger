@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace WPFClient
+namespace Messenger
 {
     /// <summary>
     /// A base attached property to replace the default wpf attached property

@@ -1,12 +1,12 @@
 ﻿using System.Windows.Input;
 using System.Threading.Tasks;
 
-namespace WPFClient
+namespace Messenger.Core
 {
     /// <summary>
     /// Interactive logic of Login screen
     /// </summary>
-    public class LoginViewModel : BaseViewModel
+    public class SignInViewModel : BaseViewModel
     {
         #region Public Properties
 
@@ -29,7 +29,7 @@ namespace WPFClient
         #endregion
 
         #region Constructor
-        public LoginViewModel()
+        public SignInViewModel()
         {
             SignInCommand = new RelayParameterizedCommand(async (parameter) 
                 => await SignInAsync(parameter));
@@ -59,46 +59,6 @@ namespace WPFClient
         {
             await Task.Delay(50);
         }
-
-
-
-        #region LoginScreen
-        //private Messenger messenger;
-
-        //public string MainLabelText { get; set; } = "Login";
-
-        //// default values for login fields
-        //public string Login { get; set; } = "";
-        //public string Password { get; set; } = "";  
-
-        //// length of login fields
-        //public int LoginMaxLength { get; set; } = 32;
-        //public int PasswordMaxLength { get; set; } = 32;
-
-        //public bool DevLineVisibility { get; set; } = false;
-
-        //// view visibility for this viewmodel
-        //public bool LoginScreenVisibility { get; set; } = false;
-
-        //public ICommand SignInCommand { get; set; }
-
-        ////this line should be in the constructor, if not will be issue
-        ////SignInCommand = new RelayCommand(SignIn);
-
-        //private void SignIn()
-        //{
-        //    if (messenger != null)
-        //    {
-        //        messenger.Auth();
-        //    }
-        //    else
-        //    {
-        //        messenger = new Messenger(Login, Password);
-        //        messenger.Connect();
-        //        messenger.Auth();
-        //    }
-        //}
-        #endregion
     }
 }
 

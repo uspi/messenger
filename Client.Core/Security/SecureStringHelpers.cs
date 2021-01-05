@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Security;
 
-namespace WPFClient
+namespace Messenger.Core
 {
     public static class SecureStringHelpers
     {
