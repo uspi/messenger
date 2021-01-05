@@ -21,22 +21,28 @@ namespace WPFClient
         #region Commands
 
         // login command
-        public ICommand UserAuthorizationCommand { get; set; }
+        public ICommand SignInCommand { get; set; }
+
+        // sign up command
+        public ICommand SignUpCommand { get; set; }
 
         #endregion
 
         #region Constructor
         public LoginViewModel()
         {
-            UserAuthorizationCommand = new RelayParameterizedCommand(
-                async (parameter) => await UserAuthorization(parameter));
+            SignInCommand = new RelayParameterizedCommand(async (parameter) 
+                => await SignInAsync(parameter));
+
+            SignUpCommand = new RelayCommand(async () 
+                => await SignUpAsync());
         }
 
 
         #endregion
 
         // attempts to log the user in, parameter - secure string(user password)
-        public async Task UserAuthorization(object parameter)
+        public async Task SignInAsync(object parameter)
         {
             await RunCommand(() => this.AuthorizationIsRunning, async () =>
             {
@@ -48,7 +54,13 @@ namespace WPFClient
             });  
         }
 
-        
+        // takes the user to the sign up page
+        public async Task SignUpAsync()
+        {
+            await Task.Delay(50);
+        }
+
+
 
         #region LoginScreen
         //private Messenger messenger;
@@ -68,12 +80,12 @@ namespace WPFClient
         //// view visibility for this viewmodel
         //public bool LoginScreenVisibility { get; set; } = false;
 
-        //public ICommand UserAuthorizationCommand { get; set; }
+        //public ICommand SignInCommand { get; set; }
 
         ////this line should be in the constructor, if not will be issue
-        ////UserAuthorizationCommand = new RelayCommand(UserAuthorization);
+        ////SignInCommand = new RelayCommand(SignIn);
 
-        //private void UserAuthorization()
+        //private void SignIn()
         //{
         //    if (messenger != null)
         //    {
