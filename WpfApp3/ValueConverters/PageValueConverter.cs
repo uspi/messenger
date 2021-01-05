@@ -15,8 +15,11 @@ namespace WPFClient
             // find the page you want
             switch ((ApplicationPage)value)
             {
-                case ApplicationPage.Login:
-                    return new LoginPage();
+                case ApplicationPage.SignIn:
+                    return new SignInPage();
+
+                case ApplicationPage.SignUp:
+                    return new SignUpPage();
 
                 case ApplicationPage.Chat:
                     return new ChatPage();
