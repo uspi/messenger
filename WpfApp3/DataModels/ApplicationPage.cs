@@ -12,9 +12,11 @@ namespace WPFClient
     public enum ApplicationPage
     {
         // log in page
-        Login = 0,
+        SignIn = 0,
 
         // main chat page
-        Chat= 1
+        Chat= 1,
+
+        SignUp = 2,
     }
 }
