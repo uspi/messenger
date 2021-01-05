@@ -17,3 +17,4 @@ Non-standard fonts:
 
 * IBM Plex Sans
 * Noto Sans
+* Font Awesome
