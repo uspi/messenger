@@ -55,7 +55,7 @@ namespace Messenger
             }
 
             // listen out for the page loading
-            this.Loaded += BasePage_Loaded;
+            this.Loaded += BasePage_LoadedAsync;
 
             // create a default view model
             this.ViewModel = new VM();
@@ -64,9 +64,9 @@ namespace Messenger
 
         #region Animations
         // Once the page is Loaded, perform any required animation
-        private void BasePage_Loaded(object sender, RoutedEventArgs e)
+        private async void BasePage_LoadedAsync(object sender, RoutedEventArgs e)
         {
-            Task.Run(async () => await AnimateInAsync());
+            await AnimateInAsync();
         }
 
         // animates the page in
