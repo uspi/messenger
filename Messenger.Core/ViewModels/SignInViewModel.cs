@@ -57,6 +57,8 @@ namespace Messenger.Core
         // takes the user to the sign up page
         public async Task SignUpAsync()
         {
+            IoC.Get<ApplicationViewModel>().CurrentPage = ApplicationPage.SignUp;
+
             await Task.Delay(50);
         }
     }
