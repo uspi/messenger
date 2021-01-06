@@ -12,9 +12,6 @@ namespace Messenger.Core
     /// </summary>
     public class BaseViewModel : Notifier
     {
-        // start page for the application
-        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.SignIn;
-       
         /// <summary>
         /// Runs a command if the <paramref name="updatingFlag"/> is not set.
         /// If the <paramref name="updatingFlag"/> is <see cref="true"/> 
