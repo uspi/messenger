@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Messenger.Core;
+using System.Windows;
 
 namespace Messenger
 {
@@ -7,7 +8,7 @@ namespace Messenger
     /// </summary>
     /// 
     public partial class MainWindow : Window
-    {   
+    {
         //public object frameworkElementDataContext
         //{
         //    get => (FrameworkElement)base.DataContext;
