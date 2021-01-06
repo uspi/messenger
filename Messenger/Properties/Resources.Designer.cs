@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WPFClient.Properties {
+namespace Messenger.Properties {
     using System;
     
     
