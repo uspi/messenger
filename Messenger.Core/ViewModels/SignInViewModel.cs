@@ -4,17 +4,17 @@ using System.Threading.Tasks;
 namespace Messenger.Core
 {
     /// <summary>
-    /// Interactive logic of Login screen
+    /// Interactive logic of sign in screen
     /// </summary>
-    public class SignInViewModel : BaseViewModel
+    public class SignInViewModel : ViewModelBase
     {
         #region Public Properties
 
         // user login
         public string Login { get; set; }
 
-        // indicating if the user authorization command is running
-        public bool AuthorizationIsRunning { get; set; }
+        // indicating if the user sign in command is running
+        public bool SignInIsRunning { get; set; }
 
         #endregion
 
