@@ -44,7 +44,7 @@ namespace Messenger.Core
         // attempts to log the user in, parameter - secure string(user password)
         public async Task SignInAsync(object parameter)
         {
-            await RunCommand(() => this.AuthorizationIsRunning, async () =>
+            await RunCommand(() => this.SignInIsRunning, async () =>
             {
                 await Task.Delay(5000);
 
