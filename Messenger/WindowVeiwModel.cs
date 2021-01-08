@@ -165,6 +165,7 @@ namespace Messenger
             OnPropertyChanged(nameof(WindowRadius));
             OnPropertyChanged(nameof(WindowCornerRadius));
             OnPropertyChanged(nameof(TitleHeightGridLength));
+            OnPropertyChanged(nameof(ContentBorderThickness));
         }
 
         #endregion
