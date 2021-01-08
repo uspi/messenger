@@ -4,7 +4,7 @@ using Messenger.Core;
 
 namespace Messenger
 {
-    public class WindowViewModel : BaseViewModel
+    public class WindowViewModel : ViewModelBase
     {
         #region Private Members
         // Window this view model controls
