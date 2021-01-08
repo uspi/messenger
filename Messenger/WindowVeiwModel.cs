@@ -64,16 +64,25 @@ namespace Messenger
         public int ResizeBorder { get => Borderless ? 0 : resizeBorder; }
 
         // height of the title bar window
-        public int TitleHeight { get => Borderless ? titleHeight : titleHeight - ResizeBorder; }
+        public int TitleHeight { get => Borderless ? 
+                titleHeight : titleHeight - ResizeBorder; }
+
+        // border so that the window does not merge with others program windows
+        public Thickness ContentBorderThickness 
+        { 
+            get => Borderless ? 
+                new Thickness(0) : new Thickness(0.1, 0, 0.1, 0.1);
+        }
 
         public Thickness InnerContentPadding { get; set; } = new Thickness(0);
 
-        // The size of the resize border around the window, taking into account the outer margin
+        // the size of the resize border around the window, 
+        // taking into account the outer margin
         public Thickness ResizeBorderThickness
         {
             get
             {
-                return (window.WindowState == WindowState.Maximized) ?
+                return Borderless ?
                     new Thickness(0) : new Thickness(ResizeBorder + OuterMarginSize);
             }
 
