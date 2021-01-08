@@ -10,7 +10,7 @@ namespace Messenger.Core
     /// which automatically implements interface <see cref="INotifyPropertyChanged"/> 
     /// for all public properties
     /// </summary>
-    public class BaseViewModel : Notifier
+    public class ViewModelBase : Notifier
     {
         /// <summary>
         /// Runs a command if the <paramref name="updatingFlag"/> is not set.
