@@ -5,7 +5,7 @@ using System.Windows.Controls;
 namespace Messenger
 {
     // monitor password box changes
-    public class MonitorPasswordProperty : AttachedProperty<MonitorPasswordProperty, bool> 
+    public class MonitorPasswordProperty : AttachedPropertyBase<MonitorPasswordProperty, bool> 
     {
         public override void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
@@ -41,7 +41,7 @@ namespace Messenger
     }
 
     // checks password box for a value
-    public class HasTextProperty : AttachedProperty<HasTextProperty, bool> 
+    public class HasTextProperty : AttachedPropertyBase<HasTextProperty, bool> 
     {
         // Sets the HasText property based on if the caller PasswordBox has any text
         public static void SetValue(DependencyObject sender)

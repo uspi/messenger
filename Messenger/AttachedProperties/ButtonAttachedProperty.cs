@@ -4,8 +4,5 @@ using System.Windows.Controls;
 namespace Messenger
 {
     // property for a anything that wants to flag if the control is busy
-    public class IsBusyProperty : AttachedProperty<IsBusyProperty, bool> 
-    {
-       
-    }
+    public class IsBusyProperty : AttachedPropertyBase<IsBusyProperty, bool> { }
 }

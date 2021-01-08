@@ -1,4 +1,4 @@
-﻿<local:BasePage x:TypeArguments="core:SignInViewModel" x:Class="Messenger.SignUpPage"
+﻿<local:PageBase x:TypeArguments="core:SignUpViewModel" x:Class="Messenger.SignUpPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -51,8 +51,8 @@
 
                             <!-- submmit -->
                             <Button Style="{StaticResource RegularButton}"
-                                    local:IsBusyProperty.Value="{Binding AuthorizationIsRunning}"
-                                    Command="{Binding UserAuthorizationCommand}"
+                                    local:IsBusyProperty.Value="{Binding SignUpIsRunning}"
+                                    Command="{Binding SignUpCommand}"
                                     CommandParameter="{Binding ElementName=Page}"
                                     Content="CONTINUE"/>
                             
@@ -61,10 +61,11 @@
 
                     <Button
                         Style="{StaticResource TextButton}"
+                        Command="{Binding SignInCommand}"
                         Content="i already have an account"
                         HorizontalAlignment="Center"/>
                 </StackPanel>
             </ScrollViewer>
         </Grid>
     </Border>
-</local:BasePage>
+</local:PageBase>

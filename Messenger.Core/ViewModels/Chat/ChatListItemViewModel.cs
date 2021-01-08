@@ -6,7 +6,7 @@
     /// his <see cref="ProfileInitials"/> 
     /// in the picture, the last message and the <see cref="ProfilePictureRGB"/>
     /// </summary>
-    public class ChatListItemViewModel : BaseViewModel
+    public class ChatListItemViewModel : ViewModelBase
     {
         // indicator of new messages
         public bool NewMessageAvailable { get; set; }

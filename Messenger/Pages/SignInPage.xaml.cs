@@ -6,7 +6,7 @@ namespace Messenger
     /// <summary>
     /// Interaction logic for LoginPage.xaml
     /// </summary>
-    public partial class SignInPage : BasePage<SignInViewModel>, IHavePassword
+    public partial class SignInPage : PageBase<SignInViewModel>, IHavePassword
     {
         // password of this page (LoginPage.xaml)
         public SecureString SecurePassword { get => PasswordText.SecurePassword; }

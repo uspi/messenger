@@ -11,7 +11,7 @@ namespace Messenger
     public static class PageAnimations
     {
         // slides a page in FROM the RIGHT
-        public static async Task SlideAndFadeInFromRight(this Page page, float seconds)
+        public static async Task SlideAndFadeInFromRightAsync(this Page page, float seconds)
         {
             // create storyboard
             var sb = new Storyboard();
@@ -33,7 +33,7 @@ namespace Messenger
         }
 
         // slides a page out TO the LEFT
-        public static async Task SlideAndFadeOutToLeft(this Page page, float seconds)
+        public static async Task SlideAndFadeOutToLeftAsync(this Page page, float seconds)
         {
             // create storyboard
             var sb = new Storyboard();

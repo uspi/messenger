@@ -9,9 +9,9 @@
         None = 0,
 
         // The page slides in and fades in, from the right
-        SlideAndFadeInFromRight = 1,
+        SlideAndFadeInFromRightAsync = 1,
 
         // The page slides in and fades out to the left 
-        SlideAndFadeOutToLeft = 2
+        SlideAndFadeOutToLeftAsync = 2
     }
 }
