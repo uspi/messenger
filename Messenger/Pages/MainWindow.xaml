@@ -135,7 +135,8 @@
             <local:Menu Width="450" 
                         MinWidth="450" 
                         MaxWidth="1000" 
-                        local:AnimateSlideInFromLeftProperty.Value="False">
+                        local:AnimateSlideInFromLeftProperty.Value="{Binding ApplicationViewModel.SideMenuVisibility, 
+                                                                             Source={x:Static local:ViewModelLocator.Instance}}">
                 <local:ChatListControl/>
             </local:Menu>
 
