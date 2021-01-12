@@ -44,7 +44,7 @@ namespace Messenger.Core
         // attempts to log the user in, parameter - secure string(user password)
         public async Task SignInAsync(object parameter)
         {
-            // todo : tcp ip connect
+            // todo : tcp ip connect, needed connection to server
             await RunCommand(() => this.SignInIsRunning, async () =>
             {
                 await Task.Delay(1000);
