@@ -57,7 +57,7 @@ namespace Messenger.Core
         // takes the user to the sign in page
         public async Task SignInAsync()
         {
-            IoC.Get<ApplicationViewModel>().CurrentPage = ApplicationPage.SignIn;
+            IoC.Get<ApplicationViewModel>().GoToPage(ApplicationPage.SignIn);
 
             await Task.Delay(50);
         }
