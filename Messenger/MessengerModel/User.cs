@@ -7,9 +7,9 @@ namespace Messenger
 {
     class User
     {
-        public ObservableCollection<Message> messages;
-        public ObservableCollection<Message> channels;
-        public ObservableCollection<Contact> contacts;
+        //public ObservableCollection<Message> messages;
+        //public ObservableCollection<Message> channels;
+        //public ObservableCollection<Contact> contacts;
 
         public string Login { get; set; }
         public string Password { get; set; }

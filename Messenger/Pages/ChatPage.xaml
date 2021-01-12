@@ -11,6 +11,6 @@
       Title="Chat">
 
     <Border>
-        
+        <local:ChatMessageListControl/>
     </Border>
 </local:PageBase>

@@ -11,6 +11,7 @@
         <ControlTemplate TargetType="UserControl">
             <!-- menu -->
             <Border Background="{StaticResource HeadLine}">
+
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="70"/>

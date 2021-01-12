@@ -52,7 +52,6 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
 
     <!-- window MINIMAZE control button-->
     <Style TargetType="{x:Type Button}" x:Key="MinimazeWindowControlButton" BasedOn="{StaticResource HoverlessButton}">
