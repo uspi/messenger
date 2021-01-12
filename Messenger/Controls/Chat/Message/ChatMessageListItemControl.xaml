@@ -1,0 +1,348 @@
+﻿<UserControl x:Class="Messenger.ChatMessageListItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Messenger"
+             xmlns:core="clr-namespace:Messenger.Core;assembly=Messenger.Core"
+             mc:Ignorable="d" 
+             d:DesignWidth="495">
+
+    <Border Padding="0 5"
+            d:DataContext="{x:Static core:ChatMessageListItemDesignModel.Instance}">
+
+        <Grid>
+            <!-- message line  -->
+            <Grid Visibility="{Binding ImAuthor, Converter={local:BooleanToVisibilityCollapsedConverter}}"
+                  Margin="5 0 70 0">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- profile picture -->
+                <Border VerticalAlignment="Bottom"
+                    Grid.Column="0"
+                    Background="SeaGreen"
+                    Name="ProfilePicture"
+                    Width="35"
+                    Visibility="{Binding ShowProfilePicture, Converter={local:BooleanToVisibilityCollapsedConverter}, ConverterParameter=True}"
+                    HorizontalAlignment="Left"
+                    CornerRadius="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                    Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}">
+
+                    <!-- profile initials -->
+                    <TextBlock Text="{Binding ProfileInitials}" 
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Foreground="{StaticResource MinimizeButtonSymbol_Hover}"
+                           FontSize="20"
+                           FontFamily="{StaticResource IBMPlexSans}"/>
+                </Border>
+
+                <!-- anchor, bubble, time-->
+                <Grid Grid.Column="1" Margin="0" HorizontalAlignment="Left">
+
+                    
+                    <Grid.Triggers>
+                        <!-- if mouse not over, hide Read Time Container -->
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard Storyboard.TargetName="ReadTimeContainer" Storyboard.TargetProperty="Opacity">
+                                    <DoubleAnimation To="0" Duration="00:00:00.5"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Grid.Triggers>
+                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*" MaxWidth="440"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- chat bubble anchor -->
+                    <!-- summetric -->
+                    <Path Grid.Column="0" Grid.Row="0" 
+                      Margin="0 0 -10.4 0"
+                      Visibility="{Binding AnchorVisibility, Converter={local:BooleanToVisibilityConverter}, ConverterParameter=True}"
+                      VerticalAlignment="Bottom"
+                      Fill="{StaticResource Selected}"
+                      Data="M 0,9 
+                            L 20,9
+                            C 20,9 12,8 10,0
+                            L 10,0 
+                            C 10,0 8,8 0,9" />
+
+                    <Border Grid.Column="1" Grid.Row="0" 
+                        CornerRadius="8 8 8 8" 
+                        Background="{StaticResource Selected}" 
+                        Visibility="Visible"
+                        HorizontalAlignment="Left">
+
+                        <!-- message bubble -->
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- message text -->
+                            <TextBlock Grid.Row="0"
+                                   Name="BubbleText"
+                                   Foreground="{StaticResource WindowControlsSymbol_Hover}"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   Text="{Binding Message}"
+                                   FontFamily="{StaticResource IBMPlexSans}"
+                                   FontWeight="Regular"
+                                   Padding="10 6 10 0"
+                                   FontSize="14"/>
+
+                            <!-- message at time -->
+                            <StackPanel Grid.Row="1" 
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Right">
+                                
+                                <!-- read time, arrow symbol container-->
+                                <StackPanel Name="ReadTimeContainer" 
+                                            Opacity="0"
+                                            Orientation="Horizontal" 
+                                            HorizontalAlignment="Right">
+                                    
+                                    <!-- read time-->
+                                    <TextBlock Text="{Binding MessageReadTime, Converter={local:DisplayedReadTimeConverter}}" 
+                                       FontSize="13"
+                                       Margin="0 0 4 2"
+                                       Name="ReadTime"
+                                       Foreground="{StaticResource IconButtonSymbol}"
+                                       VerticalAlignment="Bottom"
+                                       HorizontalAlignment="Right"/>
+
+                                    <!-- arrow symbol -->
+                                    <TextBlock  FontFamily="{StaticResource FontAwesomeRegular}"
+                                        Text="&#xf104;" 
+                                       FontSize="13"
+                                       Margin="0 0 5 2"
+                                       Foreground="{StaticResource IconButtonSymbol}"
+                                       VerticalAlignment="Bottom"
+                                       HorizontalAlignment="Right">
+                                        <TextBlock.Style>
+                                            <Style>
+                                                <Style.Triggers>
+                                                    <!-- if the message is not read, do not show the arrow -->
+                                                    <DataTrigger Binding="{Binding ElementName=ReadTime, Path=Text}" Value="">
+                                                        <Setter Property="TextBlock.Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </StackPanel>
+
+                                <!-- sent time -->
+                                <TextBlock Text="{Binding MessageSentTime, Converter={local:DisplayedTimeConverter}}" 
+                                       FontSize="13"
+                                       Margin="0 0 10 2"
+                                       Foreground="{StaticResource WindowControlsSymbol_Hover}"
+                                       VerticalAlignment="Bottom"
+                                       HorizontalAlignment="Right">
+                                    
+                                    <!-- show read time triggers -->
+                                    <TextBlock.Triggers>
+                                        <!-- if mouvse over, show Read Time Container -->
+                                        <EventTrigger RoutedEvent="MouseLeftButtonUp">
+                                            <BeginStoryboard>
+                                                <Storyboard Storyboard.TargetName="ReadTimeContainer" Storyboard.TargetProperty="Opacity">
+                                                    <DoubleAnimation From="0" To="1" Duration="00:00:00.0"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </TextBlock.Triggers>
+                                    
+                                </TextBlock>
+                                
+                                <!-- icon read, or unread-->
+                                <!--<TextBlock>
+                                    
+                                </TextBlock>-->
+
+                            </StackPanel>
+
+                        </Grid>
+
+                    </Border>
+                </Grid>
+
+            </Grid>
+
+            <!-- right alignment message line  -->
+            <Grid Visibility="{Binding ImAuthor, Converter={local:BooleanToVisibilityCollapsedConverter}, ConverterParameter=True}"
+                  Margin="70 0 5 0">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- profile picture -->
+                <Border VerticalAlignment="Bottom"
+                    Grid.Column="1"
+                        
+                    Background="SeaGreen"
+                    Name="ProfilePictureAuthor"
+                    Width="35"
+                    Visibility="{Binding ShowProfilePicture, Converter={local:BooleanToVisibilityCollapsedConverter}, ConverterParameter=True}"
+                    HorizontalAlignment="Right"
+                    CornerRadius="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                    Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}">
+
+                    <!-- profile initials -->
+                    <TextBlock Text="{Binding ProfileInitials}" 
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Foreground="{StaticResource MinimizeButtonSymbol_Hover}"
+                           FontSize="20"
+                           FontFamily="{StaticResource IBMPlexSans}"/>
+                </Border>
+
+                <!-- anchor, bubble, time-->
+                <Grid Grid.Column="0" Margin="0" HorizontalAlignment="Right">
+
+                    <Grid.Triggers>
+                        <!-- if mouse not over, hide Read Time Container -->
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard Storyboard.TargetName="ReadTimeContainerAuthor" Storyboard.TargetProperty="Opacity">
+                                    <DoubleAnimation To="0" Duration="00:00:00.5"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Grid.Triggers>
+                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" MaxWidth="440"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- chat bubble anchor -->
+                    <!-- summetric -->
+                    <Path Grid.Column="1" Grid.Row="0" 
+                      Margin="-10.4 0 0 0"
+                      Visibility="{Binding AnchorVisibility, Converter={local:BooleanToVisibilityConverter}, ConverterParameter=True}"
+                      VerticalAlignment="Bottom"
+                      Fill="{StaticResource Selected}"
+                      Data="M 0,9 
+                            L 20,9
+                            C 20,9 12,8 10,0
+                            L 10,0 
+                            C 10,0 8,8 0,9" >
+                    </Path>
+
+                    <Border Grid.Column="0" Grid.Row="0" 
+                        CornerRadius="8 8 8 8" 
+                        Background="{StaticResource Selected}" 
+                        Visibility="Visible"
+                        HorizontalAlignment="Right">
+
+                        <!-- message bubble -->
+                        <Grid>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!--message text-->
+                            <TextBlock Grid.Row="0"
+                                   Name="BubbleTextAuthor"
+                                   Foreground="{StaticResource WindowControlsSymbol_Hover}"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   Text="{Binding Message}"
+                                   FontFamily="{StaticResource IBMPlexSans}"
+                                   FontWeight="Regular"
+                                   Padding="10 6 10 0"
+                                   FontSize="14"/>
+
+                            <!-- message at time -->
+                            <StackPanel Grid.Row="1" 
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Right">
+
+                                <!-- read time container -->
+                                <StackPanel Name="ReadTimeContainerAuthor" 
+                                            Opacity="0" 
+                                            Orientation="Horizontal" 
+                                            HorizontalAlignment="Right">
+                                    <!-- read time-->
+                                    <TextBlock Text="{Binding MessageReadTime, Converter={local:DisplayedReadTimeConverter}}" 
+                                       FontSize="13"
+                                       Margin="0 0 4 2"
+                                       Name="ReadTimeAuthor"
+                                       Foreground="{StaticResource IconButtonSymbol}"
+                                       VerticalAlignment="Bottom"
+                                       HorizontalAlignment="Right"/>
+
+                                    <!-- arrow symbol -->
+                                    <TextBlock  FontFamily="{StaticResource FontAwesomeRegular}"
+                                        Text="&#xf104;" 
+                                       FontSize="13"
+                                       Margin="0 0 5 2"
+                                       Foreground="{StaticResource IconButtonSymbol}"
+                                       VerticalAlignment="Bottom"
+                                       HorizontalAlignment="Right">
+                                        <TextBlock.Style>
+                                            <Style>
+                                                <Style.Triggers>
+                                                    <!-- if the message is not read, do not show the arrow -->
+                                                    <DataTrigger Binding="{Binding ElementName=ReadTime, Path=Text}" Value="">
+                                                        <Setter Property="TextBlock.Visibility" Value="Hidden"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </StackPanel>
+
+                                <!-- sent time -->
+                                <TextBlock Text="{Binding MessageSentTime, Converter={local:DisplayedTimeConverter}}" 
+                                       FontSize="13"
+                                       Margin="0 0 10 2"
+                                       Foreground="{StaticResource WindowControlsSymbol_Hover}"
+                                       VerticalAlignment="Bottom"
+                                       HorizontalAlignment="Right">
+                                    
+                                    <!-- show read time triggers -->
+                                    <TextBlock.Triggers>
+                                        <!-- if mouvse left button up, show Read Time Container -->
+                                        <EventTrigger RoutedEvent="MouseLeftButtonUp">
+                                            <BeginStoryboard>
+                                                <Storyboard Storyboard.TargetName="ReadTimeContainerAuthor" Storyboard.TargetProperty="Opacity">
+                                                    <DoubleAnimation From="0" To="1" Duration="00:00:00.0"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </TextBlock.Triggers>
+                                </TextBlock>
+
+                            </StackPanel>
+
+                        </Grid>
+
+                    </Border>
+                </Grid>
+
+            </Grid>
+        </Grid>
+        
+    </Border>
+</UserControl>
