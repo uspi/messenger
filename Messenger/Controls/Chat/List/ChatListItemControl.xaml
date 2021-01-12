@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:Messenger"
              xmlns:core="clr-namespace:Messenger.Core;assembly=Messenger.Core"
              mc:Ignorable="d" 
-             Height="60" d:DesignWidth="380">
+             
+              d:DesignWidth="380">
     <UserControl.Resources>
         <Style x:Key="ContentStyle" TargetType="{x:Type ContentControl}">
             <Setter Property="Template">
@@ -35,10 +36,11 @@
                                     Visibility="{Binding NewMessageAvailable, Converter={local:BooleanToVisibilityConverter}, ConverterParameter=True}"/>
 
                                 <!-- picture -->
-                                <Border Grid.Column="0" Padding="8">
+                                <Border Grid.Column="0" Padding="8 10">
                                     <Border Background="{Binding ProfilePictureRGB, Converter={local:StringRGBToBrushConverter}}"
-                                        Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                        CornerRadius="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
+                                            Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                            Height="40"
+                                            CornerRadius="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
                                         <TextBlock Text="{Binding ProfileInitials}"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Center"
