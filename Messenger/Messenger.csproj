@@ -55,6 +55,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Images\logo-512px.ico</ApplicationIcon>
@@ -114,15 +115,22 @@
     <Compile Include="Animation\PageAnimations.cs" />
     <Compile Include="Animation\StoryboardHelpers.cs" />
     <Compile Include="AttachedProperties\AttachedPropertyBase.cs" />
+    <Compile Include="AttachedProperties\TextAttachedProperties.cs" />
     <Compile Include="AttachedProperties\NoFrameHistory.cs" />
     <Compile Include="AttachedProperties\ButtonAttachedProperty.cs" />
     <Compile Include="AttachedProperties\FrameworkElementAnimationAttachedProperty.cs" />
     <Compile Include="AttachedProperties\PasswordBoxAttachedProperties.cs" />
-    <Compile Include="Controls\Chat\ChatListControl.xaml.cs">
+    <Compile Include="Controls\Chat\Message\ChatMessageListControl.xaml.cs">
+      <DependentUpon>ChatMessageListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Chat\List\ChatListControl.xaml.cs">
       <DependentUpon>ChatListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Chat\ChatListItemControl.xaml.cs">
+    <Compile Include="Controls\Chat\List\ChatListItemControl.xaml.cs">
       <DependentUpon>ChatListItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Chat\Message\ChatMessageListItemControl.xaml.cs">
+      <DependentUpon>ChatMessageListItemControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
@@ -133,6 +141,9 @@
     <Compile Include="Pages\SignUpPage.xaml.cs">
       <DependentUpon>SignUpPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ValueConverters\BooleanToVisibilityCollapsedConverter.cs" />
+    <Compile Include="ValueConverters\DisplayedReadTimeConverter.cs" />
+    <Compile Include="ValueConverters\DisplayedTimeConverter.cs" />
     <Compile Include="ValueConverters\IoCConverter.cs" />
     <Compile Include="ValueConverters\StringRGBToBrushConverter.cs" />
     <Compile Include="ViewModelLocator.cs" />
@@ -163,11 +174,19 @@
     <Compile Include="ValueConverters\ValueConverter.cs" />
     <Compile Include="WindowVeiwModel.cs" />
     <Compile Include="Window\WindowResizer.cs" />
-    <Page Include="Controls\Chat\ChatListControl.xaml">
+    <Page Include="Controls\Chat\Message\ChatMessageListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Chat\List\ChatListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Chat\ChatListItemControl.xaml">
+    <Page Include="Controls\Chat\List\ChatListItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Chat\Message\ChatMessageListItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
