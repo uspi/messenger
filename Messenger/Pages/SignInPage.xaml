@@ -12,7 +12,7 @@
 
     <Border>
         <Grid>
-            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <!--<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">-->
                 <StackPanel 
                     VerticalAlignment="Center"
                         HorizontalAlignment="Center"
@@ -65,7 +65,7 @@
                         Content="Or, create a free account..."
                         HorizontalAlignment="Center"/>
                 </StackPanel>
-            </ScrollViewer>
+            <!--</ScrollViewer>-->
         </Grid>
     </Border>
 </local:PageBase>
