@@ -1,4 +1,4 @@
-﻿<local:PageBase x:TypeArguments=" core:SignInViewModel" x:Class="Messenger.ChatPage"
+﻿<local:PageBase x:TypeArguments=" core:ChatMessageListViewModel" x:Class="Messenger.ChatPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,10 +7,108 @@
       xmlns:core="clr-namespace:Messenger.Core;assembly=Messenger.Core"
       mc:Ignorable="d" 
       x:Name="Page"
-      d:DesignHeight="450" d:DesignWidth="700"
-      Title="Chat">
+      d:DesignHeight="450" d:DesignWidth="700">
 
-    <Border>
-        <local:ChatMessageListControl/>
-    </Border>
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Height="60" Background="{StaticResource HeadLine}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="{Binding DisplayTitle, UpdateSourceTrigger=PropertyChanged}"
+                       Padding="15 0 5 5"
+                       VerticalAlignment="Center"
+                       FontSize="20"
+                       Foreground="{StaticResource WindowControlsSymbol_Hover}"
+                       FontFamily="{StaticResource IBMPlexSans}"
+                       HorizontalAlignment="Left"/>
+
+
+            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                <Button Style="{StaticResource IconButtonRegular}"
+                        Visibility="Collapsed"
+                        FontSize="5"
+                        Width="60"
+                        Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Grid}}"
+                        Content="&#xf002;" Background="Transparent"/>
+                <Button Style="{StaticResource IconButtonRegular}"
+                        Visibility="Collapsed"
+                        FontSize="5"
+                        Width="60"
+                        Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Grid}}"
+                        Content="&#xf142;" Background="Transparent"/>
+            </StackPanel>
+            
+        </Grid>
+        
+        <local:ChatMessageListControl x:Name="ChatMessageList" Grid.Row="1" DataContext="{Binding}"/>
+
+        <!-- send box, text field, buttons for send-->
+        <Grid Grid.Row="2"
+              MinHeight="60"
+              MaxHeight="240"
+              Background="{StaticResource HeadLine}"
+              >
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- attach file button -->
+            <Button Style="{StaticResource IconButtonRegular}"
+                    Visibility="Collapsed"
+                    VerticalAlignment="Bottom"
+                        FontSize="5"
+                        Width="60"
+                        Height="{Binding MinHeight, RelativeSource={RelativeSource AncestorType=Grid}}"
+                        Content="&#xf0c6;" Background="Transparent"/>
+
+            <!-- message text box-->
+            <TextBox Grid.Column="1"
+                     x:Name="MessageText"
+                     Padding="15 0 0 0"
+                     MinHeight="60"
+                     local:IsFocusedProperty.Value="True"
+                     Text="{Binding PendingMessageText, UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource SendMessageTextBox}"
+                     Tag="Write a message..."
+                     AcceptsReturn="True"
+                     AcceptsTab="True"
+                     PreviewKeyDown="MessageText_PreviewKeyDown"/>
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+
+                <!-- emodji -->
+                <Button Style="{StaticResource IconButtonRegular}"
+                        Visibility="Collapsed"
+                        VerticalAlignment="Bottom"
+                        FontSize="5"
+                        Width="60"
+                        Height="{Binding MinHeight, RelativeSource={RelativeSource AncestorType=Grid}}"
+                        Content="&#xf118;" Background="Transparent"/>
+
+                <!-- send button -->
+                <Button Style="{StaticResource SendButton}"
+                        Command="{Binding SendCommand}"
+                        Focusable="False"
+                        VerticalAlignment="Bottom"
+                        Content="SEND"
+                        IsDefault="True"
+                        FontSize="15"
+                        Width="60"
+                        Height="{Binding MinHeight, RelativeSource={RelativeSource AncestorType=Grid}}"/>
+            </StackPanel>
+        </Grid>
+        
+    </Grid>
 </local:PageBase>

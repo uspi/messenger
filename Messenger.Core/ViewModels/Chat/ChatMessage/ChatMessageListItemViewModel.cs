@@ -50,6 +50,9 @@ namespace Messenger.Core
         // true if this message was written by me, (current user). 
         // needed to align messages to the right
         public bool ImAuthor { get; set; } 
+
+        // true if we have message
+        public bool HasMessage { get => Message != null; }
         #endregion
     }
 }

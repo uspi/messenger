@@ -10,8 +10,13 @@ namespace Messenger
     {
         // password of this page (LoginPage.xaml)
         public SecureString SecurePassword { get => PasswordText.SecurePassword; }
-
+        
         public SignInPage()
+        {
+            InitializeComponent();
+        }
+
+        public SignInPage(SignInViewModel specificViewModel) : base(specificViewModel)
         {
             InitializeComponent();
         }

@@ -48,6 +48,7 @@
     
     <!-- Symbols -->
     <SolidColorBrush x:Key="IconButtonSymbol" Color="#818384"/>
+    <Color x:Key="IconButtonSymbol.Color">#818384</Color>
 
     <SolidColorBrush x:Key="IconButtonSymbol_Hover" Color="{StaticResource WindowControlsSymbol_Hover.Color}"/>
     <!-- #endregion -->

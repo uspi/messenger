@@ -7,15 +7,20 @@
              xmlns:core="clr-namespace:Messenger.Core;assembly=Messenger.Core"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="380">
-    <Grid DataContext="{x:Static core:ChatListDesignModel.Instance}" Background="{StaticResource HeadLine}">
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding Items}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <local:ChatListItemControl/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
-    </Grid>
+    <Border>
+        <Border.Effect>
+            <DropShadowEffect Direction="1" ShadowDepth="0.4" />
+        </Border.Effect>
+        <Grid DataContext="{x:Static core:ChatListDesignModel.Instance}" Background="{StaticResource HeadLine}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding Items}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:ChatListItemControl/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </Border>
 </UserControl>

@@ -46,7 +46,10 @@ namespace Messenger.Core
         {
             await RunCommand(() => this.SignUpIsRunning, async () =>
             {
-                await Task.Delay(5000);
+                await Task.Delay(500);
+
+                // go to chat page
+                IoC.Get<ApplicationViewModel>().GoToPage(ApplicationPage.Chat);
 
                 //string login = this.Login;
                 //// NOT STORE UNSECURE PASSWORD IN VARIABLE, it's for test

@@ -1,4 +1,9 @@
-﻿namespace Messenger.Core
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
+
+namespace Messenger.Core
 {
     /// <summary>
     /// A unit of the chat list, may contain, for example, 
@@ -25,5 +30,87 @@
 
         // profile picture background RGB color in hex
         public string ProfilePictureRGB { get; set; } 
+
+        // open message thread
+        public ICommand OpenMessageCommand { get; set; }
+
+        public ChatListItemViewModel()
+        {
+            OpenMessageCommand = new RelayCommand(OpenMessage);
+        }
+
+        private void OpenMessage()
+        {
+            //if (Name == "Nacho Varga")
+            //{
+            //    IoC.Application.GoToPage(ApplicationPage.SignIn, new SignInViewModel 
+            //    { 
+            //        Login = "random@email.com"
+            //    });
+            //    return;
+            //}
+            IoC.Application.GoToPage(ApplicationPage.Chat, new ChatMessageListViewModel
+            {
+                DisplayTitle = "Title from ChatListItemViewModel",
+
+                Items = new ObservableCollection<ChatMessageListItemViewModel>
+                {
+                    new ChatMessageListItemViewModel
+                    {
+                        Message = Message,
+                        ProfileInitials = ProfileInitials,
+                        MessageSentTime = DateTime.UtcNow,
+                        ProfilePictureRGB = "ff00ff",
+                        SenderName = "Soul",
+                        ImAuthor = true
+                    },
+                    new ChatMessageListItemViewModel
+                    {
+                        Message = "Another message",
+                        ProfileInitials = ProfileInitials,
+                        MessageSentTime = DateTime.UtcNow,
+                        ProfilePictureRGB = "ff0000",
+                        SenderName = "Bran",
+                        ImAuthor = false
+                    },
+                    new ChatMessageListItemViewModel
+                    {
+                        Message = Message,
+                        ProfileInitials = ProfileInitials,
+                        MessageSentTime = DateTime.UtcNow,
+                        ProfilePictureRGB = "ff00ff",
+                        SenderName = "Soul",
+                        ImAuthor = true
+                    },
+                    new ChatMessageListItemViewModel
+                    {
+                        Message = "Another message",
+                        ProfileInitials = ProfileInitials,
+                        MessageSentTime = DateTime.UtcNow,
+                        ProfilePictureRGB = "ff0000",
+                        SenderName = "Bran",
+                        ImAuthor = false
+                    },
+                    new ChatMessageListItemViewModel
+                    {
+                        Message = Message,
+                        ProfileInitials = ProfileInitials,
+                        MessageSentTime = DateTime.UtcNow,
+                        ProfilePictureRGB = "ff00ff",
+                        SenderName = "Soul",
+                        ImAuthor = true
+                    },
+                    new ChatMessageListItemViewModel
+                    {
+                        Message = "Another message",
+                        ProfileInitials = ProfileInitials,
+                        MessageSentTime = DateTime.UtcNow,
+                        ProfilePictureRGB = "ff0000",
+                        SenderName = "Bran",
+                        ImAuthor = false
+                    },
+                }
+            });
+        }
     }
 }

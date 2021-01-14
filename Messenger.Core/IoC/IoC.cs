@@ -9,6 +9,8 @@ namespace Messenger.Core
         // kernel for our IoC container
         public static IKernel Kernel { get; private set; } = new StandardKernel();
 
+        public static ApplicationViewModel Application { get => IoC.Get<ApplicationViewModel>(); }
+
         /// <summary>
         /// Sets up the IoC container, binds all info required and is ready
         /// for use.

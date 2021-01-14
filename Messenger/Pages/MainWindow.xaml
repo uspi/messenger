@@ -7,7 +7,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         mc:Ignorable="d"
         Title=""
-        Height="900" Width="900" 
+        Height="450" Width="900" 
         MinHeight="{Binding WindowMinimumHeight}" 
         MinWidth="{Binding WindowMinimumWidth}"
         WindowStyle="None"
@@ -125,12 +125,11 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
+            <!--<local:SignInPage Grid.Column="1"/>-->
+
             <local:PageHost Grid.Column="1" 
-                   d:DataContext = ""
-                   DataContext="{Binding ApplicationViewModel.CurrentPage, 
-                                     Source={x:Static local:ViewModelLocator.Instance}, 
-                                     Converter={local:PageValueConverter}}"
-                   CurrentPage="{Binding}"/>
+                   CurrentPage="{Binding ApplicationViewModel.CurrentPage, Source={x:Static local:ViewModelLocator.Instance}}"
+                   CurrentPageViewModel="{Binding ApplicationViewModel.CurrentPageViewModel, Source={x:Static local:ViewModelLocator.Instance}}"/>
 
             <local:Menu Width="450" 
                         MinWidth="450" 

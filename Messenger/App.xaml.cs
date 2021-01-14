@@ -1,4 +1,5 @@
 ﻿using Messenger.Core;
+using System;
 using System.Windows;
 
 namespace Messenger
@@ -14,12 +15,18 @@ namespace Messenger
             // let standard app startup method
             base.OnStartup(e);
 
-            // load IoC immediately before anything else
-            IoC.Setup();
+            ApplicationSetup();
 
             // instead "startup uri" in MainWindow.xaml let's do the same with the code
             Current.MainWindow = new MainWindow();
             Current.MainWindow.Show();
+        }
+
+        // configures application
+        private void ApplicationSetup()
+        {
+            // load IoC immediately before anything else
+            IoC.Setup();
         }
     }
 }

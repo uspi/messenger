@@ -13,14 +13,16 @@ namespace Messenger
         /// slides a element in FROM the RIGHT
         /// <param name="keepMargin">Whether to keep the element at the same
         /// width during animation</param>
+        /// <param name="width">animation width to animate to. if not specified 
+        /// elements width is used </param>
         public static async Task SlideAndFadeInFromRightAsync(
-            this FrameworkElement element, float seconds = 0.3f, bool keepMargin = true)
+            this FrameworkElement element, float seconds = 0.3f, bool keepMargin = true, int width = 0)
         {
             // create storyboard
             var sb = new Storyboard();
 
             // add slide from right animaiton
-            sb.AddSlideFromRight(seconds, element.ActualWidth, keepMargin: keepMargin);
+            sb.AddSlideFromRight(seconds, width == 0 ? element.ActualWidth : width, keepMargin: keepMargin);
             
             // add fade in animation
             sb.AddFadeIn(seconds);
@@ -38,14 +40,16 @@ namespace Messenger
         /// slides a element in FROM the LEFT
         /// <param name="keepMargin">Whether to keep the element at the same
         /// width during animation</param>
+        /// <param name="width">animation width to animate to. if not specified 
+        /// elements width is used </param>
         public static async Task SlideAndFadeInFromLeftAsync(
-            this FrameworkElement element, float seconds = 0.3f, bool keepMargin = true)
+            this FrameworkElement element, float seconds = 0.3f, bool keepMargin = true, int width = 0)
         {
             // create storyboard
             var sb = new Storyboard();
 
             // add slide from right animaiton
-            sb.AddSlideFromLeft(seconds, element.ActualWidth, keepMargin: keepMargin);
+            sb.AddSlideFromLeft(seconds, width == 0 ? element.ActualWidth : width, keepMargin: keepMargin);
 
             // add fade in animation
             sb.AddFadeIn(seconds);
@@ -63,14 +67,16 @@ namespace Messenger
         /// slides a element out TO the LEFT    
         /// <param name="keepMargin">Whether to keep the element at the same
         /// width during animation</param>
+        /// <param name="width">animation width to animate to. if not specified 
+        /// elements width is used </param>
         public static async Task SlideAndFadeOutToLeftAsync(
-            this FrameworkElement element, float seconds = 0.3f, bool keepMargin = true)
+            this FrameworkElement element, float seconds = 0.3f, bool keepMargin = true, int width = 0)
         {
             // create storyboard
             var sb = new Storyboard();
 
             // add slide from right animaiton
-            sb.AddSlideToLeft(seconds, element.ActualWidth, keepMargin: keepMargin);
+            sb.AddSlideToLeft(seconds, width == 0 ? element.ActualWidth : width, keepMargin: keepMargin);
 
             // add fade in animation
             sb.AddFadeOut(seconds);
@@ -88,14 +94,16 @@ namespace Messenger
         /// slides a element out TO the RIGHT
         /// <param name="keepMargin">Whether to keep the element at the same
         /// width during animation</param>
+        /// <param name="width">animation width to animate to. if not specified 
+        /// elements width is used </param>
         public static async Task SlideAndFadeOutToRightAsync(
-            this FrameworkElement element, float seconds = 0.3f, bool keepMargin = true)
+            this FrameworkElement element, float seconds = 0.3f, bool keepMargin = true, int width = 0)
         {
             // create storyboard
             var sb = new Storyboard();
 
             // add slide from right animaiton
-            sb.AddSlideToRight(seconds, element.ActualWidth, keepMargin: keepMargin);
+            sb.AddSlideToRight(seconds, width == 0 ? element.ActualWidth : width, keepMargin: keepMargin);
 
             // add fade in animation
             sb.AddFadeOut(seconds);

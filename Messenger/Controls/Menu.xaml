@@ -41,17 +41,17 @@
                             <Button Style="{StaticResource IconButton}" Content="&#xf086;" Tag="All Chats"/>
 
                             <!-- contacts button -->
-                            <Button Style="{StaticResource IconButton}" Content="&#xf007;" Tag="Contacts"/>
+                            <Button Visibility="Collapsed" Style="{StaticResource IconButton}" Content="&#xf007;" Tag="Contacts"/>
 
                             <!-- images button-->
-                            <Button Style="{StaticResource IconButton}" Content="&#xf302;" Tag="Images"/>
+                            <Button Visibility="Collapsed" Style="{StaticResource IconButton}" Content="&#xf302;" Tag="Images"/>
 
                         </StackPanel>
 
                         <StackPanel Grid.Row="2" Orientation="Vertical">
 
                             <!-- settings button -->
-                            <Button Style="{StaticResource IconButton}" Content="&#xf013;" Tag="Settings"/>
+                            <Button Visibility="Collapsed" Style="{StaticResource IconButton}" Content="&#xf013;" Tag="Settings"/>
 
                         </StackPanel>
                         <!-- #endregion -->

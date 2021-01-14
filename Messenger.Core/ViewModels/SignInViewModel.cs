@@ -46,7 +46,7 @@ namespace Messenger.Core
         {
             await RunCommand(() => this.SignInIsRunning, async () =>
             {
-                await Task.Delay(1000);
+                await Task.Delay(500);
 
                 // go to chat page
                 IoC.Get<ApplicationViewModel>().GoToPage(ApplicationPage.Chat);

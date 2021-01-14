@@ -7,8 +7,7 @@
       xmlns:core="clr-namespace:Messenger.Core;assembly=Messenger.Core"
       mc:Ignorable="d" 
       x:Name="Page"
-      d:DesignHeight="450" d:DesignWidth="700"
-      Title="LoginPage">
+      d:DesignHeight="450" d:DesignWidth="700">
 
     <Border>
         <Grid>
@@ -42,7 +41,8 @@
                             <!-- login -->
                             <TextBox Style="{StaticResource LoginTextBlock}" 
                                      Tag="login"
-                                     Text="{Binding Login}"/>
+                                     Text="{Binding Login}"
+                                     local:IsFocusedProperty.Value="True"/>
 
                             <!-- password -->
                             <PasswordBox Style="{StaticResource PasswordBox}"  
@@ -51,6 +51,7 @@
 
                             <!-- submmit -->
                             <Button Style="{StaticResource RegularButton}"
+                                    IsDefault="True"
                                     local:IsBusyProperty.Value="{Binding SignUpIsRunning}"
                                     Command="{Binding SignUpCommand}"
                                     CommandParameter="{Binding ElementName=Page}"

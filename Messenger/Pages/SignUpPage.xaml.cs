@@ -15,5 +15,10 @@ namespace Messenger
         {
             InitializeComponent();
         }
+
+        public SignUpPage(SignUpViewModel specificViewModel) : base(specificViewModel)
+        {
+            InitializeComponent();
+        }
     }
 }

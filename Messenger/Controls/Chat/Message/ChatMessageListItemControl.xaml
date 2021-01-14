@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignWidth="495">
 
-    <Border Padding="0 5"
+    <Border Padding="0 3"
             d:DataContext="{x:Static core:ChatMessageListItemDesignModel.Instance}">
 
         <Grid>
@@ -42,7 +42,7 @@
                 </Border>
 
                 <!-- anchor, bubble, time-->
-                <Grid Grid.Column="1" Margin="0" HorizontalAlignment="Left">
+                <Grid Grid.Column="1" Margin="0" HorizontalAlignment="Left" Visibility="{Binding HasMessage, Converter={local:BooleanToVisibilityCollapsedConverter}, ConverterParameter=True}">
 
                     
                     <Grid.Triggers>
