@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using System.Threading.Tasks;
+using System;
 
 namespace Messenger.Core
 {
@@ -8,8 +9,16 @@ namespace Messenger.Core
     /// </summary>
     public class SignInViewModel : ViewModelBase
     {
+        #region Public Events
+
+        // wake up when im want sign in
+        public event EventHandler<Request> SignInFromViewModel;
+
+        #endregion
+
         #region Public Properties
 
+        
         // user login
         public string Login { get; set; }
 
@@ -32,7 +41,7 @@ namespace Messenger.Core
         public SignInViewModel()
         {
             SignInCommand = new RelayParameterizedCommand(async (parameter) 
-                => await SignInAsync(parameter));
+                => await SignInAsync(parameter).ConfigureAwait(true));
 
             SignUpCommand = new RelayCommand(async () 
                 => await SignUpAsync());
@@ -44,17 +53,74 @@ namespace Messenger.Core
         // attempts to log the user in, parameter - secure string(user password)
         public async Task SignInAsync(object parameter)
         {
+            // in order not to switch the execution context in the event, to change the page
+            bool signInFailed = false;
+
             await RunCommand(() => this.SignInIsRunning, async () =>
             {
-                await Task.Delay(500);
+                // boolean result of this task
+                var tcs = new TaskCompletionSource<bool>();
 
-                // go to chat page
-                IoC.Get<ApplicationViewModel>().GoToPage(ApplicationPage.Chat);
+                #region Debug Block
 
-                //string login = this.Login;
-                //// NOT STORE UNSECURE PASSWORD IN VARIABLE, it's for test
-                //string password = (parameter as IHavePassword).SecurePassword.Unsecure();
-            });  
+                //// go to chat page
+                //IoC.Get<ApplicationViewModel>().GoToPage(ApplicationPage.Chat, new ChatMessageListViewModel { DisplayTitle = "Signed From Server" });
+
+                //tcs.SetResult(true);
+
+                #endregion
+
+                #region Code Block
+
+                // subsribe on sign in done event
+                IoC.Get<NetworkConnection>().SignInFail += (response) =>
+                {
+                    // set flag to true
+                    signInFailed = true;
+
+                    // TODO: action if we failed
+
+                    tcs.SetResult(false);
+                };
+
+                // subsribe on sign in done event
+                IoC.Get<NetworkConnection>().SignInDone += (response) =>
+                {
+                    // set flag to true
+                    signInFailed = false;
+
+                    // TODO: action if we done
+
+                    tcs.SetResult(true);
+                };
+
+                // wake up event and give him login and password
+                SignInFromViewModel(this,
+                    new Request
+                    {
+                        UserRequestType = UserRequest.SignIn,
+                        UserInitiator =
+                            new User
+                            {
+                                Email = Login,
+                                Password = (parameter as IHavePassword).SecurePassword.Unsecure()
+                            }
+                    });
+
+                #endregion
+
+                // await in current context (gui thread)
+                await tcs.Task;
+            });
+
+            // if sign in failed
+            if (signInFailed)
+            {
+                return;
+            }
+
+            // else go to chat page
+            IoC.Get<ApplicationViewModel>().GoToPage(ApplicationPage.Chat, new ChatMessageListViewModel { DisplayTitle = "Signed From Server" });
         }
 
         // takes the user to the sign up page

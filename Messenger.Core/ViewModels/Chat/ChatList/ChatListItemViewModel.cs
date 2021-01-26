@@ -34,9 +34,15 @@ namespace Messenger.Core
         // open message thread
         public ICommand OpenMessageCommand { get; set; }
 
+        public ChatMessageListViewModel CurrentChatMessageList { get; set; }
+
         public ChatListItemViewModel()
         {
+            // set command for opening this dialog
             OpenMessageCommand = new RelayCommand(OpenMessage);
+
+            // create message list of item for this item dialog
+            CurrentChatMessageList = new ChatMessageListViewModel();
         }
 
         private void OpenMessage()

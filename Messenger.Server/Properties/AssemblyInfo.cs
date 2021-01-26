@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Client.Core")]
+[assembly: AssemblyTitle("Messenger.Server")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Client.Core")]
+[assembly: AssemblyProduct("Messenger.Server")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("1bc17684-a53f-4ce3-b225-d1d22ee4ad3f")]
+[assembly: Guid("2ca2cb77-e454-4d0c-8eb5-c6ee684dd4ca")]
 
 // Version information for an assembly consists of the following four values:
 //

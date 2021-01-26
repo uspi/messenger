@@ -9,6 +9,9 @@ namespace Messenger
     /// </summary>
     public partial class App : Application
     {
+        // singelton instance of Network Connection
+        public static NetworkConnection NetworkConnection { get; set; }
+
         // start WPF application method
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -27,6 +30,9 @@ namespace Messenger
         {
             // load IoC immediately before anything else
             IoC.Setup();
+
+            //// start new connection
+            //NetworkConnection = new NetworkConnection();
         }
     }
 }

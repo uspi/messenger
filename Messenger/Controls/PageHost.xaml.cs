@@ -101,7 +101,7 @@ namespace Messenger
 
                 // We don't want to wait for the out animation to finish, 
                 // before start animating the next frames entrance. So we don't await
-                //_ = Task.Run(previousPage.AnimateOutAsync);
+                _ = Task.Run(oldPage.AnimateOutAsync);
             }
 
             // set new page content

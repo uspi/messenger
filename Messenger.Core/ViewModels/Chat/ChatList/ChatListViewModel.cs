@@ -9,5 +9,12 @@ namespace Messenger.Core
     public class ChatListViewModel : ViewModelBase
     {
         public List<ChatListItemViewModel> Items { get; set; }
+
+        public ChatListViewModel()
+        {
+            Items = new List<ChatListItemViewModel>();
+        }
+
+        // TODO: methods for adding in Items New position
     }
 }
