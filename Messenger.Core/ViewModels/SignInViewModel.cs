@@ -41,7 +41,7 @@ namespace Messenger.Core
         public SignInViewModel()
         {
             SignInCommand = new RelayParameterizedCommand(async (parameter) 
-                => await SignInAsync(parameter).ConfigureAwait(true));
+                => await SignInAsync(parameter));
 
             SignUpCommand = new RelayCommand(async () 
                 => await SignUpAsync());
@@ -108,6 +108,8 @@ namespace Messenger.Core
                     });
 
                 #endregion
+
+                //SignInFromViewModel(this, new Request());
 
                 // await in current context (gui thread)
                 await tcs.Task;

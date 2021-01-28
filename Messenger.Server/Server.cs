@@ -108,6 +108,8 @@ namespace Messenger.Server
                         return;
                     }
 
+                    Console.WriteLine("User Has Been Disconnected");
+
                     // dispose current instance of UserEnviroment
                     userSendedMessage.Dispose();
                 };
@@ -124,7 +126,7 @@ namespace Messenger.Server
 
                     // find instance of this user from server
                     var findedUsers = DataBaseContext.Users
-                        .Where(c => c.Email == ee.Login )/* && c.Password == ee.Password*/
+                        .Where(c => c.Email == ee.Login && c.Password == ee.Password)
                         .ToList();
 
                     // if we don't finded user in db
@@ -148,7 +150,7 @@ namespace Messenger.Server
                         signInUser.User = findedUsers[0];
 
                         // print for debug
-                        Console.WriteLine($"User with login {ee.Login} finded! :)");
+                        Console.WriteLine($"User with login {ee.Login} and Password {ee.Password} finded! :)");
 
                         // call a method that will trigger the desired event
                         signInUser.SendAllUserInformation(signInUser.User);
@@ -226,8 +228,6 @@ namespace Messenger.Server
                     await DataBaseContext.SaveChangesAsync();
 
                     // find target User Enviroment in server connecitons
-
-                    // ServerUsers.Where(c => targetChatWithNeededId[0].Member.Id == userSendedMessage.User.Id || targetChatWithNeededId[0].Owner.Id == userSendedMessage.User.Id).ToList();
                 };
 
                 // when user want create chat
@@ -269,21 +269,33 @@ namespace Messenger.Server
                     await DataBaseContext.SaveChangesAsync();
                 };
 
+                // if the user is successfully logged in, we send all his data
                 userEnvironment.SendAllUserInfoEvent += (ss, ee) =>
                 {
                     var targetUser = (UserEnvironment)ss;
 
                     // find all user chats
                     var allTargeUserChats = DataBaseContext.Chats
-                        .Where(c => c.Member.Id == targetUser.User.Id
-                                  || c.Owner.Id == targetUser.User.Id)
+                        .Where(c => c.MemberUser.Id == targetUser.User.Id
+                                  || c.OwnerUser.Id == targetUser.User.Id)
                         .ToList();
 
-                    //// find all user messages for chats
-                    //var allTargetUserMessages = allTargeUserChats
-                    //    .SelectMany(c => DataBaseContext.Messages
-                    //         .Where(r => r.TargetChat.Id == c.Id))
-                    //    .ToList();
+                    // find all needed data for all of user chats 
+                    foreach (var item in allTargeUserChats)
+                    {
+                        // find all messages for current chat in db
+                        var messagesForCurrentChat = DataBaseContext.Messages
+                                            .Where(m => m.ChatId == item.Id)
+                                            .ToList();
+
+                        // find all members of current chat
+                        // so far, it is assumed that a chat 
+                        // can only have one member
+                        var membersOfCurrentChat = DataBaseContext.Chats
+                                        .Where(ch => ch.Id == item.Id)
+                                        .Select(r => r.MemberUser)
+                                        .ToList();
+                    }
 
                     // send to User Environment
                     // set the property, when installed it will 
@@ -294,7 +306,6 @@ namespace Messenger.Server
                             ServerResponseType = ServerResponse.SendAllInformation,
                             UserInfo = targetUser.User,
                             Chats = allTargeUserChats,
-                            //Messages = allTargetUserMessages
                         });
                 };
 
@@ -329,11 +340,11 @@ namespace Messenger.Server
             {
                 // find all chat where user owner
                 var allOwnedChats = DataBaseContext.Chats
-                    .Where(c => c.Owner.Id == user.Id)
+                    .Where(c => c.OwnerUser.Id == user.Id)
                     .ToList();
 
                 // set all owned chat "owner" property to null
-                allOwnedChats.ForEach(c => c.Owner = null);
+                allOwnedChats.ForEach(c => c.OwnerUser = null);
             }
             catch
             {
@@ -358,11 +369,11 @@ namespace Messenger.Server
             {
                 // find all chat where user owner
                 var allOwnedChats = DataBaseContext.Chats
-                    .Where(c => c.Member.Id == user.Id)
+                    .Where(c => c.MemberUser.Id == user.Id)
                     .ToList();
 
                 // set all owned chat "owner" property to null
-                allOwnedChats.ForEach(c => c.Member = null);
+                allOwnedChats.ForEach(c => c.MemberUser = null);
             }
             catch
             {

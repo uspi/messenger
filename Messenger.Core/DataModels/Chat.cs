@@ -10,9 +10,9 @@ namespace Messenger.Core
         [Key]
         public long Id { get; set; }
 
-        public User Member { get; set; }
+        public User MemberUser { get; set; }
 
-        public User Owner { get; set; }
+        public User OwnerUser { get; set; }
 
         [Required]
         public DateTimeOffset CreatedAt { get; set; }
@@ -20,6 +20,6 @@ namespace Messenger.Core
         [Required]
         public bool IsChannel { get; set; }
 
-        public List<Message> Messages { get; set; }
+        public IList<Message> Messages { get; set; }
     }
 }

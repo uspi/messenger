@@ -8,8 +8,7 @@ namespace Messenger.Core
         [Key]
         public long Id { get; set; }
 
-        [Required]
-        public Chat TargetChat { get; set; }
+        public long ChatId { get; set; }
 
         public User AuthorUser { get; set; }
 

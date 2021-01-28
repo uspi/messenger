@@ -7,13 +7,13 @@ namespace Messenger.Server
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class AddedToChatMessagesList : IMigrationMetadata
+    public sealed partial class AddedTables : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedToChatMessagesList));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedTables));
         
         string IMigrationMetadata.Id
         {
-            get { return "202101241236291_AddedToChatMessagesList"; }
+            get { return "202101271532088_AddedTables"; }
         }
         
         string IMigrationMetadata.Source

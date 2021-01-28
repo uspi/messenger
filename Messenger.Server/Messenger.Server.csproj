@@ -61,13 +61,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\DataBaseContext.cs" />
-    <Compile Include="Migrations\202101211643099_AddedTables.cs" />
-    <Compile Include="Migrations\202101211643099_AddedTables.designer.cs">
-      <DependentUpon>202101211643099_AddedTables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101241236291_AddedToChatMessagesList.cs" />
-    <Compile Include="Migrations\202101241236291_AddedToChatMessagesList.designer.cs">
-      <DependentUpon>202101241236291_AddedToChatMessagesList.cs</DependentUpon>
+    <Compile Include="Migrations\202101271532088_AddedTables.cs" />
+    <Compile Include="Migrations\202101271532088_AddedTables.designer.cs">
+      <DependentUpon>202101271532088_AddedTables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
@@ -86,11 +82,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202101211643099_AddedTables.resx">
-      <DependentUpon>202101211643099_AddedTables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101241236291_AddedToChatMessagesList.resx">
-      <DependentUpon>202101241236291_AddedToChatMessagesList.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202101271532088_AddedTables.resx">
+      <DependentUpon>202101271532088_AddedTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Messenger.Core
 {
+    // delegate for handing response information in events
     public delegate void ResponseHandler(Response response);
 
     /// <summary>
@@ -39,6 +40,13 @@ namespace Messenger.Core
 
         // current user if the client is authorized 
         public User User { get; set; }
+
+        // true if authorized
+        public bool Authorized
+        {
+            get => User != null;
+            set => Authorized = value;
+        }
 
         // all requests from view models go to the 
         // end of this queue for further processing
@@ -144,6 +152,16 @@ namespace Messenger.Core
 
                 case ServerResponse.SendAllInformation:
                     {
+                        // create an instance of this user
+                        this.User = new User();
+
+                        // set data about this user received from the server
+                        this.User = response.UserInfo;
+
+                        // collect the data received from the server 
+                        // in a relevant form and send it to the view model
+                        SendChatsToViewModel(response.Chats);
+
                         // logically, we do not have a server response 
                         // about a successful login, it immediately sends data
                         SignInDone(response);
@@ -163,82 +181,88 @@ namespace Messenger.Core
 
         // send chats and messages that came 
         // from the server to the view model
-        public void SendChatsToViewModel(List<Chat> chats, List<Message> messages)
+        public void SendChatsToViewModel(IList<Chat> chats)
         {
-            // sort all messages by id ascending 
-            var SortedMessagesByIdaAscending = messages.OrderBy(m => m.TargetChat.Id);
-
-            // preparation for further filling with sorted data from the server
-            var allChatsWithMessages = new List<Chat>();
-
-            // id of previus foreach chat
-            long currentChatId = -1;
-
-            // empty chat, 
-            var lastChat = new Chat();
-
-            // we go through all messages and pack them into chats
-            foreach (var message in SortedMessagesByIdaAscending)
-            {
-                //// if we started right now
-                //if (currentChatId == lastChat.)
-                //{
-                //    currentChatId = message.TargetChat.Id;
-                //    lastChat.Messages.Add(message);
-                //}
-            }
-
-
-            // var chatMessages = new ObservableCollection<ChatMessageListItemViewModel>();
-
-            
-
-            // put all messages corresponding to the chat into the chat object
-            foreach (var message in SortedMessagesByIdaAscending)
-            {
-                // find the parent of the message
-                var neededChat = chats
-                    .Where(c => c.Id == message.TargetChat.Id)
-                    .FirstOrDefault();
-
-                // if parent not finded skip this message
-                if (neededChat == null)
-                {
-                    continue;
-                }
-
-                //if (currentChatId)
-                //{
-
-                //}
-
-                // if parent was finded add to him this message
-                neededChat.Messages.Add(message);
-            }
-
-            
-
             // create a list for local work in a method
             var items = new List<ChatListItemViewModel>();
 
             // create dialogs according to the content of chats
             foreach (var chat in chats)
             {
+                // objects that form a list of bubble messages for current chat
+                var bubbleMessagesList = new ObservableCollection<ChatMessageListItemViewModel>();
+
+                // collect a collection of messages for this dialog
+                foreach (var chatMessage in chat.Messages)
+                {
+                    // if the author of the message is me
+                    if (chatMessage.AuthorUser.Id == this.User.Id)
+                    {
+                        // add to the end of dialog new message bubble
+                        bubbleMessagesList.Add(
+                        new ChatMessageListItemViewModel
+                        {
+                            Message = chatMessage.Text,
+
+                            // initials from first letters of ...
+                            ProfileInitials = 
+                                // ... first name and 
+                                chatMessage.AuthorUser.FirstName.First().ToString()
+                                // ... of last name
+                                + chatMessage.AuthorUser.LastName.First().ToString(),
+
+                            ProfilePictureRGB = "63c439",
+                            SenderName = chatMessage.AuthorUser.Nick,
+                            MessageSentTime = chatMessage.CreatedAt,
+                            IsSelected = false,
+                            AnchorVisibility = true,
+                            ShowProfilePicture = false,
+                            ImAuthor = true
+                        });
+                    }
+
+                    // if the author of the message is not me
+                    else
+                    {
+                        // add to the end of dialog new message bubble
+                        bubbleMessagesList.Add(
+                        new ChatMessageListItemViewModel
+                        {
+                            Message = chatMessage.Text,
+
+                            // initials from first letters of ...
+                            ProfileInitials =
+                                // ... first name and 
+                                chatMessage.AuthorUser.FirstName.First().ToString()
+                                // ... of last name
+                                + chatMessage.AuthorUser.LastName.First().ToString(),
+
+                            ProfilePictureRGB = "c46339",
+                            SenderName = chatMessage.AuthorUser.Nick,
+                            MessageSentTime = chatMessage.CreatedAt,
+                            IsSelected = false,
+                            AnchorVisibility = true,
+                            ShowProfilePicture = false,
+                            ImAuthor = false
+                        });
+                    }
+                }
+
                 // add a new chat with messages to Chat List Item
                 items.Add(
                     new ChatListItemViewModel
                     {
                         // put the name of my interlocutor in the title
                         Name =
-                            chat.Owner.Id == this.User.Id ?
-                            chat.Member.Nick : chat.Owner.Nick,
+                            chat.OwnerUser.Id == this.User.Id ?
+                            chat.MemberUser.Nick : chat.OwnerUser.Nick,
 
                         // put the first letter of the nickname 
                         // of my interlocutor in the initials
                         ProfileInitials =
-                            chat.Owner.Id == this.User.Id ?
-                            chat.Member.Nick.First().ToString()
-                            : chat.Owner.Nick.First().ToString(),
+                            chat.OwnerUser.Id == this.User.Id ?
+                            chat.MemberUser.Nick.First().ToString()
+                            : chat.OwnerUser.Nick.First().ToString(),
 
                         // set background color of initials
                         ProfilePictureRGB = "c46339",
@@ -246,23 +270,23 @@ namespace Messenger.Core
                         // put the last message from this chat
                         Message = chat.Messages.Last().Text,
 
-                        
+                        // create bubbles messages
                         CurrentChatMessageList = new ChatMessageListViewModel
                         {
                             // put the the nickname 
                             // of my interlocutor in the title
                             DisplayTitle =
-                                chat.Owner.Id == this.User.Id ?
-                                chat.Member.Nick : chat.Owner.Nick,
+                                chat.OwnerUser.Id == this.User.Id ?
+                                chat.MemberUser.Nick : chat.OwnerUser.Nick,
 
-                            // add messages 
-                            Items = new ObservableCollection<ChatMessageListItemViewModel> { }
+                            // add messages in chat
+                            Items = bubbleMessagesList
                         }
                     });
             }
 
             // get the items from chat list view model and set updated data
-            IoC.Get<ChatListViewModel>().Items = items;
+            // IoC.Get<ChatListViewModel>().Items = items;
         }
 
         #endregion

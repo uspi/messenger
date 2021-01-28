@@ -6,6 +6,7 @@ namespace Messenger.Core
     /// </summary>
     public enum UserRequest
     {
+
         // if the user requested to send a message
         SendMessage = 0,
 

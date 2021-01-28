@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Net.Sockets;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
-using System.Threading.Tasks;
 using Messenger.Core;
 using Newtonsoft.Json;
 
@@ -166,7 +163,7 @@ namespace Messenger.Server
                         // wake up the event and pass the required 
                         // arguments to send the message
                         SendNewMessage(
-                            targetChatId: requestObject.Message.TargetChat.Id,
+                            targetChatId: requestObject.Message.ChatId,
                             targetText: requestObject.Message.Text);
                         break;
                     }

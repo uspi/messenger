@@ -14,14 +14,14 @@
                         Id = c.Long(nullable: false, identity: true),
                         CreatedAt = c.DateTimeOffset(nullable: false, precision: 7),
                         IsChannel = c.Boolean(nullable: false),
-                        Member_Id = c.Long(),
-                        Owner_Id = c.Long(),
+                        MemberUser_Id = c.Long(),
+                        OwnerUser_Id = c.Long(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Users", t => t.Member_Id)
-                .ForeignKey("dbo.Users", t => t.Owner_Id)
-                .Index(t => t.Member_Id)
-                .Index(t => t.Owner_Id);
+                .ForeignKey("dbo.Users", t => t.MemberUser_Id)
+                .ForeignKey("dbo.Users", t => t.OwnerUser_Id)
+                .Index(t => t.MemberUser_Id)
+                .Index(t => t.OwnerUser_Id);
             
             CreateTable(
                 "dbo.Users",
@@ -42,16 +42,16 @@
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
+                        ChatId = c.Long(nullable: false),
                         CreatedAt = c.DateTimeOffset(nullable: false, precision: 7),
                         Text = c.String(),
                         AuthorUser_Id = c.Long(),
-                        TargetChat_Id = c.Long(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Users", t => t.AuthorUser_Id)
-                .ForeignKey("dbo.Chats", t => t.TargetChat_Id, cascadeDelete: true)
-                .Index(t => t.AuthorUser_Id)
-                .Index(t => t.TargetChat_Id);
+                .ForeignKey("dbo.Chats", t => t.ChatId, cascadeDelete: true)
+                .Index(t => t.ChatId)
+                .Index(t => t.AuthorUser_Id);
             
             CreateTable(
                 "dbo.MessageReadeds",
@@ -74,16 +74,16 @@
         {
             DropForeignKey("dbo.MessageReadeds", "User_Id", "dbo.Users");
             DropForeignKey("dbo.MessageReadeds", "Message_Id", "dbo.Messages");
-            DropForeignKey("dbo.Messages", "TargetChat_Id", "dbo.Chats");
+            DropForeignKey("dbo.Chats", "OwnerUser_Id", "dbo.Users");
+            DropForeignKey("dbo.Messages", "ChatId", "dbo.Chats");
             DropForeignKey("dbo.Messages", "AuthorUser_Id", "dbo.Users");
-            DropForeignKey("dbo.Chats", "Owner_Id", "dbo.Users");
-            DropForeignKey("dbo.Chats", "Member_Id", "dbo.Users");
+            DropForeignKey("dbo.Chats", "MemberUser_Id", "dbo.Users");
             DropIndex("dbo.MessageReadeds", new[] { "User_Id" });
             DropIndex("dbo.MessageReadeds", new[] { "Message_Id" });
-            DropIndex("dbo.Messages", new[] { "TargetChat_Id" });
             DropIndex("dbo.Messages", new[] { "AuthorUser_Id" });
-            DropIndex("dbo.Chats", new[] { "Owner_Id" });
-            DropIndex("dbo.Chats", new[] { "Member_Id" });
+            DropIndex("dbo.Messages", new[] { "ChatId" });
+            DropIndex("dbo.Chats", new[] { "OwnerUser_Id" });
+            DropIndex("dbo.Chats", new[] { "MemberUser_Id" });
             DropTable("dbo.MessageReadeds");
             DropTable("dbo.Messages");
             DropTable("dbo.Users");

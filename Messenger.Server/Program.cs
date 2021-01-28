@@ -45,22 +45,29 @@ namespace Messenger.Server
                 // for this in app.config
                 context: new DataBaseContext());
 
-            //var user = CurrentServer.DataBaseContext.Users.Where(u => u.Id == 3).ToList();
-            //CurrentServer.DataBaseContext.Users.Remove(user[0]);
-            //CurrentServer.DataBaseContext.SaveChanges();
-
             // create user
             //CurrentServer.DataBaseContext.Users.Add(
             //    new User
             //    {
-            //        Email = "admin@gmail.com",
+            //        Email = "moderator@gmail.com",
             //        Password = "qwerty",
             //        CreatedAt = DateTimeOffset.UtcNow,
-            //        Nick = "admin"
+            //        Nick = "moderator",
+            //        FirstName = "ModeratorFirstName",
+            //        LastName = "ModeratorLastName"
             //    });
 
+            //CurrentServer.DataBaseContext.SaveChanges();
+
             // find created user
-            //var admin = CurrentServer.DataBaseContext.Users.Where(u => u.Nick == "admin").First();
+            //var admin = CurrentServer.DataBaseContext.Users.Where(u => u.Nick == "moderator").First();
+
+            // find chat by id
+            //var neededChat = CurrentServer.DataBaseContext.Chats.Where(c => c.Id == 1).FirstOrDefault();
+
+            //neededChat.MemberUser = admin;
+
+            //CurrentServer.DataBaseContext.SaveChanges();
 
             // find all chat where user owner
             //var ownedChats = CurrentServer.DataBaseContext.Chats.Where(c => c.Owner.Id == admin.Id).ToList();
@@ -72,27 +79,31 @@ namespace Messenger.Server
 
             // create chat
             //var chat = CurrentServer.DataBaseContext.Chats.Add(
-            //    new Chat 
-            //    { 
+            //    new Chat
+            //    {
             //        CreatedAt = DateTimeOffset.UtcNow,
             //        IsChannel = false,
-            //        Owner = admin
+            //        OwnerUser = admin
             //    });
+
+            //CurrentServer.DataBaseContext.SaveChanges();
 
             // create message
             //CurrentServer.DataBaseContext.Messages.Add(
-            //    new Message 
-            //    { 
+            //    new Message
+            //    {
             //        AuthorUser = admin,
             //        CreatedAt = DateTimeOffset.UtcNow,
-            //        TargetChat = chat,
-            //        Text = "Hello!!"
+            //        ChatId = 1,
+            //        Text = "Hello, I am here!"
             //    });
 
-            var aaa = CurrentServer.DataBaseContext.Messages.Where(c => c.Id == 100).FirstOrDefault();
-
-
             //CurrentServer.DataBaseContext.SaveChanges();
+
+            //var aaa = CurrentServer.DataBaseContext.Messages.Where(c => c.Id == 100).FirstOrDefault();
+
+
+
 
 
             Console.WriteLine($"Server IPAdress: {CurrentServer.IPAddress}");
