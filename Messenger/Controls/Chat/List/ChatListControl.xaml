@@ -11,7 +11,7 @@
         <Border.Effect>
             <DropShadowEffect Direction="1" ShadowDepth="0.4" />
         </Border.Effect>
-        <Grid DataContext="{x:Static core:ChatListDesignModel.Instance}" Background="{StaticResource HeadLine}">
+        <Grid Background="{StaticResource HeadLine}">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ItemsControl ItemsSource="{Binding Items}">
                     <ItemsControl.ItemTemplate>

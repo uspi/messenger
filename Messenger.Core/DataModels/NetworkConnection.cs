@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
@@ -57,7 +58,7 @@ namespace Messenger.Core
         #region Private Properties
 
         // stream between Client and server
-        NetworkStream NetworkStream { get; set; } 
+        NetworkStream NetworkStream { get; set; }
 
         #endregion
 
@@ -117,6 +118,27 @@ namespace Messenger.Core
 
                     // send server request
                     await WriteToStreamAsyncAndSerialize(firstQueueRequest);
+
+                    switch (firstQueueRequest.UserRequestType)
+                    {
+                        case UserRequest.SendMessage:
+                            {
+                                // we dont want wait response server
+                                WaitingResponse = false;
+                                break;
+                            }
+                            
+                        case UserRequest.SignIn:
+                            break;
+                        case UserRequest.SignUp:
+                            break;
+                        case UserRequest.GiveNewMessages:
+                            break;
+                        case UserRequest.CreateNewChat:
+                            break;
+                        default:
+                            break;
+                    }
                 }
 
                 // if we send to server request and waiting response
@@ -132,6 +154,61 @@ namespace Messenger.Core
                     WaitingResponse = false;
                 }
             }
+        }
+
+        // subscribe to the user to send new messages
+        public void SubscribeOnNewMessagesInChats() 
+        {
+            // go over all user chats
+            foreach (var chat in IoC.Get<ChatListViewModel>().Items)
+            {
+                // subscribe to the event that occurs when we send a new message
+                chat.CurrentChatMessageList.NewChatMessage += (message) =>
+                {
+                    // a function call that collects a request for the server
+                    SendMyNewChatMessageToServer(chat, message);
+                };
+            }
+        }
+
+        // if we have new author message, we want send 
+        // him to server for update chat in db
+        public void SendMyNewChatMessageToServer(
+            ChatListItemViewModel chatFrom, ChatMessageListItemViewModel newMessages)
+        {
+            //var targetChat = chatFrom.
+
+            var messageEntity =
+                new Message 
+                { 
+                    ChatId = chatFrom.CurrentChat.Id,
+                    AuthorUser = this.User,
+                    CreatedAt = newMessages.MessageSentTime,
+                    Text = newMessages.Message
+                };
+
+            // create and queue for execution
+
+            IoC.Get<NetworkConnection>().RequestQueue.Enqueue(
+            //RequestQueue.Enqueue(
+                new Request
+                {
+                    Message = messageEntity,
+                    UserRequestType = UserRequest.SendMessage,
+                    UserInitiator = this.User,
+
+                    // we do not assign the object directly so as not to 
+                    // transmit all messages to the server, this is unnecessary here
+                    TargetChat = 
+                        new Chat 
+                        { 
+                            Id = chatFrom.CurrentChat.Id,
+                            MemberUser = chatFrom.CurrentChat.MemberUser,
+                            OwnerUser = chatFrom.CurrentChat.OwnerUser,
+                            CreatedAt = chatFrom.CurrentChat.CreatedAt,
+                            IsChannel = chatFrom.CurrentChat.IsChannel
+                        }
+                });
         }
 
         // reaction to server response according to response type
@@ -162,9 +239,13 @@ namespace Messenger.Core
                         // in a relevant form and send it to the view model
                         SendChatsToViewModel(response.Chats);
 
+                        // subscribe to the user to send new messages
+                        SubscribeOnNewMessagesInChats();
+
                         // logically, we do not have a server response 
                         // about a successful login, it immediately sends data
                         SignInDone(response);
+
                         break;
                     }
 
@@ -233,9 +314,9 @@ namespace Messenger.Core
                             // initials from first letters of ...
                             ProfileInitials =
                                 // ... first name and 
-                                chatMessage.AuthorUser.FirstName.First().ToString()
+                                chatMessage.AuthorUser.FirstName.First().ToString().ToUpper()
                                 // ... of last name
-                                + chatMessage.AuthorUser.LastName.First().ToString(),
+                                + chatMessage.AuthorUser.LastName.First().ToString().ToUpper(),
 
                             ProfilePictureRGB = "c46339",
                             SenderName = chatMessage.AuthorUser.Nick,
@@ -252,6 +333,9 @@ namespace Messenger.Core
                 items.Add(
                     new ChatListItemViewModel
                     {
+
+                        CurrentChat = chat,
+
                         // put the name of my interlocutor in the title
                         Name =
                             chat.OwnerUser.Id == this.User.Id ?
@@ -261,8 +345,8 @@ namespace Messenger.Core
                         // of my interlocutor in the initials
                         ProfileInitials =
                             chat.OwnerUser.Id == this.User.Id ?
-                            chat.MemberUser.Nick.First().ToString()
-                            : chat.OwnerUser.Nick.First().ToString(),
+                            chat.MemberUser.Nick.First().ToString().ToUpper()
+                            : chat.OwnerUser.Nick.First().ToString().ToUpper(),
 
                         // set background color of initials
                         ProfilePictureRGB = "c46339",
@@ -273,6 +357,13 @@ namespace Messenger.Core
                         // create bubbles messages
                         CurrentChatMessageList = new ChatMessageListViewModel
                         {
+                            // set initials of this user for new messages
+                            AuthorProfileInitials = 
+                                this.User.Nick.First().ToString().ToUpper(),
+
+                            // set author name for new messages sended from this client
+                            AuthorName = this.User.Nick,
+
                             // put the the nickname 
                             // of my interlocutor in the title
                             DisplayTitle =
@@ -286,7 +377,7 @@ namespace Messenger.Core
             }
 
             // get the items from chat list view model and set updated data
-            // IoC.Get<ChatListViewModel>().Items = items;
+            IoC.Get<ChatListViewModel>().Items = items;
         }
 
         #endregion

@@ -49,18 +49,18 @@ namespace Messenger.Server
             //CurrentServer.DataBaseContext.Users.Add(
             //    new User
             //    {
-            //        Email = "moderator@gmail.com",
+            //        Email = "ben@gmail.com",
             //        Password = "qwerty",
             //        CreatedAt = DateTimeOffset.UtcNow,
-            //        Nick = "moderator",
-            //        FirstName = "ModeratorFirstName",
-            //        LastName = "ModeratorLastName"
+            //        Nick = "ben",
+            //        FirstName = "BenFirstName",
+            //        LastName = "BenLastName"
             //    });
 
             //CurrentServer.DataBaseContext.SaveChanges();
 
             // find created user
-            //var admin = CurrentServer.DataBaseContext.Users.Where(u => u.Nick == "moderator").First();
+            //var neededUser = CurrentServer.DataBaseContext.Users.Where(u => u.Nick == "ben").First();
 
             // find chat by id
             //var neededChat = CurrentServer.DataBaseContext.Chats.Where(c => c.Id == 1).FirstOrDefault();
@@ -83,7 +83,7 @@ namespace Messenger.Server
             //    {
             //        CreatedAt = DateTimeOffset.UtcNow,
             //        IsChannel = false,
-            //        OwnerUser = admin
+            //        OwnerUser = neededUser
             //    });
 
             //CurrentServer.DataBaseContext.SaveChanges();

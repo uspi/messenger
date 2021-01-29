@@ -169,7 +169,7 @@ namespace Messenger.Server
                 };
 
                 // when user want send message
-                userEnvironment.SendMessage += async (ss, ee) =>
+                userEnvironment.SendMessage += (ss, ee) =>
                 {
                     //if sender is not a UserEnviroment don't subscribe on his events
                     if (!(ss is UserEnvironment userSendedMessage))
@@ -213,21 +213,27 @@ namespace Messenger.Server
                     DataBaseContext.Messages.Add(
                         new Message
                         {
-                            // extract the required chat
-                            // it is assumed that there is only one result in the list
-                            Id = targetChatWithNeededId[0].Id,
-
                             // extract the required author "User" entity
                             // it is assumed that there is only one result in the list
                             AuthorUser = authorEntityInDb[0],
+
+                            // set creation time
                             CreatedAt = ee.CreatedAt,
+
+                            // extract the required chat
+                            // it is assumed that there is only one result in the list
+                            ChatId = targetChatWithNeededId[0].Id,
+
+                            // text of message
                             Text = ee.Text
                         });
 
                     // add this message to data base
-                    await DataBaseContext.SaveChangesAsync();
+                    DataBaseContext.SaveChanges();
 
-                    // find target User Enviroment in server connecitons
+                    // if user sen message we dont need sengin response, 
+                    // and flag waiting response stay false, fix this
+                    userSendedMessage.WaitingRequest = true;
                 };
 
                 // when user want create chat
@@ -294,6 +300,14 @@ namespace Messenger.Server
                         var membersOfCurrentChat = DataBaseContext.Chats
                                         .Where(ch => ch.Id == item.Id)
                                         .Select(r => r.MemberUser)
+                                        .ToList();
+
+                        // find all members of current chat
+                        // so far, it is assumed that a chat 
+                        // can only have one owner
+                        var ownersOfCurrentChat = DataBaseContext.Chats
+                                        .Where(ch => ch.Id == item.Id)
+                                        .Select(r => r.OwnerUser)
                                         .ToList();
                     }
 

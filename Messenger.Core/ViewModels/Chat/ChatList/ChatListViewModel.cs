@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Messenger.Core
 {
@@ -8,13 +9,10 @@ namespace Messenger.Core
     /// </summary>
     public class ChatListViewModel : ViewModelBase
     {
-        public List<ChatListItemViewModel> Items { get; set; }
+        // all user chats
+        public List<ChatListItemViewModel> Items { get; set; } = new List<ChatListItemViewModel>();
 
-        public ChatListViewModel()
-        {
-            Items = new List<ChatListItemViewModel>();
-        }
-
-        // TODO: methods for adding in Items New position
+        // constructor
+        public ChatListViewModel() { }
     }
 }

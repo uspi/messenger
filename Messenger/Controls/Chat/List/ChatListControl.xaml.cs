@@ -11,6 +11,7 @@ namespace Messenger
         public ChatListControl()
         {
             InitializeComponent();
+            this.DataContext = IoC.Get<ChatListViewModel>();
         }
     }
 }

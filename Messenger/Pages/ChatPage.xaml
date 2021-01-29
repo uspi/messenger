@@ -9,7 +9,7 @@
       x:Name="Page"
       d:DesignHeight="450" d:DesignWidth="700">
 
-    <Grid>
+    <Grid Visibility="{Binding IsBootScreenStub, Converter={local:BooleanToVisibilityConverter}}">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>

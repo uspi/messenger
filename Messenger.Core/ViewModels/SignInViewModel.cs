@@ -121,8 +121,10 @@ namespace Messenger.Core
                 return;
             }
 
+            //IoC.Get<ChatListDesignModel>().SetItems();
+
             // else go to chat page
-            IoC.Get<ApplicationViewModel>().GoToPage(ApplicationPage.Chat, new ChatMessageListViewModel { DisplayTitle = "Signed From Server" });
+            IoC.Get<ApplicationViewModel>().GoToPage(ApplicationPage.Chat, new ChatMessageListViewModel { DisplayTitle = "Signed From Server", IsBootScreenStub = true });
         }
 
         // takes the user to the sign up page

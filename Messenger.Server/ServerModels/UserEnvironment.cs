@@ -145,8 +145,6 @@ namespace Messenger.Server
                     // processing request
                     CheckRequestTypeAndWakeUpEventsForServer(requestObject);
                 }
-                
-                
             }
         }
 
@@ -163,7 +161,7 @@ namespace Messenger.Server
                         // wake up the event and pass the required 
                         // arguments to send the message
                         SendNewMessage(
-                            targetChatId: requestObject.Message.ChatId,
+                            targetChatId: requestObject.TargetChat.Id,
                             targetText: requestObject.Message.Text);
                         break;
                     }

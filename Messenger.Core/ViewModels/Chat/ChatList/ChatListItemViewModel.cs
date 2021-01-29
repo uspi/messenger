@@ -34,7 +34,11 @@ namespace Messenger.Core
         // open message thread
         public ICommand OpenMessageCommand { get; set; }
 
-        public ChatMessageListViewModel CurrentChatMessageList { get; set; }
+        // entity of current chat
+        public Chat CurrentChat { get; set; }
+
+        public ChatMessageListViewModel CurrentChatMessageList { get; set; } 
+            = new ChatMessageListViewModel();
 
         public ChatListItemViewModel()
         {
@@ -47,76 +51,8 @@ namespace Messenger.Core
 
         private void OpenMessage()
         {
-            //if (Name == "Nacho Varga")
-            //{
-            //    IoC.Application.GoToPage(ApplicationPage.SignIn, new SignInViewModel 
-            //    { 
-            //        Login = "random@email.com"
-            //    });
-            //    return;
-            //}
-            IoC.Application.GoToPage(ApplicationPage.Chat, new ChatMessageListViewModel
-            {
-                DisplayTitle = "Title from ChatListItemViewModel",
-
-                Items = new ObservableCollection<ChatMessageListItemViewModel>
-                {
-                    new ChatMessageListItemViewModel
-                    {
-                        Message = Message,
-                        ProfileInitials = ProfileInitials,
-                        MessageSentTime = DateTime.UtcNow,
-                        ProfilePictureRGB = "ff00ff",
-                        SenderName = "Soul",
-                        ImAuthor = true
-                    },
-                    new ChatMessageListItemViewModel
-                    {
-                        Message = "Another message",
-                        ProfileInitials = ProfileInitials,
-                        MessageSentTime = DateTime.UtcNow,
-                        ProfilePictureRGB = "ff0000",
-                        SenderName = "Bran",
-                        ImAuthor = false
-                    },
-                    new ChatMessageListItemViewModel
-                    {
-                        Message = Message,
-                        ProfileInitials = ProfileInitials,
-                        MessageSentTime = DateTime.UtcNow,
-                        ProfilePictureRGB = "ff00ff",
-                        SenderName = "Soul",
-                        ImAuthor = true
-                    },
-                    new ChatMessageListItemViewModel
-                    {
-                        Message = "Another message",
-                        ProfileInitials = ProfileInitials,
-                        MessageSentTime = DateTime.UtcNow,
-                        ProfilePictureRGB = "ff0000",
-                        SenderName = "Bran",
-                        ImAuthor = false
-                    },
-                    new ChatMessageListItemViewModel
-                    {
-                        Message = Message,
-                        ProfileInitials = ProfileInitials,
-                        MessageSentTime = DateTime.UtcNow,
-                        ProfilePictureRGB = "ff00ff",
-                        SenderName = "Soul",
-                        ImAuthor = true
-                    },
-                    new ChatMessageListItemViewModel
-                    {
-                        Message = "Another message",
-                        ProfileInitials = ProfileInitials,
-                        MessageSentTime = DateTime.UtcNow,
-                        ProfilePictureRGB = "ff0000",
-                        SenderName = "Bran",
-                        ImAuthor = false
-                    },
-                }
-            });
+            // open a dialog and place messages in it
+            IoC.Application.GoToPage(ApplicationPage.Chat, CurrentChatMessageList);
         }
     }
 }

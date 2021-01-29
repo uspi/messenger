@@ -20,6 +20,8 @@ namespace Messenger.Core
         
         public static ChatListViewModel ChatListViewModel { get => Get<ChatListViewModel>(); }
 
+        public static ChatListDesignModel ChatListDesignModel { get => Get<ChatListDesignModel>(); }
+
         /// <summary>
         /// Sets up the IoC container, binds all info required and is ready
         /// for use.
@@ -46,6 +48,8 @@ namespace Messenger.Core
             Kernel.Bind<SignUpViewModel>().ToConstant(new SignUpViewModel());
 
             Kernel.Bind<ChatListViewModel>().ToConstant(new ChatListViewModel());
+
+            Kernel.Bind<ChatListDesignModel>().ToConstant(new ChatListDesignModel());
         }
 
         // get's a service form the IoC, of the specified type
