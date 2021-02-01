@@ -69,6 +69,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server.cs" />
+    <Compile Include="ServerExtensionHelpers.cs" />
     <Compile Include="ServerModels\UserEnvironment.cs" />
   </ItemGroup>
   <ItemGroup>

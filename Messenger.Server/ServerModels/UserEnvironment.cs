@@ -8,6 +8,12 @@ using Newtonsoft.Json;
 
 namespace Messenger.Server
 {
+    // delegate for sending request from user enviroment to server
+    public delegate void RequestHandler(UserEnvironment sender, Request request);
+
+    // delegate for sending request from server to user enviroment 
+    public delegate void ResponseHandler(UserEnvironment sender, Response request);
+
     /// <summary>
     /// The connected user's environment associates the 
     /// networking(<see cref="System.Net.Sockets.TcpClient"/>) component
@@ -17,11 +23,20 @@ namespace Messenger.Server
     {
         #region Public Events
 
-        // if user want send a message
-        public event EventHandler<SendMessageRequestEventArgs> SendMessage;
-
         // if user want let sign in
-        public event EventHandler<SignInRequestEventArgs> SignIn;
+        public event RequestHandler SignIn;
+
+        // if user want create new chat
+        public event RequestHandler SendAllUserInfoEvent;
+
+        // if user want send a message
+        public event RequestHandler SendMessage;
+
+        // if UserEnvronment noticed that new messages 
+        // appeared on the server for us
+        public event RequestHandler CheckNewMessageForMe;
+
+
 
         // if user want let sign in
         public event EventHandler<SignUpRequestEventArgs> SignUp;
@@ -29,17 +44,11 @@ namespace Messenger.Server
         // if user want create new chat
         public event EventHandler<CreateNewChatRequestEventArgs> CreateChat;
 
-        // if user want create new chat
-        public event EventHandler<Response> SendAllUserInfoEvent;
-
         // if the client program is not responding
         public event EventHandler Disconnected;
 
-        event EventHandler<ErrorEventArgs> HaveError;
-
-        // if UserEnvronment noticed that new messages 
-        // appeared on the server for us
-        public event EventHandler CheckNewMessageForMe;
+        //// if response on request not relevant
+        //event EventHandler<ErrorEventArgs> HaveError;
 
         // when the server responds to the request "CheNewMessagesForMe" 
         // and saves the data to "NewMessagesForMe", we notify current
@@ -61,6 +70,9 @@ namespace Messenger.Server
 
         // if the user is authorized, he has a database context
         public User User { get; set; }
+
+        // chats that correspond to chats on the client
+        public List<Chat> SynchronizedChats { get; set; }
 
         // true if authorized
         public bool Authorized
@@ -158,23 +170,25 @@ namespace Messenger.Server
 
                 case UserRequest.SendMessage:
                     {
-                        // wake up the event and pass the required 
-                        // arguments to send the message
-                        SendNewMessage(
-                            targetChatId: requestObject.TargetChat.Id,
-                            targetText: requestObject.Message.Text);
+                        // wake up the event and pass the request
+                        SendMessage(this, requestObject);
+
                         break;
                     }
 
                 case UserRequest.SignIn:
                     {
+                        // if user already loggined
+                        if (this.User != null)
+                        {
+                            Debug.WriteLine("User has already been authorized");
+                            return;
+                        }
+
                         // wake up the event and pass the required 
                         // arguments to sign in
-                        UserSignIn(
-                            login: requestObject.UserInitiator.Email,
+                        SignIn(this, requestObject);
 
-                            // char array in string
-                            password: requestObject.UserInitiator.Password);
                         break;
                     }
                     
@@ -200,6 +214,18 @@ namespace Messenger.Server
                             chatOwnerNick: requestObject.UserInitiator.Nick);
                         break;
                     }
+                case UserRequest.GiveNewMessages:
+                    {
+                        // check if there are messages that are addressed 
+                        // to me but I do not have them on the client
+                        CheckNewMessageForMe(this, 
+                            new Request 
+                            {
+                                // send synced messages to check which new ones are missing
+                                ExistingChats = SynchronizedChats
+                            });
+                        break;
+                    }
 
                 default:
                     Console.WriteLine("Wrong Request Type");
@@ -214,29 +240,9 @@ namespace Messenger.Server
         {
             // wake up the event send all user info
             SendAllUserInfoEvent(this,
-                new Response
+                new Request
                 {
-                    UserInfo = infoAboutUser
-                });
-        }
-
-        // wake up the event and pass the required arguments to send the message
-        private void SendNewMessage(long targetChatId = 1, string targetText = "")
-        {
-            if (this.User == null)
-            {
-                Debug.WriteLine("User will be not created, return");
-                return;
-            }
-
-            // wake up the event Send Message
-            SendMessage(this,
-                new SendMessageRequestEventArgs
-                {
-                    FromUserId = this.User.Id,
-                    ToChatId = targetChatId,
-                    CreatedAt = DateTimeOffset.UtcNow,
-                    Text = targetText
+                    UserInitiator = infoAboutUser
                 });
         }
 
@@ -256,24 +262,6 @@ namespace Messenger.Server
                     Login = login,
                     Password = password,
                     Nick = nick
-                });
-        }
-
-        // wake up the event and pass the required arguments to user sign in
-        private void UserSignIn(string login, string password)
-        {
-            if (this.User != null)
-            {
-                Debug.WriteLine("User has already been authorized");
-                return;
-            }
-
-            // wake up the event Sign In
-            SignIn(this,
-                new SignInRequestEventArgs
-                {
-                    Login = login,
-                    Password = password,
                 });
         }
 

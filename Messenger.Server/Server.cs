@@ -48,12 +48,294 @@ namespace Messenger.Server
             DataBaseContext = context;
         }
 
+        #endregion 
+
+        #region User Environment Events Reaction
+
+        // when the client asks if there are new messages 
+        // in the database that he does not have on the client
+        private void UserEnvironment_CheckNewMessageForMe(
+            UserEnvironment sender, Request request)
+        {
+            // chats that correspond to chats on the client
+            var currentUserChats = sender.SynchronizedChats;
+
+            // empty list which will contain the output collection
+            var updatedChats = new List<Chat>();
+
+            // find all user chats
+            var allTargeUserChats = DataBaseContext.Chats
+                .Where(c => c.MemberUser.Id == sender.User.Id
+                          || c.OwnerUser.Id == sender.User.Id)
+                .ToList();
+
+            // find all needed data for all of user chats 
+            foreach (var item in allTargeUserChats)
+            {
+                // find all messages for current chat in db
+                var messagesForCurrentChat = DataBaseContext.Messages
+                                    .Where(m => m.ChatId == item.Id)
+                                    .ToList();
+
+                // find all members of current chat
+                // so far, it is assumed that a chat 
+                // can only have one member
+                var membersOfCurrentChat = DataBaseContext.Chats
+                                .Where(ch => ch.Id == item.Id)
+                                .Select(r => r.MemberUser)
+                                .ToList();
+
+                // find all members of current chat
+                // so far, it is assumed that a chat 
+                // can only have one owner
+                var ownersOfCurrentChat = DataBaseContext.Chats
+                                .Where(ch => ch.Id == item.Id)
+                                .Select(r => r.OwnerUser)
+                                .ToList();
+            }
+
+            // what chats are on the server but they are not on the client
+            var newChats = allTargeUserChats
+                .Except(currentUserChats)
+                .ToList();
+
+
+            // check for missing messages in each of the chats
+            foreach (var chatFromClient in allTargeUserChats)
+            {
+                foreach (var chatFromServer in currentUserChats)
+                {
+                    // if chat id from server equal chat from client id
+                    if (chatFromServer.Id == chatFromClient.Id)
+                    {
+                        // find excepted messages in the current chat messages
+                        var newMessagesInChat = 
+                            chatFromServer.Messages
+                                .Except(chatFromClient.Messages)
+                                .ToList();
+
+                        // if we have all messages
+                        if (newMessagesInChat.Count == 0)
+                        {
+                            // add this new chat 
+                            updatedChats.Add(chatFromClient);
+
+                            continue;
+                        }
+
+                        // adding new messages
+
+                        foreach (var newMessage in newMessagesInChat)
+                        {
+                            chatFromClient.Messages.Add(newMessage);
+                        }
+                    }
+
+                    // add this new chat 
+                    updatedChats.Add(chatFromClient);
+                }  
+            }
+
+            // if there are chats that are on the server 
+            // but they are not on the client
+            if (newChats.Count > 0)
+            {
+                // adding new chats
+                foreach (var newChat in newChats)
+                {
+                    // add this new chat 
+                    updatedChats.Add(newChat);
+                }
+            }
+
+            // if we have some changed in items
+            if (currentUserChats.Equals(updatedChats))
+            {
+                // send chats with new messages to client
+                sender.ResponseQueue.Enqueue(
+                    new Response 
+                    { 
+                        ServerResponseType = ServerResponse.SendNewMessages,
+                        Chats = updatedChats
+                    });
+
+                // set chats as synchronized because 
+                // we sent them to the client
+                sender.SynchronizedChats = updatedChats;
+            }
+
+            // if the client already has all the messages
+            else
+            {
+                // send null to show that we have nothing to say
+                sender.ResponseQueue.Enqueue(
+                    new Response
+                    {
+                        ServerResponseType = ServerResponse.SendNewMessages,
+                        Chats = null
+                    });
+            }
+        }
+
+        // when user want send new message from client
+        private void UserEnvironment_SendMessage(
+            UserEnvironment sender, Request request)
+        {
+            // if user don't created return
+            if (!sender.Authorized)
+            {
+                Console.WriteLine("User Don't Created");
+                return;
+            }
+
+            // find author in db
+            var authorEntityInDb = DataBaseContext.Users
+                .Where((c) => c.Id == request.UserInitiator.Id)
+                .ToList();
+
+            // check if we don't find author with needed id in db
+            if (authorEntityInDb.Count == 0)
+            {
+                Console.WriteLine("Needed Author Enitity Not Finded In Data Base");
+                return;
+            }
+
+            // find needed chat
+            var targetChatWithNeededId = DataBaseContext.Chats
+                .Where((c) => c.Id == request.TargetChat.Id)
+                .ToList();
+
+            // check if we don't find chat with needed id
+            if (targetChatWithNeededId.Count == 0)
+            {
+                Console.WriteLine("Needed Target Chat Not Finded");
+                return;
+            }
+
+            // creating new message in data base context
+            DataBaseContext.Messages.Add(
+                new Message
+                {
+                    // extract the required author "User" entity
+                    // it is assumed that there is only one result in the list
+                    AuthorUser = authorEntityInDb[0],
+
+                    // set creation time
+                    CreatedAt = request.Message.CreatedAt,
+
+                    // extract the required chat
+                    // it is assumed that there is only one result in the list
+                    ChatId = targetChatWithNeededId[0].Id,
+
+                    // text of message
+                    Text = request.Message.Text
+                });
+
+            // add this message to data base
+            DataBaseContext.SaveChanges();
+
+            // if user sen message we dont need sengin response, 
+            // and flag waiting response stay false, fix this
+            sender.WaitingRequest = true;
+        }
+
+        // when user want sign in
+        private void UserEnvironment_SignIn(
+            UserEnvironment sender, Request request)
+        {
+            // print for debug
+            Console.WriteLine($"User Want Login! Login:{request.UserInitiator.Email} Password:{request.UserInitiator.Password}");
+
+            // find instance of this user from server
+            var findedUsers = DataBaseContext.Users
+                .Where(c => c.Email == request.UserInitiator.Email && c.Password == request.UserInitiator.Password)
+                .ToList();
+
+            // if we don't finded user in db
+            if (findedUsers.Count == 0)
+            {
+                // print for debug
+                Console.WriteLine($"User with login {request.UserInitiator.Email} don't finded :(");
+
+                // send "sign in is failed"
+                sender.ResponseQueue.Enqueue(
+                    new Response
+                    {
+                        ServerResponseType = ServerResponse.SignInFailed
+                    });
+                return;
+            }
+            // if we finded user
+            else
+            {
+                sender.User = new User();
+                sender.User = findedUsers[0];
+
+                // print for debug
+                Console.WriteLine($"User with login {request.UserInitiator.Email} and Password {request.UserInitiator.Password} finded! :)");
+
+                // call a method that will trigger the desired event
+                sender.SendAllUserInformation(sender.User);
+            }
+        }
+
+        // if the user is successfully logged in, we send all his data
+        private void UserEnvironment_SendAllUserInfoEvent(
+            UserEnvironment sender, Request request)
+        {
+            // find all user chats
+            var allTargeUserChats = DataBaseContext.Chats
+                .Where(c => c.MemberUser.Id == sender.User.Id
+                          || c.OwnerUser.Id == sender.User.Id)
+                .ToList();
+
+            // find all needed data for all of user chats 
+            foreach (var item in allTargeUserChats)
+            {
+                // find all messages for current chat in db
+                var messagesForCurrentChat = DataBaseContext.Messages
+                                    .Where(m => m.ChatId == item.Id)
+                                    .ToList();
+
+                // find all members of current chat
+                // so far, it is assumed that a chat 
+                // can only have one member
+                var membersOfCurrentChat = DataBaseContext.Chats
+                                .Where(ch => ch.Id == item.Id)
+                                .Select(r => r.MemberUser)
+                                .ToList();
+
+                // find all members of current chat
+                // so far, it is assumed that a chat 
+                // can only have one owner
+                var ownersOfCurrentChat = DataBaseContext.Chats
+                                .Where(ch => ch.Id == item.Id)
+                                .Select(r => r.OwnerUser)
+                                .ToList();
+            }
+
+            // send to User Environment
+            // set the property, when installed it will 
+            // automatically send a message to the client
+            sender.ResponseQueue.Enqueue(
+                new Response
+                {
+                    ServerResponseType = ServerResponse.SendAllInformation,
+                    UserInfo = sender.User,
+                    Chats = allTargeUserChats,
+                });
+
+            // set chats as synchronized because 
+            // we sent them to the client
+            sender.SynchronizedChats = allTargeUserChats;
+        }
+
         #endregion
 
-        #region Methods
+        #region Public Methods
 
         // accept in connection
-        public void ListenIncomingConnections() 
+        public void ListenIncomingConnections()
         {
             // create listener on needed ip and port
             TcpListener = new TcpListener(IPAddress, Port);
@@ -71,9 +353,9 @@ namespace Messenger.Server
                 var newTcpClient = TcpListener.AcceptTcpClient();
 
                 // create new user environment
-                var userEnvironment =  
+                var userEnvironment =
                     new UserEnvironment(
-                        _currentServer: this, 
+                        _currentServer: this,
                         _tcpClient: newTcpClient);
 
                 Console.WriteLine($"New Connection! User Enviroment Id: {userEnvironment.Id}");
@@ -82,24 +364,53 @@ namespace Messenger.Server
                 Thread tcpClientThread = new Thread(
                     new ThreadStart(userEnvironment.Process));
 
-                SubscribeOnUserEnviromentEvents(userEnvironment);
+                // for debug
+                Console.WriteLine($"Count Of Server Users: {ServerUsers.Count}");
+
+                // sub
+                SubscribeOnUserEnvironmentEvents(userEnvironment);
 
                 // start processing new client
                 tcpClientThread.Start();
 
-                tcpClientThread.Join();
+                //tcpClientThread.Join();
             }
-
-            
         }
 
-        // subscribe to events and add to the server list
-        public void SubscribeOnUserEnviromentEvents(UserEnvironment userEnvironment)
+        // subscribe to events user environmen
+        public void SubscribeOnUserEnvironmentEvents(
+            UserEnvironment userEnvironment)
         {
-            try
-            {
-                // if the client program is not responding
-                userEnvironment.Disconnected += (ss, ee) =>
+            // when user want sign in
+            userEnvironment.SignIn
+                += UserEnvironment_SignIn;
+
+            // when user want send new message from client
+            userEnvironment.SendMessage
+                += UserEnvironment_SendMessage;
+
+            // if the user is successfully logged in, we send all his data
+            userEnvironment.SendAllUserInfoEvent
+                += UserEnvironment_SendAllUserInfoEvent;
+
+            // when the client asks if there are new messages 
+            // in the database that he does not have on the client
+            userEnvironment.CheckNewMessageForMe
+                += UserEnvironment_CheckNewMessageForMe;
+
+            // when user want sign up
+            userEnvironment.SignUp += (ss, ee) =>
+                {
+                    // if sender is not a UserEnviroment don't subscribe on his events
+                    if (!(ss is UserEnvironment userSendedMessage))
+                    {
+                        Console.WriteLine("Sender is not a User Enviroment");
+                        return;
+                    }
+                };
+
+            // if the client program is not responding
+            userEnvironment.Disconnected += (ss, ee) =>
                 {
                     // if sender is not a UserEnviroment ignore this event
                     if (!(ss is UserEnvironment userSendedMessage))
@@ -114,130 +425,8 @@ namespace Messenger.Server
                     userSendedMessage.Dispose();
                 };
 
-                // when user want sign in
-                userEnvironment.SignIn += (ss, ee) =>
-                {
-                    // cast sender to user evironment
-                    var signInUser = (UserEnvironment)ss;
-                    var request = (SignInRequestEventArgs)ee;
-
-                    // print for debug
-                    Console.WriteLine($"User Want Login! Login:{ee.Login} Password:{ee.Password}");
-
-                    // find instance of this user from server
-                    var findedUsers = DataBaseContext.Users
-                        .Where(c => c.Email == ee.Login && c.Password == ee.Password)
-                        .ToList();
-
-                    // if we don't finded user in db
-                    if (findedUsers.Count == 0)
-                    {
-                        // print for debug
-                        Console.WriteLine($"User with login {ee.Login} don't finded :(");
-
-                        // send "sign in is failed"
-                        signInUser.ResponseQueue.Enqueue(
-                        new Response
-                        {
-                            ServerResponseType = ServerResponse.SignInFailed
-                        });
-                        return;
-                    }
-                    // if we finded user
-                    else 
-                    {
-                        signInUser.User = new User();
-                        signInUser.User = findedUsers[0];
-
-                        // print for debug
-                        Console.WriteLine($"User with login {ee.Login} and Password {ee.Password} finded! :)");
-
-                        // call a method that will trigger the desired event
-                        signInUser.SendAllUserInformation(signInUser.User);
-                    }     
-                };
-
-                // when user want sign up
-                userEnvironment.SignUp += (ss, ee) =>
-                {
-                    // if sender is not a UserEnviroment don't subscribe on his events
-                    if (!(ss is UserEnvironment userSendedMessage))
-                    {
-                        Console.WriteLine("Sender is not a User Enviroment");
-                        return;
-                    }
-                };
-
-                // when user want send message
-                userEnvironment.SendMessage += (ss, ee) =>
-                {
-                    //if sender is not a UserEnviroment don't subscribe on his events
-                    if (!(ss is UserEnvironment userSendedMessage))
-                    {
-                        Console.WriteLine("Sender is not a User Enviroment");
-                        return;
-                    }
-
-                    // if user don't created return
-                    if (!userSendedMessage.Authorized)
-                    {
-                        Console.WriteLine("User Don't Created");
-                        return;
-                    }
-
-                    // find author in db
-                    var authorEntityInDb = DataBaseContext.Users
-                        .Where((c) => c.Id == ee.FromUserId)
-                        .ToList();
-
-                    // check if we don't find author with needed id in db
-                    if (authorEntityInDb.Count == 0)
-                    {
-                        Console.WriteLine("Needed Author Enitity Not Finded In Data Base");
-                        return;
-                    }
-
-                    // find needed chat
-                    var targetChatWithNeededId = DataBaseContext.Chats
-                        .Where((c) => c.Id == ee.ToChatId)
-                        .ToList();
-
-                    // check if we don't find chat with needed id
-                    if (targetChatWithNeededId.Count == 0)
-                    {
-                        Console.WriteLine("Needed Target Chat Not Finded");
-                        return;
-                    }
-
-                    // creating new message in data base context
-                    DataBaseContext.Messages.Add(
-                        new Message
-                        {
-                            // extract the required author "User" entity
-                            // it is assumed that there is only one result in the list
-                            AuthorUser = authorEntityInDb[0],
-
-                            // set creation time
-                            CreatedAt = ee.CreatedAt,
-
-                            // extract the required chat
-                            // it is assumed that there is only one result in the list
-                            ChatId = targetChatWithNeededId[0].Id,
-
-                            // text of message
-                            Text = ee.Text
-                        });
-
-                    // add this message to data base
-                    DataBaseContext.SaveChanges();
-
-                    // if user sen message we dont need sengin response, 
-                    // and flag waiting response stay false, fix this
-                    userSendedMessage.WaitingRequest = true;
-                };
-
-                // when user want create chat
-                userEnvironment.CreateChat += async (ss, ee) =>
+            // when user want create chat
+            userEnvironment.CreateChat += async (ss, ee) =>
                 {
                     //if sender is not a UserEnviroment don't subscribe on his events
                     if (!(ss is UserEnvironment userCreatedChat))
@@ -275,70 +464,9 @@ namespace Messenger.Server
                     await DataBaseContext.SaveChangesAsync();
                 };
 
-                // if the user is successfully logged in, we send all his data
-                userEnvironment.SendAllUserInfoEvent += (ss, ee) =>
-                {
-                    var targetUser = (UserEnvironment)ss;
-
-                    // find all user chats
-                    var allTargeUserChats = DataBaseContext.Chats
-                        .Where(c => c.MemberUser.Id == targetUser.User.Id
-                                  || c.OwnerUser.Id == targetUser.User.Id)
-                        .ToList();
-
-                    // find all needed data for all of user chats 
-                    foreach (var item in allTargeUserChats)
-                    {
-                        // find all messages for current chat in db
-                        var messagesForCurrentChat = DataBaseContext.Messages
-                                            .Where(m => m.ChatId == item.Id)
-                                            .ToList();
-
-                        // find all members of current chat
-                        // so far, it is assumed that a chat 
-                        // can only have one member
-                        var membersOfCurrentChat = DataBaseContext.Chats
-                                        .Where(ch => ch.Id == item.Id)
-                                        .Select(r => r.MemberUser)
-                                        .ToList();
-
-                        // find all members of current chat
-                        // so far, it is assumed that a chat 
-                        // can only have one owner
-                        var ownersOfCurrentChat = DataBaseContext.Chats
-                                        .Where(ch => ch.Id == item.Id)
-                                        .Select(r => r.OwnerUser)
-                                        .ToList();
-                    }
-
-                    // send to User Environment
-                    // set the property, when installed it will 
-                    // automatically send a message to the client
-                    targetUser.ResponseQueue.Enqueue(
-                        new Response
-                        {
-                            ServerResponseType = ServerResponse.SendAllInformation,
-                            UserInfo = targetUser.User,
-                            Chats = allTargeUserChats,
-                        });
-                };
-
-                // for debug
-                Console.WriteLine($"Count Of Server Users: {ServerUsers.Count}");
-            }
-            catch (Exception hadledExeption)
-            {
-                // for debug
-                Console.WriteLine($"Error in ProcessNewClient async task. + " +
-                    $"User Disconnected from server{hadledExeption.ToString()}");
-
-                // dispose current instance of UserEnviroment
-                userEnvironment.Dispose();
-            }
-
             // for debug
             Console.WriteLine("End Of Subscribe");
-        }
+        } 
 
         /// <summary>
         /// Installed property <see cref="Chat.Owner"/> to <see cref="null"/> 
@@ -398,11 +526,6 @@ namespace Messenger.Server
             return true;
         }
 
-        public void SendUserResponse(UserEnvironment userEnvironment, Response response)
-        {
-            userEnvironment.WriteToStreamAndSerialize(response);
-        }
-
         public void Dispose()
         {
             TcpListener.Stop();
@@ -410,34 +533,5 @@ namespace Messenger.Server
         }
 
         #endregion
-    }
-
-    public static class ServerExtensionHelpers
-    {
-        /// <summary>
-        /// Adds a new user to the list of <see cref="Server.ServerUsers"/> 
-        /// connected to the server
-        /// </summary>
-        /// <param name="server">Server for user connection</param>
-        /// <param name="userEnvironment">The user to add</param>
-        public static void AddConnection(this Server server, UserEnvironment userEnvironment)
-        {
-            server.ServerUsers.Add(userEnvironment);
-        }
-
-        /// <summary>
-        /// Removes a user from the <see cref="Server.ServerUsers"/> of current users
-        /// </summary>
-        /// <param name="server">Server for user connection</param>
-        /// <param name="userEnvironment">The user to add</param>
-        public static void RemoveConnection(this Server server, UserEnvironment userEnvironment)
-        {
-            if (userEnvironment == null)
-            {
-                return;
-            }
-
-            server.ServerUsers.Remove(userEnvironment);
-        }
     }
 }

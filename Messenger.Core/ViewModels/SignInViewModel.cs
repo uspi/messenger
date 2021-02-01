@@ -53,45 +53,41 @@ namespace Messenger.Core
         // attempts to log the user in, parameter - secure string(user password)
         public async Task SignInAsync(object parameter)
         {
+            if (SignInIsRunning)
+            {
+                return;
+            }
+
             // in order not to switch the execution context in the event, to change the page
             bool signInFailed = false;
 
+            // true if we have server response
+            bool haveResult = false;
+
             await RunCommand(() => this.SignInIsRunning, async () =>
             {
-                // boolean result of this task
-                var tcs = new TaskCompletionSource<bool>();
-
-                #region Debug Block
-
-                //// go to chat page
-                //IoC.Get<ApplicationViewModel>().GoToPage(ApplicationPage.Chat, new ChatMessageListViewModel { DisplayTitle = "Signed From Server" });
-
-                //tcs.SetResult(true);
-
-                #endregion
-
-                #region Code Block
-
                 // subsribe on sign in done event
                 IoC.Get<NetworkConnection>().SignInFail += (response) =>
                 {
+                    // we got the query result
+                    haveResult = true;
+
                     // set flag to true
                     signInFailed = true;
 
                     // TODO: action if we failed
-
-                    tcs.SetResult(false);
                 };
 
                 // subsribe on sign in done event
                 IoC.Get<NetworkConnection>().SignInDone += (response) =>
                 {
+                    // we got the query result
+                    haveResult = true;
+
                     // set flag to true
                     signInFailed = false;
 
                     // TODO: action if we done
-
-                    tcs.SetResult(true);
                 };
 
                 // wake up event and give him login and password
@@ -107,24 +103,28 @@ namespace Messenger.Core
                             }
                     });
 
-                #endregion
-
-                //SignInFromViewModel(this, new Request());
-
-                // await in current context (gui thread)
-                await tcs.Task;
+                // wait result
+                while (!haveResult)
+                {
+                    await Task.Delay(200);
+                } 
             });
 
             // if sign in failed
             if (signInFailed)
             {
+                signInFailed = false;
                 return;
             }
 
-            //IoC.Get<ChatListDesignModel>().SetItems();
-
             // else go to chat page
-            IoC.Get<ApplicationViewModel>().GoToPage(ApplicationPage.Chat, new ChatMessageListViewModel { DisplayTitle = "Signed From Server", IsBootScreenStub = true });
+            IoC.Get<ApplicationViewModel>()
+                .GoToPage(ApplicationPage.Chat, 
+                    new ChatMessageListViewModel 
+                    { 
+                        DisplayTitle = "Signed From Server", 
+                        IsBootScreenStub = true 
+                    });
         }
 
         // takes the user to the sign up page
