@@ -65,6 +65,10 @@
     <Compile Include="Migrations\202101271532088_AddedTables.designer.cs">
       <DependentUpon>202101271532088_AddedTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102022043540_NewUpdate.cs" />
+    <Compile Include="Migrations\202102022043540_NewUpdate.designer.cs">
+      <DependentUpon>202102022043540_NewUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,6 +89,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202101271532088_AddedTables.resx">
       <DependentUpon>202101271532088_AddedTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102022043540_NewUpdate.resx">
+      <DependentUpon>202102022043540_NewUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

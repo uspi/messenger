@@ -17,8 +17,7 @@ namespace Messenger.Core
         #endregion
 
         #region Public Properties
-
-        
+ 
         // user login
         public string Login { get; set; }
 
@@ -38,6 +37,7 @@ namespace Messenger.Core
         #endregion
 
         #region Constructor
+
         public SignInViewModel()
         {
             SignInCommand = new RelayParameterizedCommand(async (parameter) 
@@ -46,7 +46,6 @@ namespace Messenger.Core
             SignUpCommand = new RelayCommand(async () 
                 => await SignUpAsync());
         }
-
 
         #endregion
 

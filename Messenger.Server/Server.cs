@@ -58,7 +58,7 @@ namespace Messenger.Server
             UserEnvironment sender, Request request)
         {
             // chats that correspond to chats on the client
-            var currentUserChats = sender.SynchronizedChats;
+            var currentUserChats = new List<Chat>(sender.SynchronizedChats.Clone()); 
 
             // empty list which will contain the output collection
             var updatedChats = new List<Chat>();
@@ -94,74 +94,85 @@ namespace Messenger.Server
                                 .ToList();
             }
 
-            // what chats are on the server but they are not on the client
-            var newChats = allTargeUserChats
-                .Except(currentUserChats)
-                .ToList();
+            //// what chats are on the server but they are not on the client
+            //var newChats = allTargeUserChats
+            //    .Except(currentUserChats)
+            //    .ToList();
 
 
             // check for missing messages in each of the chats
-            foreach (var chatFromClient in allTargeUserChats)
+            foreach (var chatFromClient in currentUserChats) 
             {
-                foreach (var chatFromServer in currentUserChats)
+                foreach (var chatFromServer in allTargeUserChats)
                 {
-                    // if chat id from server equal chat from client id
-                    if (chatFromServer.Id == chatFromClient.Id)
+                    // if chat id from server not equal chat id from client
+                    if (chatFromServer.Id != chatFromClient.Id)
                     {
-                        // find excepted messages in the current chat messages
-                        var newMessagesInChat = 
-                            chatFromServer.Messages
-                                .Except(chatFromClient.Messages)
-                                .ToList();
-
-                        // if we have all messages
-                        if (newMessagesInChat.Count == 0)
-                        {
-                            // add this new chat 
-                            updatedChats.Add(chatFromClient);
-
-                            continue;
-                        }
-
-                        // adding new messages
-
-                        foreach (var newMessage in newMessagesInChat)
-                        {
-                            chatFromClient.Messages.Add(newMessage);
-                        }
+                        continue;
                     }
 
-                    // add this new chat 
+                    // if messages not have messages
+                    if (chatFromServer.Messages == null)
+                    {
+                        // just copy this synchronized current user chat
+                        updatedChats.Add(chatFromClient);
+                        continue;
+                    }
+
+                    // find excepted messages in the current chat messages
+                    var newMessagesInChat =
+                        chatFromServer.Messages
+                            .Except(chatFromClient.Messages, new MessageIdComparer())
+                            .ToList();
+
+
+                    // if we synchronized all messages
+                    if (newMessagesInChat.Count == 0)
+                    {
+                        // just copy this synchronized current user chat
+                        updatedChats.Add(chatFromClient);
+
+                        continue;
+                    }
+
+                    // adding new messages in chat
+                    foreach (var newMessage in newMessagesInChat)
+                    {
+                        chatFromClient.Messages.Add(newMessage);
+                    }
+
+                    // if we added new messages in chat then add 
+                    // this chat to updated chats
                     updatedChats.Add(chatFromClient);
                 }  
             }
 
-            // if there are chats that are on the server 
-            // but they are not on the client
-            if (newChats.Count > 0)
-            {
-                // adding new chats
-                foreach (var newChat in newChats)
-                {
-                    // add this new chat 
-                    updatedChats.Add(newChat);
-                }
-            }
+            //// if there are chats that are on the server 
+            //// but they are not on the client
+            //if (newChats.Count > 0)
+            //{
+            //    // adding new chats
+            //    foreach (var newChat in newChats)
+            //    {
+            //        // add this new chat 
+            //        updatedChats.Add(newChat);
+            //    }
+            //}
 
-            // if we have some changed in items
-            if (currentUserChats.Equals(updatedChats))
+            // if we have some changed in chats
+            if (!sender.SynchronizedChats.SequenceEqual(updatedChats, new ChatCountComparer()))
             {
-                // send chats with new messages to client
-                sender.ResponseQueue.Enqueue(
-                    new Response 
-                    { 
+                //send chats with new messages to client
+               sender.ResponseQueue.Enqueue(
+                    new Response
+                    {
                         ServerResponseType = ServerResponse.SendNewMessages,
                         Chats = updatedChats
                     });
 
                 // set chats as synchronized because 
                 // we sent them to the client
-                sender.SynchronizedChats = updatedChats;
+                sender.SynchronizedChats = new List<Chat>(updatedChats.Clone());
             }
 
             // if the client already has all the messages
@@ -327,7 +338,7 @@ namespace Messenger.Server
 
             // set chats as synchronized because 
             // we sent them to the client
-            sender.SynchronizedChats = allTargeUserChats;
+            sender.SynchronizedChats = new List<Chat>(allTargeUserChats.Clone());
         }
 
         #endregion
@@ -420,6 +431,9 @@ namespace Messenger.Server
                     }
 
                     Console.WriteLine("User Has Been Disconnected");
+
+                    // remuve from server users list
+                    ServerUsers.Remove(userSendedMessage);
 
                     // dispose current instance of UserEnviroment
                     userSendedMessage.Dispose();
@@ -533,5 +547,13 @@ namespace Messenger.Server
         }
 
         #endregion
+    }
+
+    static class Extensions
+    {
+        public static IList<T> Clone<T>(this IList<T> listToClone) where T : ICloneable
+        {
+            return listToClone.Select(item => (T)item.Clone()).ToList();
+        }
     }
 }

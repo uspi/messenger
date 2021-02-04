@@ -8,8 +8,9 @@
              mc:Ignorable="d" 
              d:DesignWidth="495">
 
+    <!--d:DataContext="{x:Static core:ChatMessageListItemDesignModel.Instance}"-->
     <Border Padding="0 3"
-            d:DataContext="{x:Static core:ChatMessageListItemDesignModel.Instance}">
+            >
 
         <Grid>
             <!-- message line  -->
@@ -24,7 +25,7 @@
                 <!-- profile picture -->
                 <Border VerticalAlignment="Bottom"
                     Grid.Column="0"
-                    Background="SeaGreen"
+                    Background="Black"
                     Name="ProfilePicture"
                     Width="35"
                     Visibility="{Binding ShowProfilePicture, Converter={local:BooleanToVisibilityCollapsedConverter}, ConverterParameter=True}"
@@ -193,7 +194,7 @@
                 <Border VerticalAlignment="Bottom"
                     Grid.Column="1"
                         
-                    Background="SeaGreen"
+                    Background="Black"
                     Name="ProfilePictureAuthor"
                     Width="35"
                     Visibility="{Binding ShowProfilePicture, Converter={local:BooleanToVisibilityCollapsedConverter}, ConverterParameter=True}"

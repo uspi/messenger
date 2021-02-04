@@ -13,7 +13,7 @@
         </Border.Effect>
         <Grid Background="{StaticResource HeadLine}">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ItemsControl ItemsSource="{Binding Items}">
+                <ItemsControl ItemsSource="{Binding Items, UpdateSourceTrigger=PropertyChanged}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <local:ChatListItemControl/>

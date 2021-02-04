@@ -72,7 +72,11 @@ namespace Messenger.Server
         public User User { get; set; }
 
         // chats that correspond to chats on the client
-        public List<Chat> SynchronizedChats { get; set; }
+        public List<Chat> SynchronizedChats 
+        { 
+            get; 
+            set; 
+        }
 
         // true if authorized
         public bool Authorized
@@ -108,7 +112,7 @@ namespace Messenger.Server
             CurrentServer.AddConnection(this);
         }
 
-        // main method for this client, 
+        // main method for this client
         public void Process()
         {
             Console.WriteLine("Get Network Stream");
@@ -144,6 +148,13 @@ namespace Messenger.Server
                     // read the message from the user and 
                     // deserialize it into the request
                     var requestObject = ReadFromStreamAndDeserialize();
+
+                    // if request object null then user disconected 
+                    if (requestObject == null)
+                    {
+                        Disconnected(this, EventArgs.Empty);
+                        return;
+                    }
 
                     // we received a request now it needs to be processed
                     WaitingRequest = false;
@@ -218,11 +229,11 @@ namespace Messenger.Server
                     {
                         // check if there are messages that are addressed 
                         // to me but I do not have them on the client
-                        CheckNewMessageForMe(this, 
-                            new Request 
+                        CheckNewMessageForMe(this,
+                            new Request
                             {
                                 // send synced messages to check which new ones are missing
-                                ExistingChats = SynchronizedChats
+                                ExistingChats = SynchronizedChats.Clone()
                             });
                         break;
                     }
@@ -304,7 +315,15 @@ namespace Messenger.Server
 
             do
             {
-                streamPosition = NetworkStream.Read(buffer, 0, buffer.Length);
+                try
+                {
+                    streamPosition = NetworkStream.Read(buffer, 0, buffer.Length);
+                }
+                catch (System.IO.IOException)
+                {
+                    return null;
+                }
+                
 
                 // encoding one character at a time and appending 
                 // it to the incoming receive string

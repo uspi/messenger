@@ -6,7 +6,7 @@ namespace Messenger.Core
     /// <summary>
     /// Data model for presenting a user to a server
     /// </summary>
-    public class User
+    public class User : ICloneable
     {
         [Key]
         public long Id { get; set; }
@@ -30,5 +30,10 @@ namespace Messenger.Core
 
         [MaxLength(32)]
         public string LastName { get; set; }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }

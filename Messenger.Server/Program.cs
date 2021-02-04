@@ -45,22 +45,25 @@ namespace Messenger.Server
                 // for this in app.config
                 context: new DataBaseContext());
 
-            // create user
+            //// create user
             //CurrentServer.DataBaseContext.Users.Add(
             //    new User
             //    {
-            //        Email = "ben@gmail.com",
+            //        Email = "rob@gmail.com",
             //        Password = "qwerty",
             //        CreatedAt = DateTimeOffset.UtcNow,
-            //        Nick = "ben",
-            //        FirstName = "BenFirstName",
-            //        LastName = "BenLastName"
+            //        Nick = "rob",
+            //        FirstName = "RobFirstName",
+            //        LastName = "RobLastName"
             //    });
 
             //CurrentServer.DataBaseContext.SaveChanges();
 
-            // find created user
-            //var neededUser = CurrentServer.DataBaseContext.Users.Where(u => u.Nick == "ben").First();
+            //// find created user
+            //var neededUser = CurrentServer.DataBaseContext.Users.Where(u => u.Nick == "rob").FirstOrDefault();
+
+            //// find created user
+            //var memberUser = CurrentServer.DataBaseContext.Users.Where(u => u.Nick == "ben").First();
 
             // find chat by id
             //var neededChat = CurrentServer.DataBaseContext.Chats.Where(c => c.Id == 1).FirstOrDefault();
@@ -83,7 +86,8 @@ namespace Messenger.Server
             //    {
             //        CreatedAt = DateTimeOffset.UtcNow,
             //        IsChannel = false,
-            //        OwnerUser = neededUser
+            //        OwnerUser = neededUser,
+            //        MemberUser = memberUser
             //    });
 
             //CurrentServer.DataBaseContext.SaveChanges();
@@ -101,9 +105,6 @@ namespace Messenger.Server
             //CurrentServer.DataBaseContext.SaveChanges();
 
             //var aaa = CurrentServer.DataBaseContext.Messages.Where(c => c.Id == 100).FirstOrDefault();
-
-
-
 
 
             Console.WriteLine($"Server IPAdress: {CurrentServer.IPAddress}");

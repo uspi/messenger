@@ -25,7 +25,7 @@ namespace Messenger.Core
             if (!another)
             {
                 OnPropertyChanged(nameof(CurrentPage));
-            } 
+            }
 
             // rule of when to show side menu
             SideMenuVisibility = page == ApplicationPage.Chat;

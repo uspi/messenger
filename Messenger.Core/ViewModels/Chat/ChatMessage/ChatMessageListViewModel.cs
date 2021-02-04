@@ -11,13 +11,13 @@ namespace Messenger.Core
     /// <summary>
     /// The logic for the chat list. View model for a chat message thread list
     /// </summary>
-    public class ChatMessageListViewModel : ViewModelBase
+    public class ChatMessageListViewModel : ViewModelBase, ICloneable
     {
         // event if we sended new message in dialog
         public event NewChatMessageHandler NewChatMessage;
 
         // chat thread items for the list
-        public ObservableCollection<ChatMessageListItemViewModel> Items { get; set; }
+        public ObservableCollection<ChatMessageListItemViewModel> Items { get; set; } 
 
         // chat title
         public string DisplayTitle { get; set; }
@@ -34,16 +34,28 @@ namespace Messenger.Core
         public string PendingMessageText { get; set; }
 
         public ICommand SendCommand { get; set; }
+ 
 
-        // needed to show that this view model should not work, messages cannot be sent from it
+        // needed to show that this view model 
+        // should not work, messages cannot be sent from it
         public bool IsBootScreenStub { get; set; }
 
+        // constructor
         public ChatMessageListViewModel()
         {
-            
+            // set send command
             SendCommand = new RelayCommand(Send);
+
+            Items = new ObservableCollection<ChatMessageListItemViewModel>();
+
+            //Items.CollectionChanged += (ss, ee) =>
+            //{
+            //    OnPropertyChanged(nameof(Items));
+            //};
         }
 
+        // if user tap on send message or press 
+        // enter in pending messages text field
         public void Send()
         {
             // if this view model is fake
@@ -82,13 +94,37 @@ namespace Messenger.Core
             // created and send this message in a notification
             NewChatMessage(newMessage);
 
-            // fake send
             // add in collection this message, needed 
             // for visual display at the client
             Items.Add(newMessage);
 
             // clear pending text
             PendingMessageText = null;
+        }
+
+        public object Clone()
+        {
+            // create empty collection
+            var clonedItems = new ObservableCollection<ChatMessageListItemViewModel>();
+
+            // clone items from this entity
+            foreach (var item in this.Items)
+            {
+                // add cloned item
+                clonedItems.Add((ChatMessageListItemViewModel)item.Clone());
+            }
+
+            return 
+                new ChatMessageListViewModel 
+                { 
+                    Items = clonedItems,
+                    DisplayTitle = this.DisplayTitle,
+                    AuthorName = this.AuthorName,
+                    AuthorProfileInitials = this.AuthorProfileInitials,
+                    PendingMessageText = this.PendingMessageText,
+                    SendCommand = this.SendCommand,
+                    IsBootScreenStub = this.IsBootScreenStub
+                };
         }
     }
 }
