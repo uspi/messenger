@@ -152,10 +152,6 @@
     <Compile Include="ValueConverters\StringRGBToBrushConverter.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Compile Include="WindowsVersion.cs" />
-    <Compile Include="MessengerModel\MessengerInstance.cs" />
-    <Compile Include="MessengerModel\Channel.cs" />
-    <Compile Include="MessengerModel\Contact.cs" />
-    <Compile Include="MessengerModel\Message.cs" />
     <Compile Include="Pages\ChatPage.xaml.cs">
       <DependentUpon>ChatPage.xaml</DependentUpon>
     </Compile>
@@ -168,11 +164,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="NetworkModel\Network.cs" />
-    <Compile Include="NetworkModel\Connection.cs" />
-    <Compile Include="NetworkModel\IClientConnection.cs" />
-    <Compile Include="NetworkModel\IConnection.cs" />
-    <Compile Include="MessengerModel\User.cs" />
     <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />
     <Compile Include="ValueConverters\ApplicationPageHelpers.cs" />
     <Compile Include="ValueConverters\ValueConverter.cs" />

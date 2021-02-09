@@ -52,10 +52,15 @@ namespace Messenger.Core
         // attempts to log the user in, parameter - secure string(user password)
         public async Task SignInAsync(object parameter)
         {
+            // if the authorization process is already in progress
             if (SignInIsRunning)
             {
+                // exit from method
                 return;
             }
+
+            // if user not write login set to none parameter
+            string loginData = Login == null ? "none" : Login;
 
             // in order not to switch the execution context in the event, to change the page
             bool signInFailed = false;
@@ -64,7 +69,8 @@ namespace Messenger.Core
             bool haveResult = false;
 
             await RunCommand(() => this.SignInIsRunning, async () =>
-            {
+            { 
+
                 // subsribe on sign in done event
                 IoC.Get<NetworkConnection>().SignInFail += (response) =>
                 {
@@ -97,7 +103,7 @@ namespace Messenger.Core
                         UserInitiator =
                             new User
                             {
-                                Email = Login,
+                                Email = loginData,
                                 Password = (parameter as IHavePassword).SecurePassword.Unsecure()
                             }
                     });
@@ -112,6 +118,7 @@ namespace Messenger.Core
             // if sign in failed
             if (signInFailed)
             {
+                // for next try
                 signInFailed = false;
                 return;
             }
@@ -121,7 +128,10 @@ namespace Messenger.Core
                 .GoToPage(ApplicationPage.Chat, 
                     new ChatMessageListViewModel 
                     { 
-                        DisplayTitle = "Signed From Server", 
+                        DisplayTitle = "Signed From Server",
+
+                        // we go to the chat page, but we want it to 
+                        // be just an empty space and not an empty chat
                         IsBootScreenStub = true 
                     });
         }
@@ -129,6 +139,7 @@ namespace Messenger.Core
         // takes the user to the sign up page
         public async Task SignUpAsync()
         {
+            // open a sign up page
             IoC.Get<ApplicationViewModel>().GoToPage(ApplicationPage.SignUp);
 
             await Task.Delay(50);

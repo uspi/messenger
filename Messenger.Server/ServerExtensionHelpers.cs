@@ -1,6 +1,9 @@
 ﻿
 namespace Messenger.Server
 {
+    /// <summary>
+    /// Extensions for working with logical server functions
+    /// </summary>
     public static class ServerExtensionHelpers
     {
         /// <summary>

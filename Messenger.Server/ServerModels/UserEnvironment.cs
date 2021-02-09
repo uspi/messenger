@@ -36,8 +36,6 @@ namespace Messenger.Server
         // appeared on the server for us
         public event RequestHandler CheckNewMessageForMe;
 
-
-
         // if user want let sign in
         public event EventHandler<SignUpRequestEventArgs> SignUp;
 
@@ -53,7 +51,7 @@ namespace Messenger.Server
         // when the server responds to the request "CheNewMessagesForMe" 
         // and saves the data to "NewMessagesForMe", we notify current
         // UserEnvironment about this
-        public event EventHandler NewMessagesForMeSaved;
+        //public event EventHandler NewMessagesForMeSaved;
 
         #endregion
 
@@ -72,11 +70,7 @@ namespace Messenger.Server
         public User User { get; set; }
 
         // chats that correspond to chats on the client
-        public List<Chat> SynchronizedChats 
-        { 
-            get; 
-            set; 
-        }
+        public List<Chat> SynchronizedChats { get; set; }
 
         // true if authorized
         public bool Authorized
@@ -87,6 +81,8 @@ namespace Messenger.Server
 
         #endregion
 
+        #region Private Properties
+
         // current tcp client connection 
         TcpClient TcpClient { get; set; }
 
@@ -96,7 +92,10 @@ namespace Messenger.Server
         // server entity to which the client is connected
         Server CurrentServer { get; set; }
 
-        // constructor
+        #endregion
+
+        #region Constructor
+
         public UserEnvironment(Server _currentServer, TcpClient _tcpClient)
         {
             // set unique id for current user environment
@@ -111,6 +110,10 @@ namespace Messenger.Server
             // add me to server user list
             CurrentServer.AddConnection(this);
         }
+
+        #endregion
+
+        #region Public Methods
 
         // main method for this client
         public void Process()
@@ -127,7 +130,7 @@ namespace Messenger.Server
             while (true)
             {
                 // if we do not wait for the request and have a ready response
-                if (!WaitingRequest 
+                if (!WaitingRequest
                     && ResponseQueue.Count > 0)
                 {
                     WaitingRequest = true;
@@ -202,7 +205,7 @@ namespace Messenger.Server
 
                         break;
                     }
-                    
+
                 case UserRequest.SignUp:
                     {
                         // wake up the event and pass the required 
@@ -213,7 +216,7 @@ namespace Messenger.Server
                             // char array in string
                             password: requestObject.UserInitiator.Password);
                         break;
-                    }  
+                    }
 
                 case UserRequest.CreateNewChat:
                     {
@@ -244,8 +247,6 @@ namespace Messenger.Server
             }
         }
 
-        #region Request Reaction Methods
-
         // if sign in, this first task
         public void SendAllUserInformation(User infoAboutUser)
         {
@@ -255,7 +256,11 @@ namespace Messenger.Server
                 {
                     UserInitiator = infoAboutUser
                 });
-        }
+        } 
+
+        #endregion
+
+        #region Private Methods
 
         // wake up the event and pass the required arguments to user sign up
         private void UserSignUp(string login, string password, string nick = "Default_Nick")
@@ -319,11 +324,12 @@ namespace Messenger.Server
                 {
                     streamPosition = NetworkStream.Read(buffer, 0, buffer.Length);
                 }
+
+                // if we have any exception in read from stream time
                 catch (System.IO.IOException)
                 {
                     return null;
                 }
-                
 
                 // encoding one character at a time and appending 
                 // it to the incoming receive string

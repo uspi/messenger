@@ -19,6 +19,7 @@ namespace Messenger.Server
             _ = new Application();
 
             Console.WriteLine("Application Was End Working");
+
             Console.Read();
         }
     }
@@ -28,23 +29,30 @@ namespace Messenger.Server
     /// </summary>
     public class Application
     {
+        #region Public Properties
+
         // instace of server of application
         public static Server CurrentServer { get; set; }
 
         // thread in which to listen for incoming connections
         public static Thread ListenThread { get; set; }
 
-        // constructor
+        #endregion
+
+        #region Constructor
+
         public Application()
         {
             // server setup
             CurrentServer = new Server(
-                ipAddress: IPAddress.Parse("127.0.0.1"), 
+                ipAddress: IPAddress.Parse("127.0.0.1"),
                 port: 1300,
+
                 // create data base context, configuration 
                 // for this in app.config
                 context: new DataBaseContext());
 
+            #region Debug Stuff
             //// create user
             //CurrentServer.DataBaseContext.Users.Add(
             //    new User
@@ -104,15 +112,22 @@ namespace Messenger.Server
 
             //CurrentServer.DataBaseContext.SaveChanges();
 
-            //var aaa = CurrentServer.DataBaseContext.Messages.Where(c => c.Id == 100).FirstOrDefault();
+            //var aaa = CurrentServer.DataBaseContext.Messages.Where(c => c.Id == 100).FirstOrDefault(); 
+            #endregion
 
-
+            // write on screen server ip
             Console.WriteLine($"Server IPAdress: {CurrentServer.IPAddress}");
+
+            // write on screen server port
             Console.WriteLine($"Server Port: {CurrentServer.Port}");
+
+            // write on screen what are we waiting for connection
             Console.WriteLine("Started Listen Icoming Connections");
 
             // setup for listening thread
             ListenThread = new Thread(
+
+                // start thread for listening incoming connection
                 new ThreadStart(CurrentServer.ListenIncomingConnections));
 
             // start listening
@@ -122,6 +137,8 @@ namespace Messenger.Server
             ListenThread.Join();
 
             Console.WriteLine("Server Was End Working");
-        }
+        } 
+
+        #endregion
     }
 }

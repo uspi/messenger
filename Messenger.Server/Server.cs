@@ -2,7 +2,6 @@
 using System.Net;
 using System;
 using System.Net.Sockets;
-using System.Threading.Tasks;
 using System.Linq;
 using Messenger.Core;
 using System.Threading;
@@ -378,7 +377,7 @@ namespace Messenger.Server
                 // for debug
                 Console.WriteLine($"Count Of Server Users: {ServerUsers.Count}");
 
-                // sub
+                // waiting for user actions to respond to them
                 SubscribeOnUserEnvironmentEvents(userEnvironment);
 
                 // start processing new client
@@ -410,7 +409,8 @@ namespace Messenger.Server
                 += UserEnvironment_CheckNewMessageForMe;
 
             // when user want sign up
-            userEnvironment.SignUp += (ss, ee) =>
+            userEnvironment.SignUp += 
+                (ss, ee) =>
                 {
                     // if sender is not a UserEnviroment don't subscribe on his events
                     if (!(ss is UserEnvironment userSendedMessage))
@@ -421,7 +421,8 @@ namespace Messenger.Server
                 };
 
             // if the client program is not responding
-            userEnvironment.Disconnected += (ss, ee) =>
+            userEnvironment.Disconnected += 
+                (ss, ee) =>
                 {
                     // if sender is not a UserEnviroment ignore this event
                     if (!(ss is UserEnvironment userSendedMessage))
@@ -440,7 +441,8 @@ namespace Messenger.Server
                 };
 
             // when user want create chat
-            userEnvironment.CreateChat += async (ss, ee) =>
+            userEnvironment.CreateChat += 
+                async (ss, ee) =>
                 {
                     //if sender is not a UserEnviroment don't subscribe on his events
                     if (!(ss is UserEnvironment userCreatedChat))
@@ -549,11 +551,17 @@ namespace Messenger.Server
         #endregion
     }
 
+    /// <summary>
+    /// Extensions for working with collections and data
+    /// </summary>
     static class Extensions
     {
+        // allows you to clone a collection whose elements support the interface ICloneable
         public static IList<T> Clone<T>(this IList<T> listToClone) where T : ICloneable
         {
-            return listToClone.Select(item => (T)item.Clone()).ToList();
+            return listToClone
+                    .Select(item => (T)item.Clone())
+                    .ToList();
         }
     }
 }
