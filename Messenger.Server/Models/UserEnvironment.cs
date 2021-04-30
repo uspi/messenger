@@ -8,12 +8,6 @@ using Newtonsoft.Json;
 
 namespace Messenger.Server
 {
-    // delegate for sending request from user enviroment to server
-    public delegate void RequestHandler(UserEnvironment sender, Request request);
-
-    // delegate for sending request from server to user enviroment 
-    public delegate void ResponseHandler(UserEnvironment sender, Response request);
-
     /// <summary>
     /// The connected user's environment associates the 
     /// networking(<see cref="System.Net.Sockets.TcpClient"/>) component
