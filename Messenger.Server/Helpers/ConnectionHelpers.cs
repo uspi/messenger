@@ -4,7 +4,7 @@ namespace Messenger.Server
     /// <summary>
     /// Extensions for working with logical server functions
     /// </summary>
-    public static class ServerExtensionHelpers
+    public static class ConnectionHelpers
     {
         /// <summary>
         /// Adds a new user to the list of <see cref="Server.ServerUsers"/> 
