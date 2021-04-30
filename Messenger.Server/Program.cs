@@ -1,10 +1,6 @@
-﻿using Messenger.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Net;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Messenger.Server
 {
@@ -43,14 +39,25 @@ namespace Messenger.Server
 
         public Application()
         {
+            Inizialize();
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void Inizialize()
+        {
+            // create data base context, configuration 
+            // for this in app.config
+            var context = new DataBaseContext();
+
             // server setup
             CurrentServer = new Server(
                 ipAddress: IPAddress.Parse("127.0.0.1"),
                 port: 1300,
 
-                // create data base context, configuration 
-                // for this in app.config
-                context: new DataBaseContext());
+                repository: new Repository(context));
 
             #region Debug Stuff
             //// create user
@@ -137,7 +144,7 @@ namespace Messenger.Server
             ListenThread.Join();
 
             Console.WriteLine("Server Was End Working");
-        } 
+        }  
 
         #endregion
     }
