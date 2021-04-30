@@ -143,8 +143,6 @@ namespace Messenger
     public class PageBase<VM> : PageBase
         where VM : ViewModelBase, new()
     {
-        
-
         #region Public Properties
 
         public VM ViewModel

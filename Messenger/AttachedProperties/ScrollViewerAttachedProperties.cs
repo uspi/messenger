@@ -3,7 +3,9 @@ using System.Windows.Controls;
 
 namespace Messenger
 {
-    // scroll an items control to the bottom when the data context changes
+    /// <summary>
+    /// Scroll an items control to the bottom when the data context changes
+    /// </summary>
     public class ScrollToBottomOnLoad : AttachedPropertyBase<ScrollToBottomOnLoad, bool> 
     {
         public override void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
@@ -30,7 +32,9 @@ namespace Messenger
         }
     }
 
-    // auto keep scroll at the bottom of the screen when we are already close to the bottom
+    /// <summary>
+    /// Auto keep scroll at the bottom of the screen when we are already close to the bottom
+    /// </summary>
     public class ScrollToBottomAuto : AttachedPropertyBase<ScrollToBottomAuto, bool>
     {
         public override void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
